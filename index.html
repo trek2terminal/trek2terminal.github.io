@@ -5,8 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Subradeep Das | Portfolio</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" crossorigin="anonymous" />
   <script src="https://cdn.jsdelivr.net/npm/particles.js"></script>
   <style>
     :root {
@@ -27,7 +26,7 @@
       font-family: 'Poppins', sans-serif;
       background: var(--bg-dark);
       color: var(--text-dark);
-      transition: background 0.3s ease, color 0.3s ease;
+      transition: background 0.5s ease, color 0.5s ease;
     }
     body.light {
       background: var(--bg-light);
@@ -51,7 +50,7 @@
       cursor: pointer;
       color: var(--btn-color);
       z-index: 999;
-      transition: transform 0.3s;
+      transition: transform 0.3s ease;
     }
     .theme-toggle:hover {
       transform: scale(1.2);
@@ -59,6 +58,7 @@
     header {
       padding: 4rem 1rem;
       text-align: center;
+      animation: fadeIn 1s ease;
     }
     header img {
       width: 150px;
@@ -88,6 +88,7 @@
       font-size: 2rem;
       color: var(--btn-color);
       margin-bottom: 1.5rem;
+      animation: fadeIn 1s ease;
     }
     .cards {
       display: grid;
@@ -100,15 +101,72 @@
       border-radius: 10px;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeInCard 1s ease forwards;
+      opacity: 0;
     }
-    body.light .card {
-      background: var(--card-light);
-    }
+    .card:nth-child(1) { animation-delay: 0.2s; }
+    .card:nth-child(2) { animation-delay: 0.4s; }
+    .card:nth-child(3) { animation-delay: 0.6s; }
     .card:hover {
       transform: translateY(-5px);
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
-
+    .resume-btn {
+      margin-top: 2rem;
+      display: flex;
+      justify-content: center;
+      animation: fadeIn 1s ease;
+    }
+    .resume-btn button {
+      background: var(--btn-color);
+      color: white;
+      border: none;
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.3s;
+    }
+    .resume-btn button:hover {
+      transform: scale(1.05);
+    }
+    .resume-popup {
+      display: none;
+      position: fixed;
+      top: 5%;
+      left: 50%;
+      transform: translate(-50%, -20%);
+      width: 90%;
+      height: 90%;
+      background: var(--card-dark);
+      color: var(--text-dark);
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0,0,0,0.3);
+      z-index: 9999;
+      animation: fadeSlideIn 0.6s ease forwards;
+    }
+    body.light .resume-popup {
+      background: var(--card-light);
+      color: var(--text-light);
+    }
+    .resume-popup iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      border-radius: 0 0 10px 10px;
+    }
+    .resume-popup .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 20px;
+      background: red;
+      color: white;
+      padding: 0.5rem 1rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      z-index: 10000;
+    }
     .contact-toggle {
       text-align: center;
       margin-top: 3rem;
@@ -139,7 +197,8 @@
       max-height: 0;
       overflow: hidden;
       opacity: 0;
-      transition: max-height 0.6s ease, opacity 0.6s ease;
+      transform: translateY(20px);
+      transition: max-height 0.8s ease, opacity 0.8s ease, transform 0.8s ease;
       margin: 2rem auto 0;
       display: flex;
       flex-direction: column;
@@ -149,27 +208,10 @@
       background: var(--card-dark);
       border-radius: 10px;
     }
-    body.light .contact-form {
-      background: var(--card-light);
-    }
     .contact-form.show {
       max-height: 1000px;
       opacity: 1;
-    }
-    .contact-form input,
-    .contact-form textarea {
-      padding: 0.8rem;
-      border: 1px solid #ccc;
-      border-radius: 5px;
-      font-size: 1rem;
-    }
-    .contact-form button {
-      background: var(--btn-color);
-      color: white;
-      border: none;
-      padding: 0.8rem;
-      border-radius: 5px;
-      cursor: pointer;
+      transform: translateY(0);
     }
     .success-message {
       display: none;
@@ -181,7 +223,6 @@
     .success-message.show {
       display: block;
     }
-
     footer {
       text-align: center;
       padding: 2rem 1rem;
@@ -197,6 +238,18 @@
     .social-icons a:hover {
       transform: scale(1.3);
     }
+    @keyframes fadeSlideIn {
+      0% { opacity: 0; transform: translate(-50%, -40%); }
+      100% { opacity: 1; transform: translate(-50%, -20%); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeInCard {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
   </style>
 </head>
 <body class="dark">
@@ -205,13 +258,13 @@
     <i class="fas fa-moon" id="theme-icon"></i>
   </button>
 
-  <header data-aos="fade-down">
-    <img src="Linkedin.jpg" alt="Subradeep Das">
+  <header>
+    <img src="your-photo.jpg" alt="Subradeep Das">
     <h1>Subradeep Das</h1>
     <p>Python Developer | ML Enthusiast | Web Developer</p>
   </header>
 
-  <section class="section" data-aos="fade-up">
+  <section class="section">
     <h2 class="section-title">Projects</h2>
     <div class="cards">
       <div class="card">
@@ -229,20 +282,18 @@
     </div>
   </section>
 
-  <section class="section" data-aos="fade-up">
-    <h2 class="section-title">Certifications</h2>
-    <ul>
-      <li>Quantum Computing – C-DAC Hyderabad (Jun 2025)</li>
-      <li>AI/ML for Crop Mapping – ISRO (Apr 2025)</li>
-      <li>Geodata Processing – ISRO (Mar 2025)</li>
-      <li>TCS iON Career Edge – Young Professional</li>
-    </ul>
-  </section>
+  <div class="resume-btn">
+    <button onclick="showResumePopup()">
+      <i class="fas fa-file-pdf"></i> View Resume
+    </button>
+  </div>
+  <div class="resume-popup" id="resumePopup" onclick="outsideClose(event)">
+    <button class="close-btn" onclick="hideResumePopup()">Close</button>
+    <iframe src="https://drive.google.com/file/d/1XFSxgy2YEeBs3cgUWKJtz0wA96DS1POm/preview" allow="autoplay"></iframe>
+  </div>
 
   <section class="section contact-toggle" id="contact">
-    <button class="contact-btn" onclick="toggleContactForm()">
-      <i class="fas fa-envelope"></i>Contact Me
-    </button>
+    <button class="contact-btn" onclick="toggleContactForm()"><i class="fas fa-envelope"></i> Contact Me</button>
     <form class="contact-form" onsubmit="return showSuccessMessage();">
       <input type="text" name="name" placeholder="Your Name" required>
       <input type="email" name="email" placeholder="Your Email" required>
@@ -252,7 +303,7 @@
     <div class="success-message" id="successMsg">Thank you! Your message has been sent.</div>
   </section>
 
-  <footer data-aos="fade-up">
+  <footer>
     <p>© 2025 Subradeep Das</p>
     <div class="social-icons">
       <a href="https://github.com/trek2terminal" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
@@ -261,23 +312,14 @@
     </div>
   </footer>
 
-  <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
   <script>
-    AOS.init();
-
     function toggleTheme() {
       const body = document.body;
       const icon = document.getElementById('theme-icon');
       body.classList.toggle('light');
-      if (body.classList.contains('light')) {
-        icon.classList.remove('fa-moon');
-        icon.classList.add('fa-sun');
-      } else {
-        icon.classList.remove('fa-sun');
-        icon.classList.add('fa-moon');
-      }
+      icon.classList.toggle('fa-moon');
+      icon.classList.toggle('fa-sun');
     }
-
     function toggleContactForm() {
       const form = document.querySelector('.contact-form');
       form.classList.toggle('show');
@@ -287,14 +329,28 @@
         }, 300);
       }
     }
-
     function showSuccessMessage() {
       const msg = document.getElementById('successMsg');
       msg.classList.add('show');
       setTimeout(() => msg.classList.remove('show'), 4000);
       return false;
     }
-
+    function showResumePopup() {
+      const popup = document.getElementById('resumePopup');
+      popup.style.display = 'block';
+      popup.classList.add('fade-in');
+    }
+    function hideResumePopup() {
+      const popup = document.getElementById('resumePopup');
+      popup.style.display = 'none';
+      popup.classList.remove('fade-in');
+    }
+    function outsideClose(e) {
+      const popup = document.getElementById('resumePopup');
+      if (e.target === popup) {
+        hideResumePopup();
+      }
+    }
     particlesJS('particles-js', {
       particles: {
         number: { value: 50 },
