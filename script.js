@@ -272,8 +272,6 @@ if (toTop) {
   const msgEl = form.querySelector('#cf-message');
   const submitBtn = form.querySelector('.submit-btn');
   const submitText = submitBtn.querySelector('.submit-text');
-  const spinner = submitBtn.querySelector('.spinner');
-  const check = submitBtn.querySelector('.check');
 
   // helper: set field .has-value when input has content
   function refreshFieldState(el) {
@@ -368,12 +366,89 @@ if (toTop) {
       console.error('Contact send error', err);
     }
   });
-
-  // keyboard: Enter on textarea should not submit unintentionally; keep normal behavior
-  // Accessibility: allow Enter on focused submit
 })();
 
-/* End contact form integration */
+/* ---------------------------
+   Grid drag-to-resize logic
+   --------------------------- */
+
+(function gridResize() {
+  const grid = document.getElementById('contactGrid');
+  const handle = document.getElementById('gridHandle');
+  if (!grid || !handle) return;
+
+  // Only enable drag on desktop (hide on narrow screens)
+  if (window.matchMedia('(max-width:920px)').matches) {
+    handle.style.display = 'none';
+    return;
+  }
+
+  let dragging = false;
+  let startX = 0;
+  let startLeft = 0;
+  let startRight = 0;
+
+  // read column sizes: returns [leftPx, handlePx, rightPx]
+  function getCols() {
+    const style = window.getComputedStyle(grid);
+    const cols = style.gridTemplateColumns.split(' ').map(s => s.trim());
+    const rect = grid.getBoundingClientRect();
+    if (cols.length >= 3 && cols[0].endsWith('px') && cols[2].endsWith('px')) {
+      const leftPx = parseFloat(cols[0]);
+      const rightPx = parseFloat(cols[2]);
+      return [leftPx, parseFloat(cols[1]) || 12, rightPx];
+    }
+    // fallback: measure children
+    const left = grid.children[0].getBoundingClientRect().width;
+    const right = grid.children[2].getBoundingClientRect().width;
+    const handleW = handle.getBoundingClientRect().width;
+    return [left, handleW, right];
+  }
+
+  handle.addEventListener('pointerdown', (e) => {
+    dragging = true;
+    handle.setPointerCapture(e.pointerId);
+    document.documentElement.style.userSelect = 'none';
+    startX = e.clientX;
+    const cols = getCols();
+    startLeft = cols[0];
+    startRight = cols[2];
+  });
+
+  function onPointerMove(e) {
+    if (!dragging) return;
+    const delta = e.clientX - startX;
+    const minLeft = 260;
+    const maxLeft = Math.min(window.innerWidth - 280, startLeft + startRight - 200);
+    let newLeft = Math.max(minLeft, Math.min(maxLeft, startLeft + delta));
+    let newRight = Math.max(240, startLeft + startRight - newLeft);
+    // set new grid template
+    grid.style.gridTemplateColumns = `${newLeft}px 12px ${newRight}px`;
+  }
+
+  function stopDrag(e) {
+    if (!dragging) return;
+    dragging = false;
+    document.documentElement.style.userSelect = '';
+    try { handle.releasePointerCapture(e.pointerId); } catch {}
+  }
+
+  window.addEventListener('pointermove', onPointerMove);
+  window.addEventListener('pointerup', stopDrag);
+  window.addEventListener('pointercancel', stopDrag);
+
+  // on resize: if screen becomes small, hide handle
+  window.addEventListener('resize', () => {
+    if (window.matchMedia('(max-width:920px)').matches) {
+      handle.style.display = 'none';
+      grid.style.gridTemplateColumns = '1fr';
+    } else {
+      handle.style.display = '';
+      const current = window.getComputedStyle(grid).gridTemplateColumns;
+      if (current === '1fr') grid.style.gridTemplateColumns = 'minmax(300px, 1fr) 12px minmax(280px, 420px)';
+    }
+  });
+})();
 
 /* Skills: tooltip + animated bar + subtle scaling (unchanged) */
 (function skillsUI() {

@@ -4,7 +4,6 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
   <title>Subradeep Das — AI/ML Engineer Portfolio</title>
   <meta name="description" content="Portfolio of Subradeep Das, AI/ML engineer specializing in HPC-AI, deep learning, and data-driven systems." />
   <meta name="color-scheme" content="dark light">
@@ -253,7 +252,7 @@
     <!-- Contact -->
     <section id="contact" class="section container">
       <h2 class="section__title">Contact</h2>
-      <div class="contact-grid">
+      <div class="contact-grid" id="contactGrid">
         <!-- Contact form: updated to Formspree + modern UI -->
         <form class="card reveal hover-rise contact-form" method="POST" action="https://formspree.io/f/xblkvvap" novalidate>
           <input type="hidden" name="_subject" value="Portfolio message from website">
@@ -288,39 +287,63 @@
           </div>
         </form>
 
+        <!-- drag handle (desktop only) -->
+        <div class="drag-handle" id="gridHandle" aria-hidden="true" title="Drag to resize contact columns"></div>
+
         <div class="card reveal hover-rise contact-card">
-          <ul class="contact-list">
-            <li class="contact-item">
-              <span class="icon mail" aria-hidden="true"></span>
-              <strong>Email:</strong> <a class="link-underline" href="mailto:subradeepdas24@gmail.com">subradeepdas24@gmail.com</a>
-            </li>
-            <li class="contact-item">
-              <span class="icon phone" aria-hidden="true"></span>
-              <strong>Phone:</strong> <a class="link-underline" href="tel:+918259982540">+91-8259982540</a>
-            </li>
-            <li class="contact-item">
-              <span class="icon location" aria-hidden="true"></span>
-              <strong>Location:</strong> Agartala, Tripura, India
-            </li>
-            <li class="contact-item contact-socials">
-              <span class="icon link" aria-hidden="true"></span>
-              <strong>Social:</strong>
-              <div class="social-row">
-                <a class="social chip chip--brand linkedin" href="https://www.linkedin.com/in/subradeepdas02/" target="_blank" rel="noopener">
-                  <span class="icon linkedin"></span> LinkedIn
-                </a>
-                <a class="social chip chip--brand github" href="https://github.com/trek2terminal" target="_blank" rel="noopener">
-                  <span class="icon github"></span> GitHub
-                </a>
-                <a class="social chip chip--brand instagram" href="https://www.instagram.com/subradeepdas02" target="_blank" rel="noopener">
-                  <span class="icon instagram"></span> Instagram
-                </a>
+          <div class="contact-card__inner">
+            <ul class="contact-list">
+              <li class="contact-item">
+                <span class="icon mail" aria-hidden="true"></span>
+                <strong>Email:</strong> <a class="link-underline" href="mailto:subradeepdas24@gmail.com">subradeepdas24@gmail.com</a>
+              </li>
+              <li class="contact-item">
+                <span class="icon phone" aria-hidden="true"></span>
+                <strong>Phone:</strong> <a class="link-underline" href="tel:+918259982540">+91-8259982540</a>
+              </li>
+              <li class="contact-item">
+                <span class="icon location" aria-hidden="true"></span>
+                <strong>Location:</strong> Agartala, Tripura, India
+              </li>
+              <li class="contact-item contact-socials">
+                <span class="icon link" aria-hidden="true"></span>
+                <strong>Social:</strong>
+                <div class="social-row">
+                  <a class="social chip chip--brand linkedin" href="https://www.linkedin.com/in/subradeepdas02/" target="_blank" rel="noopener">
+                    <span class="icon linkedin" aria-hidden="true"></span><span class="social-label">LinkedIn</span>
+                  </a>
+                  <a class="social chip chip--brand github" href="https://github.com/trek2terminal" target="_blank" rel="noopener">
+                    <span class="icon github" aria-hidden="true"></span><span class="social-label">GitHub</span>
+                  </a>
+                  <a class="social chip chip--brand instagram" href="https://www.instagram.com/subradeepdas02" target="_blank" rel="noopener">
+                    <span class="icon instagram" aria-hidden="true"></span><span class="social-label">Instagram</span>
+                  </a>
+                </div>
+              </li>
+              <li class="contact-item resume-row">
+                <a class="btn btn--primary magnetic trail resume-btn" href="assets/resume.pdf" target="_blank" rel="noopener">Download Resume</a>
+              </li>
+            </ul>
+
+            <!-- status / availability panel occupying the empty space -->
+            <div class="contact-status" aria-hidden="false">
+              <div class="status-left">
+                <div class="status-dot online" aria-hidden="true"></div>
+                <div class="status-text">
+                  <div class="status-title">Open to</div>
+                  <div class="status-sub">Internships · Freelance · Full-time</div>
+                </div>
               </div>
-            </li>
-            <li>
-              <a class="btn btn--primary magnetic trail" href="assets/resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-            </li>
-          </ul>
+              <div class="status-right">
+                <div class="status-pulse" aria-hidden="true"></div>
+              </div>
+            </div>
+
+            <!-- quick links / small footer -->
+            <div class="contact-card__footer muted">
+              <small>Fast links: <a class="link-underline" href="#projects">Projects</a> · <a class="link-underline" href="#skills">Skills</a></small>
+            </div>
+          </div>
         </div>
       </div>
     </section>
