@@ -513,3 +513,9 @@ input:focus, textarea:focus { border-color: color-mix(in oklab, var(--primary) 5
   .form-actions { flex-direction: column; align-items: stretch; gap: 10px; }
   .submit-btn { width: 100%; justify-content: center; }
 }
+@media (max-width: 480px) {
+  body { padding: 10px; }
+  .contact-card { padding: 20px; }
+  .field input, .field textarea { font-size: 16px; }
+  .submit-btn { width: 100%; font-size: 16px; min-height: 50px; }
+}
