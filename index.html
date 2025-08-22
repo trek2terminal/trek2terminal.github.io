@@ -2,36 +2,78 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="Portfolio of Subradeep Das — AI/ML engineer specializing in HPC-AI, deep learning, and production ML." />
+  <meta name="theme-color" content="#071127" />
+  <meta name="color-scheme" content="dark light">
 
   <title>Subradeep Das — AI/ML Engineer Portfolio</title>
-  <meta name="description" content="Portfolio of Subradeep Das, AI/ML engineer specializing in HPC-AI, deep learning, and data-driven systems." />
-  <meta name="color-scheme" content="dark light">
+
+  <!-- Fonts: modern + distinctive -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Icons hint (used by mask SVGs in CSS) -->
+  <link rel="preload" as="image" href="assets/photo.jpg">
+
+  <!-- Main stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- Lottie (hero ready) -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
 </head>
-<body>
-  <header class="nav">
-    <a class="brand" href="#home" aria-label="Home">
-      <span class="brand__name">Subradeep</span>
-    </a>
-    <nav>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#education">Education</a>
-      <a href="#certifications">Certifications</a>
-      <a href="#experience">Experience</a>
-      <a href="#about">About</a>
-      <a href="#contact" class="btn btn--primary magnetic">Contact</a>
-    </nav>
-    <button id="themeToggle" class="toggle" aria-label="Toggle theme">☾</button>
+<body class="page" data-theme="dark">
+  <!-- Header -->
+  <header class="nav" role="banner">
+    <div class="nav__inner container">
+      <a class="brand" href="#home" aria-label="Home">
+        <span class="brand__logo" aria-hidden="true">SD</span>
+        <span class="brand__name">Subradeep</span>
+      </a>
+
+      <nav class="nav__links" role="navigation" aria-label="Primary">
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#education">Education</a>
+        <a href="#certifications">Certifications</a>
+        <a href="#experience">Experience</a>
+        <a href="#about">About</a>
+        <a href="#contact" class="btn btn--primary magnetic">Contact</a>
+      </nav>
+
+      <div class="nav__actions">
+        <button id="themeToggle" class="toggle" aria-pressed="false" aria-label="Toggle theme">☾</button>
+
+        <!-- Mobile hamburger -->
+        <button id="hamburger" class="hamburger" aria-expanded="false" aria-label="Open menu" aria-controls="mobileMenu">
+          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M0 2H20M0 8H20M0 14H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile menu (cloned links for small screens) -->
+    <div id="mobileMenu" class="mobile-menu" hidden>
+      <div class="mobile-menu__inner container">
+        <a href="#projects" class="mobile-link">Projects</a>
+        <a href="#skills" class="mobile-link">Skills</a>
+        <a href="#education" class="mobile-link">Education</a>
+        <a href="#certifications" class="mobile-link">Certifications</a>
+        <a href="#experience" class="mobile-link">Experience</a>
+        <a href="#about" class="mobile-link">About</a>
+        <a href="#contact" class="btn btn--primary block magnetic">Contact</a>
+      </div>
+    </div>
   </header>
 
-  <main id="home">
-    <!-- Hero -->
-    <section class="hero">
+  <main id="home" role="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="heroTitle">
+      <!-- animated starfield canvas (keeps your constellation) -->
       <canvas id="constellation" class="hero__stars" aria-hidden="true"></canvas>
+
+      <!-- decorative nebula layers -->
       <div class="hero__bg neon-nebula" aria-hidden="true">
         <div class="nebula layer l1"></div>
         <div class="nebula layer l2"></div>
@@ -39,24 +81,85 @@
       </div>
 
       <div class="hero__content container reveal hero-enter">
-        <p class="badge glow">HPC-AI • TensorFlow • PyTorch • Python/R/SQL • Flask/Docker/Nginx</p>
-        <h1 class="hero__title">
-          Subradeep Das
-          <span class="hero__subtitle">AI/ML Engineer • Data & Deep Learning</span>
-        </h1>
-        <p class="hero__tagline">
-          Building reliable ML systems with HPC-AI foundations—taking ideas from data to deployment.
-        </p>
-        <div class="hero__ctas">
-          <a href="#projects" class="btn btn--primary magnetic trail">View Projects</a>
-          <a href="assets/resume.pdf" class="btn btn--glass resume-cta" target="_blank" rel="noopener">Download Resume</a>
-          <a href="#contact" class="btn btn--glass">Contact</a>
+        <div class="hero__grid">
+          <!-- Left column: headline + CTAs -->
+          <div class="hero__left">
+            <p class="badge glow">HPC-AI • TensorFlow • PyTorch • Python/R/SQL • Flask/Docker/Nginx</p>
+
+            <h1 id="heroTitle" class="hero__title">
+              <span class="name">Subradeep Das</span>
+              <span class="hero__subtitle">AI/ML Engineer • Data & Deep Learning</span>
+            </h1>
+
+            <p class="hero__tagline">
+              I design reliable ML systems and scale them with HPC-aware engineering — from prototyping models to shipping production pipelines.
+            </p>
+
+            <div class="hero__ctas">
+              <a href="#projects" class="btn btn--primary magnetic trail">View Projects</a>
+              <a href="assets/resume.pdf" class="btn btn--glass resume-cta" target="_blank" rel="noopener">Download Resume</a>
+              <a href="#contact" class="btn btn--glass">Contact</a>
+            </div>
+
+            <div class="metrics" aria-hidden="true">
+              <div class="metric reveal"><span data-count="2">0</span><small>Major Projects</small></div>
+              <div class="metric reveal"><span data-count="2025">0</span><small>Latest Cert Year</small></div>
+              <div class="metric metric--tooltip reveal" data-tooltip="English • Hindi • Bengali"><span data-count="3">0</span><small>Languages Spoken</small></div>
+            </div>
+          </div>
+
+          <!-- Right column: circular avatar, quick stats, micro-bio -->
+          <aside class="hero__aside" aria-hidden="false">
+            <!-- added a small inline translate to nudge the card slightly right (safe fallback until CSS is updated) -->
+            <div class="avatar-card reveal hover-rise" role="img" aria-label="Photo of Subradeep Das" style="transform: translateX(14px);">
+              <!-- animated circular avatar with halo -->
+              <div class="avatar-ring">
+                <img src="assets/photo.jpg" alt="Subradeep Das" class="avatar" loading="lazy" width="260" height="260" />
+                <svg class="avatar-orn" viewBox="0 0 120 120" aria-hidden="true">
+                  <defs>
+                    <linearGradient id="avatarGlow" x1="0" x2="1">
+                      <stop offset="0" stop-color="#4ea3ff"/>
+                      <stop offset="1" stop-color="#6f7dff"/>
+                    </linearGradient>
+                  </defs>
+                  <circle cx="60" cy="60" r="54" stroke="url(#avatarGlow)" stroke-width="2" fill="none" stroke-linecap="round" />
+                </svg>
+              </div>
+
+              <div class="avatar__info">
+                <div class="role">AI/ML Engineer</div>
+                <div class="location">Agartala, Tripura • India</div>
+                <div class="small-stats">
+                  <div><strong>2</strong><span>Featured Projects</span></div>
+                  <div><strong>Cert</strong><span>ISRO · C-DAC · TCS</span></div>
+                </div>
+
+                <div class="avatar-quicklinks">
+                  <a class="btn btn--glass" href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
+                  <a class="social chip chip--brand github" href="https://github.com/trek2terminal" target="_blank" rel="noopener">
+                    <span class="icon github" aria-hidden="true"></span>GitHub
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <!-- subtle animated waveform / status -->
+            <div class="hero__pulse reveal" aria-hidden="true">
+              <svg viewBox="0 0 200 36" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
+                <path d="M0,18 C30,6 60,30 90,18 C120,6 150,30 180,18 C190,14 200,12 200,12" fill="none" stroke="url(#avatarGlow)" stroke-width="1.6" stroke-linecap="round" />
+              </svg>
+            </div>
+          </aside>
         </div>
-        <div class="metrics">
-          <div class="metric reveal"><span data-count="2">0</span><small>Major Projects</small></div>
-          <div class="metric reveal"><span data-count="2025">0</span><small>Latest Cert Year</small></div>
-          <div class="metric metric--tooltip reveal" data-tooltip="English • Hindi • Bengali"><span data-count="3">0</span><small>Languages Spoken</small></div>
-        </div>
+
+      </div>
+
+      <!-- Hero visual (Lottie-ready). Kept only the lottie-player so no fallback rectangle appears -->
+      <div class="hero__visual" aria-hidden="true">
+        <lottie-player id="heroLottie" src="" background="transparent" speed="1" loop autoplay style="width:100%;height:100%;"></lottie-player>
+
+        <!-- Removed the fallback rectangle SVG that previously created the blue box.
+             If you want a decorative fallback later, we'll add a subtle gradient or a lightweight SVG that matches the design. -->
       </div>
 
       <div class="scroll-indicator" aria-hidden="true"></div>
@@ -70,14 +173,17 @@
           <h3>End-to-end ML</h3>
           <p>From data pipelines to models, evaluation, and production deployment.</p>
         </article>
+
         <article class="card reveal hover-rise">
           <h3>HPC-AI Foundations</h3>
           <p>Efficient training/inference and scalable systems thinking.</p>
         </article>
+
         <article class="card reveal hover-rise">
           <h3>Reliable Systems</h3>
           <p>Telemetry, privacy-aware logging, monitoring, and retraining pipelines.</p>
         </article>
+
         <article class="card reveal hover-rise">
           <h3>Analytical Storytelling</h3>
           <p>Clear visualizations and narratives that drive decisions.</p>
@@ -122,14 +228,35 @@
     <!-- Skills -->
     <section id="skills" class="section container">
       <h2 class="section__title">Skills</h2>
-      <div class="chips reveal" id="skillsWrap">
-        <span class="chip" data-percent="95">Python</span><span class="chip" data-percent="78">R</span><span class="chip" data-percent="60">Java</span><span class="chip" data-percent="86">SQL</span>
-        <span class="chip" data-percent="90">scikit-learn</span><span class="chip" data-percent="88">XGBoost</span><span class="chip" data-percent="85">TensorFlow</span><span class="chip" data-percent="82">PyTorch</span><span class="chip" data-percent="80">Keras</span>
-        <span class="chip" data-percent="85">CNN</span><span class="chip" data-percent="70">RNN</span><span class="chip" data-percent="68">LSTM</span><span class="chip" data-percent="84">Transfer Learning</span>
-        <span class="chip" data-percent="92">Pandas</span><span class="chip" data-percent="91">NumPy</span><span class="chip" data-percent="75">dplyr</span><span class="chip" data-percent="74">tidyr</span><span class="chip" data-percent="80">Statistical Analysis</span>
-        <span class="chip" data-percent="80">Matplotlib</span><span class="chip" data-percent="78">Seaborn</span><span class="chip" data-percent="72">ggplot2</span><span class="chip" data-percent="76">Plotly</span>
-        <span class="chip" data-percent="95">Jupyter</span><span class="chip" data-percent="90">Colab</span><span class="chip" data-percent="75">Kaggle</span><span class="chip" data-percent="88">VS Code</span>
-        <span class="chip" data-percent="85">Linux</span><span class="chip" data-percent="82">Bash</span>
+      <div class="chips reveal" id="skillsWrap" aria-live="polite">
+        <span class="chip" data-percent="95">Python</span>
+        <span class="chip" data-percent="78">R</span>
+        <span class="chip" data-percent="60">Java</span>
+        <span class="chip" data-percent="86">SQL</span>
+        <span class="chip" data-percent="90">scikit-learn</span>
+        <span class="chip" data-percent="88">XGBoost</span>
+        <span class="chip" data-percent="85">TensorFlow</span>
+        <span class="chip" data-percent="82">PyTorch</span>
+        <span class="chip" data-percent="80">Keras</span>
+        <span class="chip" data-percent="85">CNN</span>
+        <span class="chip" data-percent="70">RNN</span>
+        <span class="chip" data-percent="68">LSTM</span>
+        <span class="chip" data-percent="84">Transfer Learning</span>
+        <span class="chip" data-percent="92">Pandas</span>
+        <span class="chip" data-percent="91">NumPy</span>
+        <span class="chip" data-percent="75">dplyr</span>
+        <span class="chip" data-percent="74">tidyr</span>
+        <span class="chip" data-percent="80">Statistical Analysis</span>
+        <span class="chip" data-percent="80">Matplotlib</span>
+        <span class="chip" data-percent="78">Seaborn</span>
+        <span class="chip" data-percent="72">ggplot2</span>
+        <span class="chip" data-percent="76">Plotly</span>
+        <span class="chip" data-percent="95">Jupyter</span>
+        <span class="chip" data-percent="90">Colab</span>
+        <span class="chip" data-percent="75">Kaggle</span>
+        <span class="chip" data-percent="88">VS Code</span>
+        <span class="chip" data-percent="85">Linux</span>
+        <span class="chip" data-percent="82">Bash</span>
       </div>
     </section>
 
@@ -239,8 +366,7 @@
     <section id="about" class="section container">
       <h2 class="section__title">About</h2>
       <p class="reveal">
-        AI/ML engineer blending applied machine learning, HPC-AI, and robust deployment. Interested in reliable ML systems, telemetry,
-        and privacy-aware design. Indian nationality; based around Agartala, Tripura with links to Shillong and Guwahati. Languages: English, Hindi, Bengali.
+        AI/ML engineer blending applied machine learning, HPC-AI, and robust deployment. Interested in reliability, observability, and privacy-aware design. Indian nationality; based around Agartala, Tripura with links to Shillong and Guwahati. Languages: English, Hindi, Bengali.
       </p>
       <div class="hobbies reveal">
         <span class="chip">Learning languages</span>
@@ -253,10 +379,11 @@
     <section id="contact" class="section container">
       <h2 class="section__title">Contact</h2>
       <div class="contact-grid" id="contactGrid">
-        <!-- Contact form: updated to Formspree + modern UI -->
+        <!-- Contact form -->
         <form class="card reveal hover-rise contact-form" method="POST" action="https://formspree.io/f/xblkvvap" novalidate>
           <input type="hidden" name="_subject" value="Portfolio message from website">
           <input type="hidden" name="_language" value="en">
+
           <div class="contact-form__inner">
             <h3 class="contact-form__title">Send a message</h3>
             <p class="contact-form__subtitle muted">Quick questions, project inquiries, or collaboration ideas — I reply within 48 hours.</p>
@@ -290,6 +417,7 @@
         <!-- drag handle (desktop only) -->
         <div class="drag-handle" id="gridHandle" aria-hidden="true" title="Drag to resize contact columns"></div>
 
+        <!-- Contact card -->
         <div class="card reveal hover-rise contact-card">
           <div class="contact-card__inner">
             <ul class="contact-list">
@@ -325,7 +453,6 @@
               </li>
             </ul>
 
-            <!-- status / availability panel occupying the empty space -->
             <div class="contact-status" aria-hidden="false">
               <div class="status-left">
                 <div class="status-dot online" aria-hidden="true"></div>
@@ -339,7 +466,6 @@
               </div>
             </div>
 
-            <!-- quick links / small footer -->
             <div class="contact-card__footer muted">
               <small>Fast links: <a class="link-underline" href="#projects">Projects</a> · <a class="link-underline" href="#skills">Skills</a></small>
             </div>
@@ -356,7 +482,7 @@
     </div>
   </footer>
 
-  <!-- Project Modals -->
+  <!-- Modals (kept all IDs same so JS continues to work) -->
   <dialog id="modal-irctc" class="modal">
     <button class="modal__close" data-close>&times;</button>
     <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
@@ -373,7 +499,7 @@
     <p><strong>Overview:</strong> 7th-order MZI filter design and simulation; fabricated on SOI via E-beam lithography; Monte Carlo analysis for variability.</p>
   </dialog>
 
-  <!-- Certificate & marksheet modals -->
+  <!-- Certificate modals kept intact (IDs unchanged) -->
   <dialog id="modal-btech" class="modal modal--media">
     <button class="modal__close" data-close aria-label="Close">&times;</button>
     <div class="modal__media">
@@ -437,9 +563,10 @@
     </div>
   </dialog>
 
-  <!-- Floating back-to-top (keeps footer link but provides better UX) -->
+  <!-- Floating back-to-top -->
   <button id="toTopBtn" class="floating-top" aria-label="Back to top">↑</button>
 
-  <script src="script.js"></script>
+  <!-- Main JS -->
+  <script src="script.js" defer></script>
 </body>
 </html>
