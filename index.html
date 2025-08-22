@@ -81,7 +81,12 @@
       </div>
 
       <div class="hero__content container reveal hero-enter">
-        <div class="hero__grid">
+        <!--
+          Increased right column width to give the avatar card more room.
+          Inline grid-template-columns ensures immediate layout correction
+          before you update styles.css (styles.css will still control desktop layout later).
+        -->
+        <div class="hero__grid" style="grid-template-columns: 1fr minmax(340px, 520px); gap:28px; align-items:center;">
           <!-- Left column: headline + CTAs -->
           <div class="hero__left">
             <p class="badge glow">HPC-AI • TensorFlow • PyTorch • Python/R/SQL • Flask/Docker/Nginx</p>
@@ -110,8 +115,8 @@
 
           <!-- Right column: circular avatar, quick stats, micro-bio -->
           <aside class="hero__aside" aria-hidden="false">
-            <!-- added a small inline translate to nudge the card slightly right (safe fallback until CSS is updated) -->
-            <div class="avatar-card reveal hover-rise" role="img" aria-label="Photo of Subradeep Das" style="transform: translateX(14px);">
+            <!-- removed inline transform; spacing now handled by styles and the wider grid column above -->
+            <div class="avatar-card reveal hover-rise" role="img" aria-label="Photo of Subradeep Das">
               <!-- animated circular avatar with halo -->
               <div class="avatar-ring">
                 <img src="assets/photo.jpg" alt="Subradeep Das" class="avatar" loading="lazy" width="260" height="260" />

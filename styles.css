@@ -160,8 +160,9 @@ body{
 .hero__bg{position:absolute;inset:-8% -6% auto -6%;height:48vh;filter:blur(36px);z-index:0;pointer-events:none;transform:translateZ(0)}
 .hero__content{position:relative;z-index:3;padding-top:6px}
 
-/* hero grid: left content + right avatar */
-.hero__grid{display:grid;grid-template-columns:1fr minmax(280px,360px);gap:28px;align-items:center}
+/* hero grid: left content + right avatar
+   NOTE: widened right column to give avatar card more room */
+.hero__grid{display:grid;grid-template-columns:1fr minmax(340px,520px);gap:28px;align-items:center}
 @media (max-width:920px){ .hero__grid{grid-template-columns:1fr} }
 
 /* title / copy */
