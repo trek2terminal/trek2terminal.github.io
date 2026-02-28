@@ -243,7 +243,37 @@ body{
 .metric small{color:var(--muted);font-weight:600}
 
 /* metric tooltip handled previously */
+/* =====================
+   Experience Logo Layout
+===================== */
 
+.experience-card {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.exp-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.exp-logo {
+  width: 55px;
+  height: 55px;
+  object-fit: contain;
+  border-radius: 10px;
+  background: #ffffff;
+  padding: 6px;
+}
+
+.exp-location {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--muted);
+  margin: 4px 0 0 0;
+}
 /* --------------------
    Sections / Cards / Grid
    -------------------- */
@@ -451,3 +481,78 @@ body{
 .hidden{display:none !important}
 
 /* End of file */
+/* =========================================================
+   EXPERIENCE LOGO — CLEAN PROFESSIONAL STYLE
+   No grayscale. No forced black & white.
+========================================================= */
+
+.experience-card{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.exp-header{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.exp-text{
+  display:flex;
+  flex-direction:column;
+}
+
+.exp-logo{
+  width:60px;
+  height:60px;
+  object-fit:contain;
+  border-radius:14px;
+  padding:8px;
+
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab,var(--card) 96%, transparent),
+    var(--card)
+  );
+
+  border:1px solid var(--border);
+  box-shadow:0 8px 24px rgba(0,0,0,0.35);
+
+  transition:transform var(--fast) var(--ease),
+             box-shadow var(--fast) var(--ease);
+}
+
+.exp-logo:hover{
+  transform:scale(1.05);
+  box-shadow:0 12px 32px rgba(78,163,255,0.25);
+}
+
+.exp-location{
+  font-size:14px;
+  font-weight:600;
+  color:var(--muted);
+  margin-top:4px;
+}
+
+/* Light mode correction */
+:root.light .exp-logo{
+  background:#ffffff;
+  border:1px solid #e6eefc;
+  box-shadow:0 6px 18px rgba(0,0,0,0.08);
+}
+
+/* Mobile layout */
+@media (max-width:920px){
+
+  .exp-header{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+  }
+
+  .exp-logo{
+    width:50px;
+    height:50px;
+  }
+}
