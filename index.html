@@ -43,11 +43,8 @@
     <div class="loader__line"></div>
   </div>
 
-  <div class="cursor-dot" aria-hidden="true"></div>
-  <div class="cursor-ring" aria-hidden="true"></div>
-
   <header id="siteHeader" class="site-header">
-    <nav class="nav-shell" aria-label="Primary navigation">
+    <nav id="primaryNav" class="nav-shell" aria-label="Primary navigation">
       <a class="brand" href="#home" aria-label="Subradeep Das home">
         <span class="brand__mark">SD</span>
         <span class="brand__text">Subradeep</span>
@@ -68,8 +65,8 @@
           <i data-lucide="moon" aria-hidden="true"></i>
         </button>
         <button id="menuToggle" class="icon-button menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
-          <span class="menu-toggle__open">☰</span>
-          <span class="menu-toggle__close">✕</span>
+          <span class="menu-toggle__open">&#9776;</span>
+          <span class="menu-toggle__close">&times;</span>
         </button>
       </div>
     </nav>
@@ -177,15 +174,12 @@
 
         <div class="project-grid">
           <article class="project-card reveal reveal-left">
-            <div class="project-banner project-banner--blue">
-              <i data-lucide="train-front" aria-hidden="true"></i>
-              <span>Bot Detection</span>
-            </div>
+            <div class="project-banner project-banner--blue" aria-hidden="true"></div>
             <div class="project-body">
+              <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
               <div class="tag-row">
                 <span>TensorFlow</span><span>scikit-learn</span><span>Random Forest</span><span>Flask</span><span>Docker</span><span>Nginx</span>
               </div>
-              <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
               <p>Built a production-style railway search and bot-detection prototype that combines CAPTCHA validation, behavioral biometrics, TensorFlow inference, and operational dashboards.</p>
               <ul>
                 <li>Designed the human-verification flow with privacy-aware telemetry.</li>
@@ -200,15 +194,12 @@
           </article>
 
           <article class="project-card reveal reveal-right">
-            <div class="project-banner project-banner--teal">
-              <i data-lucide="waves" aria-hidden="true"></i>
-              <span>Photonics</span>
-            </div>
+            <div class="project-banner project-banner--teal" aria-hidden="true"></div>
             <div class="project-body">
+              <h3>Higher-Order Chebyshev Filter (MZI)</h3>
               <div class="tag-row">
                 <span>Lumerical</span><span>KLayout</span><span>SOI</span><span>EBL</span><span>Monte Carlo</span>
               </div>
-              <h3>Higher-Order Chebyshev Filter (MZI)</h3>
               <p>Designed and validated a 7th-order Mach-Zehnder interferometer filter for a photonics lab project, connecting simulation, layout, fabrication, and variability analysis.</p>
               <ul>
                 <li>Simulated filter behavior in Lumerical and prepared layout in KLayout.</li>
@@ -232,36 +223,31 @@
           <h2>Skills</h2>
         </div>
 
-        <div class="skills-shell reveal">
-          <div class="tabs" role="tablist" aria-label="Skill categories">
-            <button class="tab active" type="button" role="tab" aria-selected="true" data-skill-tab="languages">Languages</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-skill-tab="ml">ML</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-skill-tab="data">Data & Viz</button>
-            <button class="tab" type="button" role="tab" aria-selected="false" data-skill-tab="tools">Tools</button>
-          </div>
-
-          <div class="skill-panels">
-            <div class="skill-panel active" data-skill-panel="languages">
+        <div class="skills-shell">
+          <article class="skill-group reveal" style="transition-delay: 0s">
+            <h3>Languages</h3>
+            <div class="skill-chip-row">
               <span>Python</span><span>SQL</span><span>R</span><span>Java</span><span>Bash</span>
             </div>
-            <div class="skill-panel" data-skill-panel="ml">
+          </article>
+          <article class="skill-group reveal" style="transition-delay: .1s">
+            <h3>Machine Learning</h3>
+            <div class="skill-chip-row">
               <span>TensorFlow</span><span>PyTorch</span><span>Keras</span><span>scikit-learn</span><span>XGBoost</span><span>CNN</span><span>RNN/LSTM</span><span>Transfer Learning</span>
             </div>
-            <div class="skill-panel" data-skill-panel="data">
+          </article>
+          <article class="skill-group reveal" style="transition-delay: .2s">
+            <h3>Data &amp; Visualization</h3>
+            <div class="skill-chip-row">
               <span>Pandas</span><span>NumPy</span><span>Statistical Analysis</span><span>Matplotlib</span><span>Seaborn</span><span>Plotly</span><span>ggplot2</span>
             </div>
-            <div class="skill-panel" data-skill-panel="tools">
+          </article>
+          <article class="skill-group reveal" style="transition-delay: .3s">
+            <h3>Tools</h3>
+            <div class="skill-chip-row">
               <span>Docker</span><span>Nginx</span><span>Flask</span><span>Linux</span><span>VS Code</span><span>Jupyter</span><span>Colab</span><span>Kaggle</span>
             </div>
-          </div>
-
-          <div id="skillBars" class="skill-bars" aria-label="Key skill proficiency">
-            <article><div><strong>Python</strong><span>90%</span></div><i data-progress="90"></i></article>
-            <article><div><strong>TensorFlow / Keras</strong><span>80%</span></div><i data-progress="80"></i></article>
-            <article><div><strong>Docker</strong><span>75%</span></div><i data-progress="75"></i></article>
-            <article><div><strong>Data Visualization</strong><span>85%</span></div><i data-progress="85"></i></article>
-            <article><div><strong>SQL</strong><span>70%</span></div><i data-progress="70"></i></article>
-          </div>
+          </article>
         </div>
       </div>
     </section>
@@ -417,10 +403,11 @@
           <p>
             I am an AI/ML engineer with a background in electronics and communication engineering, HPC-AI training, and applied project delivery. I like work that connects models with real product behavior: useful interfaces, clear evaluation, privacy-aware telemetry, and systems that can be explained after they are built.
           </p>
+          <p class="interests-label">Interests</p>
           <div class="interest-row" aria-label="Interests">
-            <span>🌐 Learning Languages</span>
-            <span>✈️ Traveling</span>
-            <span>🍳 Cooking</span>
+            <span>&#127760; Learning Languages</span>
+            <span>&#9992;&#65039; Traveling</span>
+            <span>&#127859; Cooking</span>
           </div>
           <a class="button button--primary" href="assets/resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
         </div>
@@ -443,26 +430,29 @@
         </div>
 
         <div class="contact-grid">
-          <form id="contactForm" class="contact-form reveal reveal-left" novalidate>
-            <p class="open-badge">Open to: AI/ML roles · Internships · Freelance</p>
-            <div class="success-banner" role="status" aria-live="polite">Message sent! I'll reply within 48 hours.</div>
+          <!-- Replace with your Formspree endpoint -->
+          <form id="contactForm" class="contact-form reveal reveal-left" action="https://formspree.io/f/REPLACE_WITH_YOUR_FORMSPREE_ID" method="POST" novalidate>
+            <p class="open-badge">Open to: AI/ML roles &middot; Internships &middot; Freelance</p>
+            <div class="form-success" role="status" aria-live="polite">&#10003; Message sent! I'll reply within 48 hours.</div>
 
             <label class="field">
               <input id="name" name="name" type="text" autocomplete="name" required />
               <span>Name</span>
+              <small class="field-error"></small>
             </label>
             <label class="field">
               <input id="email" name="email" type="email" autocomplete="email" required />
               <span>Email</span>
+              <small class="field-error"></small>
             </label>
             <label class="field">
               <textarea id="message" name="message" rows="6" required></textarea>
               <span>Message</span>
+              <small class="field-error"></small>
             </label>
 
             <button class="button button--primary submit-button" type="submit">
               <span class="submit-label">Send Message</span>
-              <span class="spinner" aria-hidden="true"></span>
             </button>
           </form>
 
@@ -518,14 +508,19 @@
     </div>
     <div class="container footer-bottom">
       <span>© 2025 Subradeep Das · Built with 💻 & ☕</span>
-      <a href="#home">Back to top ↑</a>
+      <a href="#home">Back to top</a>
     </div>
   </footer>
 
-  <div id="modal-irctc" class="modal-overlay" hidden>
+  <button id="backToTop" class="back-to-top" type="button" aria-label="Back to top">&uarr;</button>
+
+  <div id="modal-irctc" class="modal" aria-hidden="true">
+    <div class="modal-overlay" data-close-modal></div>
     <section class="case-modal" role="dialog" aria-modal="true" aria-labelledby="modal-irctc-title">
-      <button class="modal-close" type="button" data-close-modal aria-label="Close case study">✕</button>
-      <h2 id="modal-irctc-title">Hybrid IRCTC Bot-Detection & Train Search</h2>
+      <header class="modal-header">
+        <h2 id="modal-irctc-title">Hybrid IRCTC Bot-Detection & Train Search</h2>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close case study">&times;</button>
+      </header>
       <dl>
         <div><dt>Role</dt><dd>ML Engineer, Full-stack</dd></div>
         <div><dt>Stack</dt><dd>TensorFlow, scikit-learn, Random Forest, Flask, Docker, Nginx</dd></div>
@@ -536,10 +531,13 @@
     </section>
   </div>
 
-  <div id="modal-mzi" class="modal-overlay" hidden>
+  <div id="modal-mzi" class="modal" aria-hidden="true">
+    <div class="modal-overlay" data-close-modal></div>
     <section class="case-modal" role="dialog" aria-modal="true" aria-labelledby="modal-mzi-title">
-      <button class="modal-close" type="button" data-close-modal aria-label="Close case study">✕</button>
-      <h2 id="modal-mzi-title">Higher-Order Chebyshev Filter (MZI)</h2>
+      <header class="modal-header">
+        <h2 id="modal-mzi-title">Higher-Order Chebyshev Filter (MZI)</h2>
+        <button class="modal-close" type="button" data-close-modal aria-label="Close case study">&times;</button>
+      </header>
       <dl>
         <div><dt>Role</dt><dd>Designer, Simulation & Fabrication</dd></div>
         <div><dt>Stack</dt><dd>Lumerical, KLayout, SOI, EBL, Monte Carlo</dd></div>

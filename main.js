@@ -5,7 +5,6 @@
   const $$ = (selector, scope = document) => Array.from(scope.querySelectorAll(selector));
 
   const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const formEndpoint = 'https://formspree.io/f/REPLACE_WITH_YOUR_ID'; // Replace with your Formspree endpoint ID.
 
   const renderIcons = () => {
     if (window.lucide) {
@@ -21,18 +20,17 @@
     initRevealObserver();
     initHeroTypewriter();
     initCounters();
-    initSkillTabs();
-    initSkillBars();
     initModals();
     initContactForm();
     initScrollProgress();
-    initCustomCursor();
+    initBackToTop();
   });
 
   function initLoader() {
     const delay = prefersReducedMotion ? 250 : 2000;
     window.setTimeout(() => {
       document.body.classList.add('loaded');
+      document.dispatchEvent(new Event('portfolio:loaded'));
     }, delay);
   }
 
@@ -59,16 +57,19 @@
 
   function initNav() {
     const header = $('#siteHeader');
+    const navShell = $('#primaryNav');
     const menuToggle = $('#menuToggle');
     const mobileMenu = $('#mobileMenu');
     const navLinks = $$('[data-nav-link]');
     const mobileLinks = $$('[data-mobile-link]');
+    const allNavLinks = [...navLinks, ...mobileLinks];
     const sections = navLinks
       .map((link) => document.getElementById(link.getAttribute('href').slice(1)))
       .filter(Boolean);
 
     const setMenu = (open) => {
       if (!menuToggle || !mobileMenu) return;
+      navShell?.classList.toggle('menu-open', open);
       menuToggle.classList.toggle('is-open', open);
       mobileMenu.classList.toggle('is-open', open);
       menuToggle.setAttribute('aria-expanded', String(open));
@@ -79,10 +80,10 @@
 
     menuToggle?.addEventListener('click', (event) => {
       event.stopPropagation();
-      setMenu(!mobileMenu.classList.contains('is-open'));
+      setMenu(!navShell?.classList.contains('menu-open'));
     });
 
-    mobileLinks.forEach((link) => link.addEventListener('click', closeMenu));
+    allNavLinks.forEach((link) => link.addEventListener('click', closeMenu));
 
     document.addEventListener('click', (event) => {
       if (!mobileMenu?.classList.contains('is-open')) return;
@@ -104,13 +105,12 @@
 
         if (!visible) return;
 
-        navLinks.forEach((link) => {
+        allNavLinks.forEach((link) => {
           const active = link.getAttribute('href') === `#${visible.target.id}`;
-          link.classList.toggle('active', active);
+          link.classList.toggle('nav-active', active);
         });
       }, {
-        threshold: [0.15, 0.35, 0.6],
-        rootMargin: '-20% 0px -55% 0px'
+        threshold: 0.4
       });
 
       sections.forEach((section) => observer.observe(section));
@@ -180,9 +180,13 @@
   }
 
   function initCounters() {
+    const hero = $('#home');
     const stats = $('#heroStats');
     const counters = $$('[data-counter]', stats || document);
-    if (!stats || !counters.length) return;
+    if (!hero || !stats || !counters.length) return;
+
+    let started = false;
+    let heroVisible = false;
 
     const animateCounter = (el) => {
       const target = Number(el.dataset.counter || 0);
@@ -191,7 +195,7 @@
 
       const frame = (now) => {
         const progress = Math.min((now - start) / duration, 1);
-        const eased = 1 - Math.pow(1 - progress, 3);
+        const eased = progress * (2 - progress);
         el.textContent = String(Math.round(target * eased));
 
         if (progress < 1) {
@@ -204,80 +208,53 @@
       requestAnimationFrame(frame);
     };
 
-    const observer = new IntersectionObserver((entries, obs) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        counters.forEach(animateCounter);
-        obs.disconnect();
+    const startCounters = () => {
+      if (started || !heroVisible || !document.body.classList.contains('loaded')) return;
+      started = true;
+      counters.forEach((counter) => {
+        counter.textContent = '0';
+        animateCounter(counter);
       });
-    }, { threshold: 0.45 });
-
-    observer.observe(stats);
-  }
-
-  function initSkillTabs() {
-    const tabs = $$('[data-skill-tab]');
-    const panels = $$('[data-skill-panel]');
-    if (!tabs.length || !panels.length) return;
-
-    tabs.forEach((tab) => {
-      tab.addEventListener('click', () => {
-        const key = tab.dataset.skillTab;
-
-        tabs.forEach((item) => {
-          const active = item === tab;
-          item.classList.toggle('active', active);
-          item.setAttribute('aria-selected', String(active));
-        });
-
-        panels.forEach((panel) => {
-          panel.classList.toggle('active', panel.dataset.skillPanel === key);
-        });
-      });
-    });
-  }
-
-  function initSkillBars() {
-    const container = $('#skillBars');
-    const bars = $$('[data-progress]', container || document);
-    if (!container || !bars.length) return;
+    };
 
     const observer = new IntersectionObserver((entries, obs) => {
       entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        bars.forEach((bar) => {
-          bar.style.setProperty('--progress', `${bar.dataset.progress}%`);
-        });
-        obs.disconnect();
+        heroVisible = entry.isIntersecting;
+        if (!heroVisible) return;
+        startCounters();
+        if (started) obs.disconnect();
       });
-    }, { threshold: 0.35 });
+    }, { threshold: 0.4 });
 
-    observer.observe(container);
+    document.addEventListener('portfolio:loaded', startCounters, { once: true });
+    observer.observe(hero);
   }
 
   function initModals() {
     const openers = $$('[data-open-modal]');
-    const overlays = $$('.modal-overlay');
+    const modals = $$('.modal');
     let lastFocused = null;
 
     const focusableSelector = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
 
     const getFocusable = (modal) => $$(focusableSelector, modal).filter((node) => node.offsetParent !== null);
 
-    const closeModal = (overlay) => {
-      if (!overlay || overlay.hidden) return;
-      overlay.hidden = true;
+    const closeModal = (modal) => {
+      if (!modal || !modal.classList.contains('is-open')) return;
+      modal.classList.remove('is-open');
+      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = '';
       lastFocused?.focus?.();
     };
 
-    const openModal = (overlay) => {
-      if (!overlay) return;
+    const openModal = (modal) => {
+      if (!modal) return;
       lastFocused = document.activeElement;
-      overlay.hidden = false;
+      modal.classList.add('is-open');
+      modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
-      const focusables = getFocusable(overlay);
-      (focusables[0] || overlay).focus?.();
+      const focusables = getFocusable(modal);
+      (focusables[0] || modal).focus?.();
     };
 
     openers.forEach((opener) => {
@@ -286,16 +263,16 @@
       });
     });
 
-    overlays.forEach((overlay) => {
-      overlay.addEventListener('click', (event) => {
-        if (event.target === overlay || event.target.closest('[data-close-modal]')) {
-          closeModal(overlay);
+    modals.forEach((modal) => {
+      modal.addEventListener('click', (event) => {
+        if (event.target.closest('[data-close-modal]')) {
+          closeModal(modal);
         }
       });
 
-      overlay.addEventListener('keydown', (event) => {
+      modal.addEventListener('keydown', (event) => {
         if (event.key !== 'Tab') return;
-        const focusables = getFocusable(overlay);
+        const focusables = getFocusable(modal);
         if (!focusables.length) return;
 
         const first = focusables[0];
@@ -313,7 +290,7 @@
 
     document.addEventListener('keydown', (event) => {
       if (event.key !== 'Escape') return;
-      overlays.forEach(closeModal);
+      modals.forEach(closeModal);
     });
   }
 
@@ -323,13 +300,17 @@
 
     const fields = $$('input, textarea', form);
     const submit = $('.submit-button', form);
-    const banner = $('.success-banner', form);
+    const banner = $('.form-success', form);
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     fields.forEach((field) => {
       const sync = () => field.closest('.field')?.classList.toggle('filled', field.value.trim().length > 0);
       field.addEventListener('input', () => {
         sync();
-        field.closest('.field')?.classList.remove('invalid');
+        const wrapper = field.closest('.field');
+        wrapper?.classList.remove('error');
+        const error = $('.field-error', wrapper || form);
+        if (error) error.textContent = '';
       });
       sync();
     });
@@ -339,21 +320,33 @@
 
       fields.forEach((field) => {
         const wrapper = field.closest('.field');
-        const valid = field.value.trim().length > 0 && (field.type !== 'email' || field.validity.valid);
-        wrapper?.classList.toggle('invalid', !valid);
-        if (!valid) ok = false;
+        const error = $('.field-error', wrapper || form);
+        const value = field.value.trim();
+        let message = '';
+
+        if (!value) {
+          message = 'This field is required.';
+        } else if (field.type === 'email' && !emailPattern.test(value)) {
+          message = 'Enter a valid email address.';
+        }
+
+        wrapper?.classList.toggle('error', Boolean(message));
+        if (error) error.textContent = message;
+        if (message) ok = false;
       });
 
       return ok;
     };
 
     const postForm = async () => {
-      if (formEndpoint.includes('REPLACE_WITH_YOUR_ID')) {
+      const endpoint = form.getAttribute('action') || '';
+
+      if (endpoint.includes('REPLACE_WITH_YOUR_FORMSPREE_ID')) {
         await new Promise((resolve) => window.setTimeout(resolve, 1500));
         return;
       }
 
-      const response = await fetch(formEndpoint, {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { Accept: 'application/json' },
         body: new FormData(form)
@@ -369,7 +362,7 @@
       banner?.classList.remove('show');
 
       if (!validate()) {
-        fields.find((field) => field.closest('.field')?.classList.contains('invalid'))?.focus();
+        fields.find((field) => field.closest('.field')?.classList.contains('error'))?.focus();
         return;
       }
 
@@ -379,13 +372,18 @@
       try {
         await postForm();
         form.reset();
-        fields.forEach((field) => field.closest('.field')?.classList.remove('filled'));
+        fields.forEach((field) => {
+          const wrapper = field.closest('.field');
+          wrapper?.classList.remove('filled', 'error');
+          const error = $('.field-error', wrapper || form);
+          if (error) error.textContent = '';
+        });
         banner?.classList.add('show');
-        window.setTimeout(() => banner?.classList.remove('show'), 4000);
-      } catch (error) {
-        console.error(error);
-        banner.textContent = 'Message could not be sent. Please email me directly.';
-        banner?.classList.add('show');
+        window.setTimeout(() => banner?.classList.remove('show'), 5000);
+      } catch {
+        const message = $('.field-error', fields[2]?.closest('.field') || form);
+        if (message) message.textContent = 'Message could not be sent. Please email me directly.';
+        fields[2]?.closest('.field')?.classList.add('error');
       } finally {
         submit?.classList.remove('loading');
         submit?.removeAttribute('disabled');
@@ -408,39 +406,19 @@
     window.addEventListener('resize', update);
   }
 
-  function initCustomCursor() {
-    if (!window.matchMedia('(pointer: fine)').matches) return;
+  function initBackToTop() {
+    const button = $('#backToTop');
+    if (!button) return;
 
-    const dot = $('.cursor-dot');
-    const ring = $('.cursor-ring');
-    if (!dot || !ring) return;
-
-    let mouseX = 0;
-    let mouseY = 0;
-    let ringX = 0;
-    let ringY = 0;
-
-    window.addEventListener('mousemove', (event) => {
-      document.body.classList.add('cursor-ready');
-      mouseX = event.clientX;
-      mouseY = event.clientY;
-      dot.style.transform = `translate(${mouseX}px, ${mouseY}px) translate(-50%, -50%)`;
-    }, { passive: true });
-
-    const animate = () => {
-      ringX += (mouseX - ringX) * 0.18;
-      ringY += (mouseY - ringY) * 0.18;
-      ring.style.transform = `translate(${ringX}px, ${ringY}px) translate(-50%, -50%)`;
-      requestAnimationFrame(animate);
+    const update = () => {
+      button.classList.toggle('visible', window.scrollY > 300);
     };
-    animate();
 
-    const interactive = 'a, button, input, textarea, [role="tab"]';
-    document.addEventListener('mouseover', (event) => {
-      if (event.target.closest(interactive)) document.body.classList.add('cursor-active');
+    button.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     });
-    document.addEventListener('mouseout', (event) => {
-      if (event.target.closest(interactive)) document.body.classList.remove('cursor-active');
-    });
+
+    update();
+    window.addEventListener('scroll', update, { passive: true });
   }
 })();
