@@ -160,10 +160,8 @@ body{
 .hero__bg{position:absolute;inset:-8% -6% auto -6%;height:48vh;filter:blur(36px);z-index:0;pointer-events:none;transform:translateZ(0)}
 .hero__content{position:relative;z-index:3;padding-top:6px}
 
-/* hero grid: left content + right avatar
-   NOTE: widened right column to give avatar card more room */
-.hero__grid{display:grid;grid-template-columns:1fr minmax(340px,520px);gap:28px;align-items:center}
-@media (max-width:920px){ .hero__grid{grid-template-columns:1fr} }
+.hero__grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(320px,420px);gap:32px;align-items:center}
+@media (max-width:920px){ .hero__grid{grid-template-columns:minmax(0,1fr)} }
 
 /* title / copy */
 .hero__title{font-size:clamp(32px,6.5vw,56px);margin:8px 0 6px;line-height:1.02;font-family:Poppins, Inter, sans-serif;font-weight:800;letter-spacing:-0.6px}
@@ -173,10 +171,6 @@ body{
 /* badge */
 .badge{display:inline-block;padding:8px 12px;border-radius:999px;color:var(--primary-2);background:rgba(78,163,255,0.03);font-weight:700}
 .glow{text-shadow:0 0 14px color-mix(in oklab,var(--primary) 60%, transparent)}
-
-/* hero visual (Lottie) */
-.hero__visual{position:absolute;right:3%;top:18%;width:360px;max-width:40vw;z-index:2;pointer-events:none;opacity:.98}
-@media (max-width:920px){ .hero__visual{display:none} }
 
 /* scroll indicator */
 .scroll-indicator{position:absolute;left:50%;transform:translateX(-50%);bottom:18px;width:34px;height:54px;border-radius:30px;border:2px solid rgba(255,255,255,0.06);display:block;z-index:4}
@@ -191,15 +185,16 @@ body{
 .right-empty-box { display: none !important; }
 
 /* layout for the aside column */
-.hero__aside { display:flex; align-items:center; justify-content:center; }
+.hero__aside { display:flex; align-items:center; justify-content:center; width:100%; }
 
 /* avatar card */
 .avatar-card{
   width:100%; display:flex; flex-direction:column; align-items:center; gap:16px;
+  flex:1 1 100%;
   background: linear-gradient(180deg, color-mix(in oklab, var(--card) 96%, transparent), var(--card));
   border:1px solid var(--border); border-radius:16px; padding:18px; box-shadow: var(--shadow);
-  /* subtle nudge to the right — uses margin so reveal transforms still behave cleanly */
-  margin-left:14px;
+  max-width:420px;
+  margin-left:0;
   transition: margin-left var(--med) var(--ease), box-shadow var(--med) var(--ease), transform var(--med) var(--ease);
 }
 .avatar-ring{
@@ -242,46 +237,14 @@ body{
 .metric span{font-size:22px;font-weight:800;color:#fff;display:block}
 .metric small{color:var(--muted);font-weight:600}
 
-/* metric tooltip handled previously */
-/* =====================
-   Experience Logo Layout
-===================== */
-
-.experience-card {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.exp-header {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-.exp-logo {
-  width: 55px;
-  height: 55px;
-  object-fit: contain;
-  border-radius: 10px;
-  background: #ffffff;
-  padding: 6px;
-}
-
-.exp-location {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--muted);
-  margin: 4px 0 0 0;
-}
 /* --------------------
    Sections / Cards / Grid
    -------------------- */
 .section{padding:80px 0}
 .section__title{font-size:28px;margin-bottom:20px;font-family:Poppins, Inter, sans-serif;font-weight:700}
 .grid{display:grid;gap:18px}
-.cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
-.projects{grid-template-columns:repeat(auto-fit,minmax(320px,1fr))}
+.cards{grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr))}
+.projects{grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr))}
 
 /* cards */
 .card{
@@ -294,10 +257,19 @@ body{
 /* tag text */
 .tags{ color:var(--muted); font-size:14px; font-weight:600 }
 
+.project__actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.proof-list,.impact-list{margin:14px 0 0;padding-left:18px;color:var(--muted)}
+.proof-list li,.impact-list li{margin:6px 0}
+
 /* chips */
 .chips{display:flex;gap:10px;flex-wrap:wrap}
 .chip{padding:8px 12px;border-radius:999px;border:1px solid var(--border);background:linear-gradient(180deg,color-mix(in oklab,var(--card) 92%, transparent),var(--card));color:var(--muted);font-weight:700;cursor:pointer;transition:transform var(--fast) var(--ease),box-shadow var(--fast) var(--ease)}
 .chip:hover{transform:translateY(-3px);border-color:color-mix(in oklab,var(--primary)45%,var(--border));color:var(--primary);box-shadow:0 14px 44px rgba(78,163,255,0.08)}
+
+.skill-groups{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:16px}
+.skill-group{border:1px solid var(--border);border-radius:var(--radius);padding:16px;background:linear-gradient(180deg,color-mix(in oklab,var(--card) 97%, transparent),var(--card));box-shadow:var(--shadow)}
+.skill-group h3{margin:0 0 12px;font-size:15px;color:var(--text)}
+.skill-group .chip{cursor:default}
 
 /* --------------------
    Timeline
@@ -341,7 +313,6 @@ body{
 .chip--brand{border-color:transparent !important;color:#fff;padding-left:10px;padding-right:12px}
 .linkedin{background:linear-gradient(90deg,#0a66c2,#2b8cff)}
 .github{background:linear-gradient(90deg,#24292e,#3b4045)}
-.instagram{background:linear-gradient(90deg,#f58529,#dd2a7b,#8134af)}
 
 /* resume row */
 .resume-row{margin-top:10px;display:flex;align-items:center;gap:12px}
@@ -444,6 +415,8 @@ body{
 .footer__inner{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .to-top{color:var(--muted);text-decoration:none}
 .to-top:hover{color:var(--text)}
+.link-underline{color:inherit;text-decoration:underline;text-decoration-color:color-mix(in oklab,var(--primary) 45%, transparent);text-underline-offset:3px}
+.link-underline:hover{color:var(--text);text-decoration-color:var(--primary)}
 
 /* --------------------
    Responsive tweaks
@@ -451,27 +424,38 @@ body{
 @media (max-width:920px){
   .contact-grid{grid-template-columns:1fr}
   .drag-handle{display:none}
-  .hero{padding-top:80px;min-height:64vh}
-  .hero__visual{display:none}
+  .hero{padding-top:64px;min-height:auto}
+  .hero__ctas{display:flex;flex-wrap:wrap;gap:10px}
+  .hero__aside{display:block}
   .nav{padding:12px}
   .section{padding:40px 0}
   .section__title{font-size:20px}
   .metric{min-width:140px}
+  .timeline__item{grid-template-columns:1fr}
+  .pill-btn{justify-self:start}
   .avatar-ring{width:180px;height:180px}
   :root{--avatar-size:180px}
+  .avatar-card{width:100%;max-width:100%;margin-left:0 !important}
+}
 
-  /* remove avatar offset on smaller screens */
-  .avatar-card{ margin-left: 0 !important; }
+@media (max-width:560px){
+  .container{padding:0 16px}
+  .hero__ctas .btn{width:100%;justify-content:center}
+  .metrics{display:grid;grid-template-columns:1fr;gap:10px}
+  .metric{min-width:0}
 }
 
 @media (max-width:480px){
   .field input,.field textarea{font-size:16px;padding:8px 0}
+  .form-actions{align-items:stretch;flex-direction:column}
   .submit-btn{padding:14px 18px;font-size:16px;min-height:52px;width:100%;justify-content:center}
   .contact-note{font-size:14px}
   .brand__name{display:none}
   .brand__logo{width:40px;height:40px}
   .hero__title{font-size:28px}
-  .avatar__info{display:none}
+  .avatar__info{display:grid}
+  .small-stats{flex-direction:column}
+  .footer__inner{flex-direction:column;align-items:flex-start}
 }
 
 /* --------------------
@@ -480,10 +464,8 @@ body{
 .muted{color:var(--muted)}
 .hidden{display:none !important}
 
-/* End of file */
 /* =========================================================
-   EXPERIENCE LOGO — CLEAN PROFESSIONAL STYLE
-   No grayscale. No forced black & white.
+   Experience logo styles
 ========================================================= */
 
 .experience-card{

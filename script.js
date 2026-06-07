@@ -1,19 +1,4 @@
-// script.js — fully updated and copy-paste ready
-// Features:
-// - Theme toggle (persisted)
-// - Mobile menu / hamburger
-// - Reveal-on-scroll (stagger for nested reveals)
-// - Magnetic buttons
-// - Metric count-up
-// - Nebula parallax
-// - Accessible modal dialogs (focus trap + outside click + ESC close + animation)
-// - Starfield/constellation canvas (performance-minded, pause when hidden / small screens)
-// - Floating back-to-top button
-// - Contact form integration (Formspree) with loading / success states + toast + validation
-// - Contact grid drag-to-resize (pointer events) with responsive fallback
-// - Skills tooltip with animated bars
-// - Global Escape to close dialogs
-// Single IIFE, assumes script is loaded with `defer`.
+// Main portfolio interactions. Loaded with defer.
 
 (() => {
   'use strict';
@@ -38,7 +23,12 @@
     }
   }
   if (themeToggle) {
-    const reflect = () => (themeToggle.textContent = root.classList.contains('light') ? '☀' : '☾');
+    const reflect = () => {
+      const isLight = root.classList.contains('light');
+      themeToggle.textContent = isLight ? '☀' : '☾';
+      themeToggle.setAttribute('aria-pressed', String(isLight));
+      themeToggle.setAttribute('aria-label', isLight ? 'Switch to dark theme' : 'Switch to light theme');
+    };
     themeToggle.addEventListener('click', () => {
       const isLight = root.classList.toggle('light');
       localStorage.setItem('theme', isLight ? 'light' : 'dark');
@@ -46,27 +36,6 @@
     });
     reflect();
   }
-
-  /* -----------------------
-     Remove leftover inline transform on avatar-card (cleanup)
-     ----------------------- */
-  (function cleanupAvatarInlineStyle() {
-    const avatar = document.querySelector('.avatar-card');
-    if (!avatar) return;
-    // Remove transform property if present; keep other inline styles if any.
-    try {
-      if (avatar.style && avatar.style.transform) {
-        avatar.style.removeProperty('transform');
-      }
-      // If the element only had a style attribute with whitespace now, remove attribute.
-      if (avatar.getAttribute('style') && avatar.getAttribute('style').trim() === '') {
-        avatar.removeAttribute('style');
-      }
-    } catch (err) {
-      // non-fatal
-      console.warn('Avatar cleanup error', err);
-    }
-  })();
 
   /* -----------------------
      Year element
@@ -329,7 +298,7 @@
     }
 
     const modalIds = [
-      'modal-irctc','modal-mzi','modal-btech','modal-12th','modal-10th',
+      'modal-irctc','modal-mzi','modal-btech',
       'modal-geodata','modal-lwcs','modal-nielit','modal-quantum','modal-tcs','modal-aiml'
     ];
 
@@ -539,6 +508,8 @@
     function showToast(text, success = true) {
       const t = document.createElement('div');
       t.className = 'form-toast';
+      t.setAttribute('role', success ? 'status' : 'alert');
+      t.setAttribute('aria-live', success ? 'polite' : 'assertive');
       t.textContent = text;
       if (!success) t.style.background = 'linear-gradient(90deg,#ff6b6b,#ff5252)';
       document.body.appendChild(t);
@@ -577,7 +548,7 @@
         if (res.ok) {
           if (submitBtn) submitBtn.classList.add('success');
           if (submitText) submitText.textContent = 'Sent';
-          showToast('Message sent — thanks. I will reply within 48 hours.');
+          showToast('Message sent. Thanks, I will reply within 48 hours.');
           setTimeout(() => {
             if (submitBtn) submitBtn.classList.remove('success');
             if (submitText) submitText.textContent = 'Send message';
@@ -588,7 +559,7 @@
           let payload = null;
           try { payload = await res.json(); } catch (err) { payload = null; }
           const err = payload && payload.error ? payload.error : 'Something went wrong.';
-          showToast('Send failed — ' + err, false);
+          showToast('Send failed: ' + err, false);
           if (submitText) submitText.textContent = 'Send message';
         }
       } catch (err) {
@@ -674,84 +645,4 @@
     });
   })();
 
-  /* -----------------------
-     Skills tooltip + animated bars
-     ----------------------- */
-  (function skillsUI() {
-    const chips = $all('.chip[data-percent]');
-    if (!chips.length) return;
-    let tt = null;
-
-    function createTooltip() {
-      tt = document.createElement('div');
-      tt.className = 'skill-tooltip';
-      tt.style.position = 'fixed';
-      tt.style.zIndex = 2200;
-      tt.style.minWidth = '160px';
-      tt.style.pointerEvents = 'none';
-      tt.style.padding = '8px 10px';
-      tt.style.borderRadius = '10px';
-      tt.style.background = 'linear-gradient(180deg, rgba(6,12,30,0.9), rgba(10,18,36,0.95))';
-      tt.style.color = '#fff';
-      tt.style.boxShadow = '0 12px 48px rgba(6,12,30,0.6)';
-      tt.innerHTML = `<div class="label" style="font-weight:800;margin-bottom:8px;"></div><div class="bar" style="height:8px;border-radius:8px;background:rgba(255,255,255,0.06);overflow:hidden"><i style="display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--primary),var(--primary-2));transition:width .6s cubic-bezier(.2,.9,.3,1)"></i></div><div class="pct" style="font-weight:800;margin-top:6px;text-align:right;font-size:13px"></div>`;
-      document.body.appendChild(tt);
-      return tt;
-    }
-
-    function show(el) {
-      if (!tt) createTooltip();
-      const name = el.textContent.trim();
-      const pct = Math.max(0, Math.min(100, parseInt(el.dataset.percent || 0)));
-      tt.querySelector('.label').textContent = name;
-      tt.querySelector('.pct').textContent = pct + '%';
-      const inner = tt.querySelector('.bar > i');
-      inner.style.width = '0%';
-
-      const rect = el.getBoundingClientRect();
-      const left = Math.min(window.innerWidth - 180, Math.max(8, rect.left + rect.width / 2 - 80));
-      const top = Math.max(8, rect.top - 78);
-      tt.style.left = left + 'px';
-      tt.style.top = top + 'px';
-
-      requestAnimationFrame(() => { inner.style.width = pct + '%'; });
-      const scale = 1 + (pct / 1200);
-      el.style.transform = `scale(${scale})`;
-      el.style.boxShadow = '0 18px 46px rgba(78,163,255,.12)';
-    }
-
-    function hide(el) {
-      if (!tt) return;
-      try { tt.remove(); } catch (e) {}
-      tt = null;
-      el.style.transform = '';
-      el.style.boxShadow = '';
-    }
-
-    chips.forEach(ch => {
-      ch.addEventListener('mouseenter', () => show(ch));
-      ch.addEventListener('mouseleave', () => hide(ch));
-      ch.addEventListener('focus', () => show(ch));
-      ch.addEventListener('blur', () => hide(ch));
-      ch.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          if (!document.body.contains(tt)) show(ch); else hide(ch);
-        }
-      });
-    });
-  })();
-
-  /* -----------------------
-     Global Escape: close native dialogs gracefully
-     ----------------------- */
-  window.addEventListener('keydown', (e) => {
-    if (e.key !== 'Escape') return;
-    document.querySelectorAll('dialog[open]').forEach(d => {
-      try { d.classList.add('closing'); } catch (err) {}
-      try { d.close(); } catch (err) { d.removeAttribute('open'); }
-    });
-  });
-
-  // done
 })();

@@ -3,24 +3,25 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="Portfolio of Subradeep Das — AI/ML engineer specializing in HPC-AI, deep learning, and production ML." />
+  <meta name="description" content="Portfolio of Subradeep Das, an AI/ML engineer focused on applied machine learning, HPC-AI foundations, and deployment-minded systems." />
   <meta name="theme-color" content="#071127" />
   <meta name="color-scheme" content="dark light">
+  <meta property="og:title" content="Subradeep Das | AI/ML Engineer" />
+  <meta property="og:description" content="Applied ML, HPC-AI foundations, model evaluation, and production-minded project delivery." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/pp-optimized.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
-  <title>Subradeep Das —  AI/ML Engineer Portfolio</title>
+  <title>Subradeep Das | AI/ML Engineer Portfolio</title>
 
   <!-- Fonts: modern + distinctive -->
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
 
-  <!-- Icons hint (used by mask SVGs in CSS) -->
-  <link rel="preload" as="image" href="assets/pp.png">
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+  <link rel="preload" as="image" href="assets/pp-optimized.jpg">
 
-  <!-- Main stylesheet -->
   <link rel="stylesheet" href="styles.css">
-
-  <!-- Lottie (hero ready) -->
-  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js" defer></script>
 </head>
 <body class="page" data-theme="dark">
   <!-- Header -->
@@ -81,22 +82,17 @@
       </div>
 
       <div class="hero__content container reveal hero-enter">
-        <!--
-          Increased right column width to give the avatar card more room.And it is correct 
-          Inline grid-template-columns ensures immediate layout correction
-          before you update styles.css (styles.css will still control desktop layout later).
-        -->
-        <div class="hero__grid" style="grid-template-columns: 1fr minmax(340px, 520px); gap:28px; align-items:center;">
+        <div class="hero__grid">
           <!-- Left column: headline + CTAs -->
           <div class="hero__left">
 
             <h1 id="heroTitle" class="hero__title">
               <span class="name">Subradeep Das</span>
-              <span class="hero__subtitle">AI/ML Engineer • Project Coordinator</span>
+              <span class="hero__subtitle">AI/ML Engineer</span>
             </h1>
 
             <p class="hero__tagline">
-              Building reliable AI systems and leading structured execution from prototype to production. Bridging engineering with delivery.
+              Building applied ML systems with clean pipelines, model evaluation, and deployment-minded delivery. I bring HPC-AI foundations and project coordination into practical engineering work.
             </p>
 
             <div class="hero__ctas">
@@ -105,20 +101,17 @@
               <a href="#contact" class="btn btn--glass">Contact</a>
             </div>
 
-            <div class="metrics" aria-hidden="true">
-              <div class="metric reveal"><span data-count="2">0</span><small>Major Projects</small></div>
-              <div class="metric reveal"><span data-count="2025">0</span><small>Latest Cert Year</small></div>
-              <div class="metric metric--tooltip reveal" data-tooltip="English • Hindi • Bengali"><span data-count="3">0</span><small>Languages Spoken</small></div>
+            <div class="metrics">
+              <div class="metric reveal"><span data-count="2">0</span><small>Featured Builds</small></div>
+              <div class="metric reveal"><span data-count="4">0</span><small>Relevant Certifications</small></div>
+              <div class="metric reveal"><span data-count="3">0</span><small>Core Domains</small></div>
             </div>
           </div>
 
-          <!-- Right column: circular avatar, quick stats, micro-bio -->
-          <aside class="hero__aside" aria-hidden="false">
-            <!-- removed inline transform; spacing now handled by styles and the wider grid column above -->
-            <div class="avatar-card reveal hover-rise" role="img" aria-label="Photo of Subradeep Das">
-              <!-- animated circular avatar with halo -->
+          <aside class="hero__aside" aria-label="Profile summary">
+            <div class="avatar-card reveal hover-rise">
               <div class="avatar-ring">
-                <img src="assets/pp.png" alt="Subradeep Das" class="avatar" loading="lazy" width="260" height="260" />
+                <img src="assets/pp-optimized.jpg" alt="Subradeep Das" class="avatar" loading="eager" width="260" height="260" />
                 <svg class="avatar-orn" viewBox="0 0 120 120" aria-hidden="true">
                   <defs>
                     <linearGradient id="avatarGlow" x1="0" x2="1">
@@ -132,10 +125,10 @@
 
               <div class="avatar__info">
                 <div class="role">AI/ML Engineer</div>
-                <div class="location">Agartala, Tripura • India</div>
+                <div class="location">Agartala, Tripura, India</div>
                 <div class="small-stats">
-                  <div><strong>2</strong><span>Featured Projects</span></div>
-                  <div><strong>Cert</strong><span>ISRO · C-DAC · TCS</span></div>
+                  <div><strong>2</strong><span>Featured builds</span></div>
+                  <div><strong>ML</strong><span>TensorFlow, Flask, Docker</span></div>
                 </div>
 
                 <div class="avatar-quicklinks">
@@ -158,14 +151,6 @@
 
       </div>
 
-      <!-- Hero visual (Lottie-ready). Kept only the lottie-player so no fallback rectangle appears -->
-      <div class="hero__visual" aria-hidden="true">
-        <lottie-player id="heroLottie" src="" background="transparent" speed="1" loop autoplay style="width:100%;height:100%;"></lottie-player>
-
-        <!-- Removed the fallback rectangle SVG that previously created the blue box.
-             If you want a decorative fallback later, we'll add a subtle gradient or a lightweight SVG that matches the design. -->
-      </div>
-
       <div class="scroll-indicator" aria-hidden="true"></div>
     </section>
 
@@ -174,18 +159,18 @@
       <h2 class="section__title">What I Do</h2>
       <div class="grid cards">
         <article class="card reveal hover-rise">
-          <h3>End-to-end ML</h3>
-          <p>From data pipelines to models, evaluation, and production deployment.</p>
+          <h3>Applied ML Builds</h3>
+          <p>Data preparation, model training, evaluation, and user-facing workflows.</p>
         </article>
 
         <article class="card reveal hover-rise">
           <h3>HPC-AI Foundations</h3>
-          <p>Efficient training/inference and scalable systems thinking.</p>
+          <p>Performance-aware thinking for training, inference, and system design.</p>
         </article>
 
         <article class="card reveal hover-rise">
           <h3>Reliable Systems</h3>
-          <p>Telemetry, privacy-aware logging, monitoring, and retraining pipelines.</p>
+          <p>Privacy-aware telemetry, retraining paths, logging, and operational checks.</p>
         </article>
 
         <article class="card reveal hover-rise">
@@ -205,8 +190,13 @@
             <div class="tags">TensorFlow • Behavioral Biometrics • CAPTCHA • Random Forest • Flask • Docker • Nginx</div>
           </div>
           <p>
-            Hybrid human verification (image CAPTCHA + behavioral biometrics) with a TensorFlow DNN; train search UI with demand heatmaps, punctuality, and ticket confirmation probability; auto-retraining pipelines, privacy-preserving telemetry, and admin audit logs.
+            Built a production-style railway search and bot-detection prototype that combines CAPTCHA validation, behavioral biometrics, TensorFlow inference, and operational dashboards.
           </p>
+          <ul class="proof-list">
+            <li>Designed the human-verification flow with privacy-aware telemetry.</li>
+            <li>Added demand heatmaps, punctuality views, and confirmation probability signals.</li>
+            <li>Packaged the app with Flask, Docker, and Nginx deployment pieces.</li>
+          </ul>
           <div class="project__actions">
             <button class="btn btn--primary magnetic" data-modal="modal-irctc">Read Case Study</button>
             <a class="btn btn--glass" href="https://github.com/trek2terminal/IRCTC_Bot_Detection_And_Demand_Prediction.git" target="_blank" rel="noopener">View Code</a>
@@ -219,8 +209,13 @@
             <div class="tags">Photonics • 7th-order Chebyshev • Lumerical • KLayout • SOI • EBL • Monte Carlo</div>
           </div>
           <p>
-            Designed a 7th-order Mach–Zehnder interferometer filter; simulated in Lumerical, laid out in KLayout, and fabricated on SOI via E-beam lithography; performed Monte Carlo variability analysis with telecom/medical applications.
+            Designed and validated a 7th-order Mach-Zehnder interferometer filter for a photonics lab project, connecting simulation, layout, fabrication, and variability analysis.
           </p>
+          <ul class="proof-list">
+            <li>Simulated filter behavior in Lumerical and prepared layout in KLayout.</li>
+            <li>Worked with SOI fabrication constraints and E-beam lithography workflow.</li>
+            <li>Performed Monte Carlo analysis to reason about process variability.</li>
+          </ul>
           <div class="project__actions">
             <button class="btn btn--primary magnetic" data-modal="modal-mzi">Read Case Study</button>
             <a class="btn btn--glass" href="https://drive.google.com/file/d/196osbxHVGWdW8D5vdNvpmh3YtHFS9mqv/view?usp=drive_link" target="_blank" rel="noopener">See Results</a>
@@ -232,35 +227,58 @@
     <!-- Skills -->
     <section id="skills" class="section container">
       <h2 class="section__title">Skills</h2>
-      <div class="chips reveal" id="skillsWrap" aria-live="polite">
-        <span class="chip" data-percent="95">Python</span>
-        <span class="chip" data-percent="78">R</span>
-        <span class="chip" data-percent="60">Java</span>
-        <span class="chip" data-percent="86">SQL</span>
-        <span class="chip" data-percent="90">scikit-learn</span>
-        <span class="chip" data-percent="88">XGBoost</span>
-        <span class="chip" data-percent="85">TensorFlow</span>
-        <span class="chip" data-percent="82">PyTorch</span>
-        <span class="chip" data-percent="80">Keras</span>
-        <span class="chip" data-percent="85">CNN</span>
-        <span class="chip" data-percent="70">RNN</span>
-        <span class="chip" data-percent="68">LSTM</span>
-        <span class="chip" data-percent="84">Transfer Learning</span>
-        <span class="chip" data-percent="92">Pandas</span>
-        <span class="chip" data-percent="91">NumPy</span>
-        <span class="chip" data-percent="75">dplyr</span>
-        <span class="chip" data-percent="74">tidyr</span>
-        <span class="chip" data-percent="80">Statistical Analysis</span>
-        <span class="chip" data-percent="80">Matplotlib</span>
-        <span class="chip" data-percent="78">Seaborn</span>
-        <span class="chip" data-percent="72">ggplot2</span>
-        <span class="chip" data-percent="76">Plotly</span>
-        <span class="chip" data-percent="95">Jupyter</span>
-        <span class="chip" data-percent="90">Colab</span>
-        <span class="chip" data-percent="75">Kaggle</span>
-        <span class="chip" data-percent="88">VS Code</span>
-        <span class="chip" data-percent="85">Linux</span>
-        <span class="chip" data-percent="82">Bash</span>
+      <div class="skill-groups reveal" id="skillsWrap">
+        <article class="skill-group">
+          <h3>Languages</h3>
+          <div class="chips">
+            <span class="chip">Python</span>
+            <span class="chip">SQL</span>
+            <span class="chip">R</span>
+            <span class="chip">Java</span>
+            <span class="chip">Bash</span>
+          </div>
+        </article>
+
+        <article class="skill-group">
+          <h3>Machine Learning</h3>
+          <div class="chips">
+            <span class="chip">TensorFlow</span>
+            <span class="chip">PyTorch</span>
+            <span class="chip">Keras</span>
+            <span class="chip">scikit-learn</span>
+            <span class="chip">XGBoost</span>
+            <span class="chip">CNN</span>
+            <span class="chip">RNN/LSTM</span>
+            <span class="chip">Transfer Learning</span>
+          </div>
+        </article>
+
+        <article class="skill-group">
+          <h3>Data & Visualization</h3>
+          <div class="chips">
+            <span class="chip">Pandas</span>
+            <span class="chip">NumPy</span>
+            <span class="chip">Statistical Analysis</span>
+            <span class="chip">Matplotlib</span>
+            <span class="chip">Seaborn</span>
+            <span class="chip">Plotly</span>
+            <span class="chip">ggplot2</span>
+          </div>
+        </article>
+
+        <article class="skill-group">
+          <h3>Tools</h3>
+          <div class="chips">
+            <span class="chip">Docker</span>
+            <span class="chip">Nginx</span>
+            <span class="chip">Flask</span>
+            <span class="chip">Linux</span>
+            <span class="chip">VS Code</span>
+            <span class="chip">Jupyter</span>
+            <span class="chip">Colab</span>
+            <span class="chip">Kaggle</span>
+          </div>
+        </article>
       </div>
     </section>
 
@@ -280,7 +298,7 @@
             <h3>North-Eastern Hill University — B.Tech, ECE</h3>
             <p>2020–2024 • CGPA: 7.37</p>
             <div class="inline-actions">
-              <button class="pill-btn magnetic" data-modal="modal-btech" aria-label="View B.Tech Provisional Certificate">View B.Tech Provisional Certificate</button>
+              <button class="pill-btn magnetic" data-modal="modal-btech" aria-label="View B.Tech provisional certificate">View Degree Certificate</button>
             </div>
           </div>
         </div>
@@ -289,9 +307,6 @@
           <div class="timeline__content">
             <h3>Swami Dhananjoy Das Kathia Baba Mission School, Agartala</h3>
             <p>2018–2020 • Intermediate — Central Board Of Secondary Education — 69.8%</p>
-            <div class="inline-actions">
-              <button class="pill-btn magnetic" data-modal="modal-12th" aria-label="View 12th Marksheet">View Marksheet</button>
-            </div>
           </div>
         </div>
 
@@ -299,18 +314,15 @@
           <div class="timeline__content">
             <h3>Henry Derozio Academy H.S School, Agartala</h3>
             <p>2017–2018 • Matriculation — Tripura Board Of Secondary Education — 75%</p>
-            <div class="inline-actions">
-              <button class="pill-btn magnetic" data-modal="modal-10th" aria-label="View 10th Marksheet">View Marksheet</button>
-            </div>
           </div>
         </div>
 
       </div>
     </section>
 
-    <!-- Certifications & Labs -->
+    <!-- Certifications -->
     <section id="certifications" class="section container">
-      <h2 class="section__title">Certifications & Labs</h2>
+      <h2 class="section__title">Selected Certifications</h2>
 
       <div class="timeline certs-timeline">
         <div class="timeline__item reveal hover-lift">
@@ -318,7 +330,7 @@
             <h3>Geodata Processing with Python & ML</h3>
             <p class="muted">IIRS, ISRO — Credential ID: 2025234601756</p>
           </div>
-          <button class="pill-btn magnetic" data-modal="modal-geodata" aria-label="View certificate">View</button>
+          <button class="pill-btn magnetic" data-modal="modal-geodata" aria-label="View Geodata Processing certificate">View Certificate</button>
         </div>
 
         <div class="timeline__item reveal hover-lift">
@@ -326,7 +338,7 @@
             <h3>Quantum Computing</h3>
             <p class="muted">C-DAC Hyderabad — ID: CDACH/QML/2034</p>
           </div>
-          <button class="pill-btn magnetic" data-modal="modal-quantum" aria-label="View certificate">View</button>
+          <button class="pill-btn magnetic" data-modal="modal-quantum" aria-label="View Quantum Computing certificate">View Certificate</button>
         </div>
 
         <div class="timeline__item reveal hover-lift">
@@ -334,7 +346,7 @@
             <h3>TCS iON Career Edge – Young Professional</h3>
             <p class="muted">ID: 119854-27331871-1016</p>
           </div>
-          <button class="pill-btn magnetic" data-modal="modal-tcs" aria-label="View certificate">View</button>
+          <button class="pill-btn magnetic" data-modal="modal-tcs" aria-label="View TCS iON certificate">View Certificate</button>
         </div>
 
         <div class="timeline__item reveal hover-lift">
@@ -342,7 +354,7 @@
             <h3>AI/ML for Crop Acreage Mapping</h3>
             <p class="muted">IIRS, ISRO — Credential ID: 2025234601756</p>
           </div>
-          <button class="pill-btn magnetic" data-modal="modal-aiml" aria-label="View certificate">View</button>
+          <button class="pill-btn magnetic" data-modal="modal-aiml" aria-label="View AI/ML crop acreage mapping certificate">View Certificate</button>
         </div>
       </div>
     </section>
@@ -357,18 +369,17 @@
                class="exp-logo">
           <div class="exp-text">
             <h3>Project Coordinator - Codebucket Solutions Pvt Ltd.</h3>
-            <p Class="exp-location">
+            <p class="exp-location">
               Nov 2025 - Present • Agartala, Tripura
             </p>
           </div>
         </div>
 
-        <p>
-          Coordinating cross-functional development teams,
-          managing project timelines, tracking deliverables,
-          handling client communication, and ensuring
-          structured execution of software and AI-driven projects.
-        </p>
+        <ul class="impact-list">
+          <li>Coordinate software and AI-driven project work across planning, delivery tracking, and client communication.</li>
+          <li>Maintain structured timelines, deliverable checklists, and follow-ups so teams can move from scope to execution.</li>
+          <li>Use the role to strengthen practical delivery habits around documentation, handoff, and stakeholder updates.</li>
+        </ul>
       </article>
       <article class="card reveal hover-rise experience-card">
         <div class="exp-header">
@@ -382,9 +393,10 @@
             </p>
           </div>
         </div>
-        <p>
-          Worked on applied ML/data tasks and systems integration,alongside structured training modules.
-        </p>
+        <ul class="impact-list">
+          <li>Worked on applied ML/data tasks, systems integration, and structured technical training modules.</li>
+          <li>Practiced turning requirements into reproducible workflows, documentation, and reviewable outputs.</li>
+        </ul>
         <div class="inline-actions">
           <button class="pill-btn magnetic" data-modal="modal-nielit" aria-label="View NIELIT Offer Letter">View Offer Letter</button>
         </div>
@@ -403,9 +415,10 @@
           </div>
         </div>
 
-        <p>
-          Organized photonics workshops; completed a lab project under Prof. Subhash Arya.
-        </p>
+        <ul class="impact-list">
+          <li>Supported photonics workshop activity and lab coordination inside the Lightwave Communication Laboratory.</li>
+          <li>Completed the higher-order Chebyshev MZI filter project under Prof. Subhash Arya.</li>
+        </ul>
         <div class="inline-actions">
           <button class="pill-btn magnetic" data-modal="modal-lwcs" aria-label="View LWCS certificate">View LWCS Certificate</button>
         </div>
@@ -416,7 +429,7 @@
     <section id="about" class="section container">
       <h2 class="section__title">About</h2>
       <p class="reveal">
-        AI/ML engineer blending applied machine learning, HPC-AI, and robust deployment. Interested in reliability, observability, and privacy-aware design. Indian nationality; based around Agartala, Tripura with links to Shillong and Guwahati. Languages: English, Hindi, Bengali.
+        I am an AI/ML engineer with a background in electronics and communication engineering, HPC-AI training, and applied project delivery. I like work that connects models with real product behavior: useful interfaces, clear evaluation, privacy-aware telemetry, and systems that can be explained after they are built.
       </p>
       <div class="hobbies reveal">
         <span class="chip">Learning languages</span>
@@ -436,7 +449,7 @@
 
           <div class="contact-form__inner">
             <h3 class="contact-form__title">Send a message</h3>
-            <p class="contact-form__subtitle muted">Quick questions, project inquiries, or collaboration ideas — I reply within 48 hours.</p>
+            <p class="contact-form__subtitle muted">AI/ML roles, internships, project inquiries, or collaboration ideas — I reply within 48 hours.</p>
 
             <div class="field">
               <input id="cf-name" name="name" type="text" required autocomplete="name" />
@@ -459,7 +472,7 @@
                 <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round"/></svg>
                 <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
               </button>
-              <small class="muted contact-note">Prefer phone? <a href="tel:+918259982540" class="link-underline">+91-8259982540</a></small>
+              <small class="muted contact-note">Prefer email? <a href="mailto:subradeepdas24@gmail.com" class="link-underline">subradeepdas24@gmail.com</a></small>
             </div>
           </div>
         </form>
@@ -476,10 +489,6 @@
                 <strong>Email:</strong> <a class="link-underline" href="mailto:subradeepdas24@gmail.com">subradeepdas24@gmail.com</a>
               </li>
               <li class="contact-item">
-                <span class="icon phone" aria-hidden="true"></span>
-                <strong>Phone:</strong> <a class="link-underline" href="tel:+918259982540">+91-8259982540</a>
-              </li>
-              <li class="contact-item">
                 <span class="icon location" aria-hidden="true"></span>
                 <strong>Location:</strong> Agartala, Tripura, India
               </li>
@@ -493,9 +502,6 @@
                   <a class="social chip chip--brand github" href="https://github.com/trek2terminal" target="_blank" rel="noopener">
                     <span class="icon github" aria-hidden="true"></span><span class="social-label">GitHub</span>
                   </a>
-                  <a class="social chip chip--brand instagram" href="https://www.instagram.com/subradeepdas02" target="_blank" rel="noopener">
-                    <span class="icon instagram" aria-hidden="true"></span><span class="social-label">Instagram</span>
-                  </a>
                 </div>
               </li>
               <li class="contact-item resume-row">
@@ -503,12 +509,12 @@
               </li>
             </ul>
 
-            <div class="contact-status" aria-hidden="false">
+            <div class="contact-status">
               <div class="status-left">
                 <div class="status-dot online" aria-hidden="true"></div>
                 <div class="status-text">
                   <div class="status-title">Open to</div>
-                  <div class="status-sub">Internships · Freelance · Full-time</div>
+                  <div class="status-sub">AI/ML roles · Internships · Freelance</div>
                 </div>
               </div>
               <div class="status-right">
@@ -532,42 +538,32 @@
     </div>
   </footer>
 
-  <!-- Modals (kept all IDs same so JS continues to work) -->
+  <!-- Project and credential modals -->
   <dialog id="modal-irctc" class="modal">
-    <button class="modal__close" data-close>&times;</button>
+    <button class="modal__close" data-close aria-label="Close case study">&times;</button>
     <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
     <p><strong>Role:</strong> ML Engineer, Full-stack</p>
     <p><strong>Stack:</strong> TensorFlow, scikit-learn, Random Forest, Flask, Docker, Nginx</p>
-    <p><strong>Overview:</strong> Hybrid human-verification (image CAPTCHA + behavioral biometrics) with a TensorFlow DNN. Train search UI offers demand heatmaps, punctuality, and ticket confirmation probability. Included auto-retraining pipelines, privacy-preserving telemetry, and admin audit logs.</p>
+    <p><strong>Problem:</strong> Railway search flows need a human-verification layer that does not rely only on a static CAPTCHA.</p>
+    <p><strong>Build:</strong> Combined image CAPTCHA checks with behavioral biometrics, TensorFlow inference, demand heatmaps, punctuality views, and confirmation-probability signals.</p>
+    <p><strong>Engineering focus:</strong> Flask API flow, Docker/Nginx packaging, privacy-aware telemetry, admin audit logs, and retraining hooks for model improvement.</p>
   </dialog>
 
   <dialog id="modal-mzi" class="modal">
-    <button class="modal__close" data-close>&times;</button>
+    <button class="modal__close" data-close aria-label="Close case study">&times;</button>
     <h3>Higher-Order Chebyshev Filter (MZI)</h3>
     <p><strong>Role:</strong> Designer, Simulation & Fabrication</p>
     <p><strong>Stack:</strong> Lumerical, KLayout, SOI, EBL</p>
-    <p><strong>Overview:</strong> 7th-order MZI filter design and simulation; fabricated on SOI via E-beam lithography; Monte Carlo analysis for variability.</p>
+    <p><strong>Problem:</strong> Design a higher-order optical filter and reason about fabrication variability in a lab workflow.</p>
+    <p><strong>Build:</strong> Created the 7th-order Mach-Zehnder interferometer design, simulated the response in Lumerical, and prepared layout in KLayout.</p>
+    <p><strong>Engineering focus:</strong> SOI constraints, E-beam lithography workflow, Monte Carlo variability analysis, and documentation of results for review.</p>
   </dialog>
 
-  <!-- Certificate modals kept intact (IDs unchanged) -->
+  <!-- Credential modals -->
   <dialog id="modal-btech" class="modal modal--media">
     <button class="modal__close" data-close aria-label="Close">&times;</button>
     <div class="modal__media">
       <embed src="assets/Btech_Provisional_Certificate.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-12th" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/12th_marksheet.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-10th" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/10th_marksheet.pdf" type="application/pdf" class="pdf-embed" />
     </div>
   </dialog>
 
