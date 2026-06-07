@@ -5,526 +5,488 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="description" content="Portfolio of Subradeep Das, an AI/ML engineer focused on applied machine learning, HPC-AI foundations, and deployment-minded systems." />
   <meta name="theme-color" content="#071127" />
-  <meta name="color-scheme" content="dark light">
+  <meta name="color-scheme" content="dark light" />
   <meta property="og:title" content="Subradeep Das | AI/ML Engineer" />
   <meta property="og:description" content="Applied ML, HPC-AI foundations, model evaluation, and production-minded project delivery." />
   <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://trek2terminal.github.io/" />
   <meta property="og:image" content="assets/pp-optimized.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <link rel="canonical" href="https://trek2terminal.github.io/" />
 
   <title>Subradeep Das | AI/ML Engineer Portfolio</title>
 
-  <!-- Fonts: modern + distinctive -->
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&family=Poppins:wght@600;700&family=Space+Grotesk:wght@400;600&display=swap" rel="stylesheet">
+  <script>
+    (() => {
+      const saved = localStorage.getItem('theme');
+      const prefersLight = window.matchMedia?.('(prefers-color-scheme: light)').matches;
+      document.documentElement.dataset.theme = saved || (prefersLight ? 'light' : 'dark');
+    })();
+  </script>
 
-  <link rel="icon" type="image/png" href="assets/favicon.png">
-  <link rel="preload" as="image" href="assets/pp-optimized.jpg">
-
-  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <link rel="preload" as="image" href="assets/pp-optimized.jpg" />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://unpkg.com/lucide@latest" defer></script>
+  <script src="main.js" defer></script>
 </head>
-<body class="page" data-theme="dark">
-  <!-- Header -->
-  <header class="nav" role="banner">
-    <div class="nav__inner container">
-      <a class="brand" href="#home" aria-label="Home">
-        <span class="brand__logo" aria-hidden="true">SD</span>
-        <span class="brand__name">Subradeep</span>
+
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <div id="scrollProgress" class="scroll-progress" aria-hidden="true"></div>
+
+  <div id="pageLoader" class="loader" aria-label="Loading portfolio">
+    <div class="loader__mark" aria-hidden="true">SD</div>
+    <div class="loader__line"></div>
+  </div>
+
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+
+  <header id="siteHeader" class="site-header">
+    <nav class="nav-shell" aria-label="Primary navigation">
+      <a class="brand" href="#home" aria-label="Subradeep Das home">
+        <span class="brand__mark">SD</span>
+        <span class="brand__text">Subradeep</span>
       </a>
 
-      <nav class="nav__links" role="navigation" aria-label="Primary">
-        <a href="#projects">Projects</a>
-        <a href="#skills">Skills</a>
-        <a href="#education">Education</a>
-        <a href="#certifications">Certifications</a>
-        <a href="#experience">Experience</a>
-        <a href="#about">About</a>
-        <a href="#contact" class="btn btn--primary magnetic">Contact</a>
-      </nav>
+      <div class="nav-links" id="desktopNav">
+        <a href="#projects" data-nav-link>Projects</a>
+        <a href="#skills" data-nav-link>Skills</a>
+        <a href="#education" data-nav-link>Education</a>
+        <a href="#certifications" data-nav-link>Certifications</a>
+        <a href="#experience" data-nav-link>Experience</a>
+        <a href="#about" data-nav-link>About</a>
+        <a href="#contact" data-nav-link>Contact</a>
+      </div>
 
-      <div class="nav__actions">
-        <button id="themeToggle" class="toggle" aria-pressed="false" aria-label="Toggle theme">☾</button>
-
-        <!-- Mobile hamburger -->
-        <button id="hamburger" class="hamburger" aria-expanded="false" aria-label="Open menu" aria-controls="mobileMenu">
-          <svg width="20" height="16" viewBox="0 0 20 16" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-            <path d="M0 2H20M0 8H20M0 14H20" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
+      <div class="nav-actions">
+        <button id="themeToggle" class="icon-button" type="button" aria-label="Toggle color theme" aria-pressed="false">
+          <i data-lucide="moon" aria-hidden="true"></i>
+        </button>
+        <button id="menuToggle" class="icon-button menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu">
+          <span class="menu-toggle__open">☰</span>
+          <span class="menu-toggle__close">✕</span>
         </button>
       </div>
-    </div>
+    </nav>
 
-    <!-- Mobile menu (cloned links for small screens) -->
-    <div id="mobileMenu" class="mobile-menu" hidden>
-      <div class="mobile-menu__inner container">
-        <a href="#projects" class="mobile-link">Projects</a>
-        <a href="#skills" class="mobile-link">Skills</a>
-        <a href="#education" class="mobile-link">Education</a>
-        <a href="#certifications" class="mobile-link">Certifications</a>
-        <a href="#experience" class="mobile-link">Experience</a>
-        <a href="#about" class="mobile-link">About</a>
-        <a href="#contact" class="btn btn--primary block magnetic">Contact</a>
-      </div>
+    <div id="mobileMenu" class="mobile-menu">
+      <a href="#projects" data-mobile-link>Projects</a>
+      <a href="#skills" data-mobile-link>Skills</a>
+      <a href="#education" data-mobile-link>Education</a>
+      <a href="#certifications" data-mobile-link>Certifications</a>
+      <a href="#experience" data-mobile-link>Experience</a>
+      <a href="#about" data-mobile-link>About</a>
+      <a href="#contact" data-mobile-link>Contact</a>
     </div>
   </header>
 
-  <main id="home" role="main">
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="heroTitle">
-      <!-- animated starfield canvas (keeps your constellation) -->
-      <canvas id="constellation" class="hero__stars" aria-hidden="true"></canvas>
-
-      <!-- decorative nebula layers -->
-      <div class="hero__bg neon-nebula" aria-hidden="true">
-        <div class="nebula layer l1"></div>
-        <div class="nebula layer l2"></div>
-        <div class="nebula layer l3"></div>
+  <main id="main">
+    <section id="home" class="hero section-anchor">
+      <div class="hero-bg" aria-hidden="true">
+        <span></span><span></span><span></span>
       </div>
 
-      <div class="hero__content container reveal hero-enter">
-        <div class="hero__grid">
-          <!-- Left column: headline + CTAs -->
-          <div class="hero__left">
-
-            <h1 id="heroTitle" class="hero__title">
-              <span class="name">Subradeep Das</span>
-              <span class="hero__subtitle">AI/ML Engineer</span>
-            </h1>
-
-            <p class="hero__tagline">
-              Building applied ML systems with clean pipelines, model evaluation, and deployment-minded delivery. I bring HPC-AI foundations and project coordination into practical engineering work.
-            </p>
-
-            <div class="hero__ctas">
-              <a href="#projects" class="btn btn--primary magnetic trail">View Projects</a>
-              <a href="assets/resume.pdf" class="btn btn--glass resume-cta" target="_blank" rel="noopener">Download Resume</a>
-              <a href="#contact" class="btn btn--glass">Contact</a>
-            </div>
-
-            <div class="metrics">
-              <div class="metric reveal"><span data-count="2">0</span><small>Featured Builds</small></div>
-              <div class="metric reveal"><span data-count="4">0</span><small>Relevant Certifications</small></div>
-              <div class="metric reveal"><span data-count="3">0</span><small>Core Domains</small></div>
-            </div>
+      <div class="container hero__grid">
+        <div class="hero__visual reveal reveal-right">
+          <div class="photo-orbit">
+            <picture>
+              <img src="assets/pp-optimized.jpg" alt="Portrait of Subradeep Das" width="420" height="565" loading="lazy" class="profile-photo" />
+            </picture>
+            <span class="orbit-chip chip-a">TensorFlow</span>
+            <span class="orbit-chip chip-b">Docker</span>
+            <span class="orbit-chip chip-c">Flask</span>
+            <span class="orbit-chip chip-d">PyTorch</span>
           </div>
-
-          <aside class="hero__aside" aria-label="Profile summary">
-            <div class="avatar-card reveal hover-rise">
-              <div class="avatar-ring">
-                <img src="assets/pp-optimized.jpg" alt="Subradeep Das" class="avatar" loading="eager" width="260" height="260" />
-                <svg class="avatar-orn" viewBox="0 0 120 120" aria-hidden="true">
-                  <defs>
-                    <linearGradient id="avatarGlow" x1="0" x2="1">
-                      <stop offset="0" stop-color="#4ea3ff"/>
-                      <stop offset="1" stop-color="#6f7dff"/>
-                    </linearGradient>
-                  </defs>
-                  <circle cx="60" cy="60" r="54" stroke="url(#avatarGlow)" stroke-width="2" fill="none" stroke-linecap="round" />
-                </svg>
-              </div>
-
-              <div class="avatar__info">
-                <div class="role">AI/ML Engineer</div>
-                <div class="location">Agartala, Tripura, India</div>
-                <div class="small-stats">
-                  <div><strong>2</strong><span>Featured builds</span></div>
-                  <div><strong>ML</strong><span>TensorFlow, Flask, Docker</span></div>
-                </div>
-
-                <div class="avatar-quicklinks">
-                  <a class="btn btn--glass" href="assets/resume.pdf" target="_blank" rel="noopener">Resume</a>
-                  <a class="social chip chip--brand github" href="https://github.com/trek2terminal" target="_blank" rel="noopener">
-                    <span class="icon github" aria-hidden="true"></span>GitHub
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <!-- subtle animated waveform / status -->
-            <div class="hero__pulse reveal" aria-hidden="true">
-              <svg viewBox="0 0 200 36" preserveAspectRatio="none" class="wave-svg" aria-hidden="true">
-                <path d="M0,18 C30,6 60,30 90,18 C120,6 150,30 180,18 C190,14 200,12 200,12" fill="none" stroke="url(#avatarGlow)" stroke-width="1.6" stroke-linecap="round" />
-              </svg>
-            </div>
-          </aside>
         </div>
 
-      </div>
-
-      <div class="scroll-indicator" aria-hidden="true"></div>
-    </section>
-
-    <!-- Highlights -->
-    <section id="highlights" class="section container">
-      <h2 class="section__title">What I Do</h2>
-      <div class="grid cards">
-        <article class="card reveal hover-rise">
-          <h3>Applied ML Builds</h3>
-          <p>Data preparation, model training, evaluation, and user-facing workflows.</p>
-        </article>
-
-        <article class="card reveal hover-rise">
-          <h3>HPC-AI Foundations</h3>
-          <p>Performance-aware thinking for training, inference, and system design.</p>
-        </article>
-
-        <article class="card reveal hover-rise">
-          <h3>Reliable Systems</h3>
-          <p>Privacy-aware telemetry, retraining paths, logging, and operational checks.</p>
-        </article>
-
-        <article class="card reveal hover-rise">
-          <h3>Analytical Storytelling</h3>
-          <p>Clear visualizations and narratives that drive decisions.</p>
-        </article>
-      </div>
-    </section>
-
-    <!-- Projects -->
-    <section id="projects" class="section container">
-      <h2 class="section__title">Featured Projects</h2>
-      <div class="grid projects">
-        <article class="project card reveal hover-rise">
-          <div class="project__header">
-            <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
-            <div class="tags">TensorFlow • Behavioral Biometrics • CAPTCHA • Random Forest • Flask • Docker • Nginx</div>
-          </div>
-          <p>
-            Built a production-style railway search and bot-detection prototype that combines CAPTCHA validation, behavioral biometrics, TensorFlow inference, and operational dashboards.
+        <div class="hero__copy reveal reveal-left">
+          <p class="availability"><span></span>Available for Opportunities</p>
+          <h1>Subradeep Das</h1>
+          <p class="type-line"><span id="heroTypewriter">AI/ML Engineer</span><span class="type-cursor">|</span></p>
+          <p class="hero__tagline">
+            Building applied ML systems with clean pipelines, model evaluation, and deployment-minded delivery.
           </p>
-          <ul class="proof-list">
-            <li>Designed the human-verification flow with privacy-aware telemetry.</li>
-            <li>Added demand heatmaps, punctuality views, and confirmation probability signals.</li>
-            <li>Packaged the app with Flask, Docker, and Nginx deployment pieces.</li>
-          </ul>
-          <div class="project__actions">
-            <button class="btn btn--primary magnetic" data-modal="modal-irctc">Read Case Study</button>
-            <a class="btn btn--glass" href="https://github.com/trek2terminal/IRCTC_Bot_Detection_And_Demand_Prediction.git" target="_blank" rel="noopener">View Code</a>
-          </div>
-        </article>
 
-        <article class="project card reveal hover-rise">
-          <div class="project__header">
-            <h3>Higher-Order Chebyshev Filter (MZI)</h3>
-            <div class="tags">Photonics • 7th-order Chebyshev • Lumerical • KLayout • SOI • EBL • Monte Carlo</div>
+          <div class="hero-actions">
+            <a class="button button--primary" href="#projects">View Projects</a>
+            <a class="button button--outline" href="assets/resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+            <a class="button button--ghost" href="#contact">Contact Me</a>
           </div>
-          <p>
-            Designed and validated a 7th-order Mach-Zehnder interferometer filter for a photonics lab project, connecting simulation, layout, fabrication, and variability analysis.
-          </p>
-          <ul class="proof-list">
-            <li>Simulated filter behavior in Lumerical and prepared layout in KLayout.</li>
-            <li>Worked with SOI fabrication constraints and E-beam lithography workflow.</li>
-            <li>Performed Monte Carlo analysis to reason about process variability.</li>
-          </ul>
-          <div class="project__actions">
-            <button class="btn btn--primary magnetic" data-modal="modal-mzi">Read Case Study</button>
-            <a class="btn btn--glass" href="https://drive.google.com/file/d/196osbxHVGWdW8D5vdNvpmh3YtHFS9mqv/view?usp=drive_link" target="_blank" rel="noopener">See Results</a>
-          </div>
-        </article>
-      </div>
-    </section>
 
-    <!-- Skills -->
-    <section id="skills" class="section container">
-      <h2 class="section__title">Skills</h2>
-      <div class="skill-groups reveal" id="skillsWrap">
-        <article class="skill-group">
-          <h3>Languages</h3>
-          <div class="chips">
-            <span class="chip">Python</span>
-            <span class="chip">SQL</span>
-            <span class="chip">R</span>
-            <span class="chip">Java</span>
-            <span class="chip">Bash</span>
-          </div>
-        </article>
-
-        <article class="skill-group">
-          <h3>Machine Learning</h3>
-          <div class="chips">
-            <span class="chip">TensorFlow</span>
-            <span class="chip">PyTorch</span>
-            <span class="chip">Keras</span>
-            <span class="chip">scikit-learn</span>
-            <span class="chip">XGBoost</span>
-            <span class="chip">CNN</span>
-            <span class="chip">RNN/LSTM</span>
-            <span class="chip">Transfer Learning</span>
-          </div>
-        </article>
-
-        <article class="skill-group">
-          <h3>Data & Visualization</h3>
-          <div class="chips">
-            <span class="chip">Pandas</span>
-            <span class="chip">NumPy</span>
-            <span class="chip">Statistical Analysis</span>
-            <span class="chip">Matplotlib</span>
-            <span class="chip">Seaborn</span>
-            <span class="chip">Plotly</span>
-            <span class="chip">ggplot2</span>
-          </div>
-        </article>
-
-        <article class="skill-group">
-          <h3>Tools</h3>
-          <div class="chips">
-            <span class="chip">Docker</span>
-            <span class="chip">Nginx</span>
-            <span class="chip">Flask</span>
-            <span class="chip">Linux</span>
-            <span class="chip">VS Code</span>
-            <span class="chip">Jupyter</span>
-            <span class="chip">Colab</span>
-            <span class="chip">Kaggle</span>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- Education -->
-    <section id="education" class="section container">
-      <h2 class="section__title">Education</h2>
-      <div class="timeline">
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
-            <h3>C-DAC Guwahati — Advanced Certification in HPC-AI</h3>
-            <p>Mar 2025–Aug 2025 • Score: 67.08%</p>
+          <div id="heroStats" class="stats" aria-label="Portfolio highlights">
+            <article class="stat-card">
+              <strong data-counter="2">0</strong>
+              <span>Featured Builds</span>
+            </article>
+            <article class="stat-card">
+              <strong data-counter="4">0</strong>
+              <span>Certifications</span>
+            </article>
+            <article class="stat-card">
+              <strong data-counter="3">0</strong>
+              <span>Core Domains</span>
+            </article>
           </div>
         </div>
+      </div>
+    </section>
 
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
-            <h3>North-Eastern Hill University — B.Tech, ECE</h3>
-            <p>2020–2024 • CGPA: 7.37</p>
-            <div class="inline-actions">
-              <button class="pill-btn magnetic" data-modal="modal-btech" aria-label="View B.Tech provisional certificate">View Degree Certificate</button>
+    <section id="build" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Capabilities</p>
+          <h2>What I Build</h2>
+        </div>
+
+        <div class="build-grid">
+          <article class="glass-card build-card reveal" style="transition-delay: 0s">
+            <i data-lucide="bot" aria-hidden="true"></i>
+            <h3>Applied ML Builds</h3>
+            <p>Data preparation, model training, evaluation, and user-facing workflows.</p>
+          </article>
+          <article class="glass-card build-card reveal" style="transition-delay: .08s">
+            <i data-lucide="zap" aria-hidden="true"></i>
+            <h3>HPC-AI Foundations</h3>
+            <p>Performance-aware thinking for training, inference, and system design.</p>
+          </article>
+          <article class="glass-card build-card reveal" style="transition-delay: .16s">
+            <i data-lucide="shield-check" aria-hidden="true"></i>
+            <h3>Reliable Systems</h3>
+            <p>Privacy-aware telemetry, retraining paths, logging, and operational checks.</p>
+          </article>
+          <article class="glass-card build-card reveal" style="transition-delay: .24s">
+            <i data-lucide="bar-chart-3" aria-hidden="true"></i>
+            <h3>Analytical Storytelling</h3>
+            <p>Clear visualizations and narratives that drive decisions.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Selected Work</p>
+          <h2>Featured Projects</h2>
+        </div>
+
+        <div class="project-grid">
+          <article class="project-card reveal reveal-left">
+            <div class="project-banner project-banner--blue">
+              <i data-lucide="train-front" aria-hidden="true"></i>
+              <span>Bot Detection</span>
+            </div>
+            <div class="project-body">
+              <div class="tag-row">
+                <span>TensorFlow</span><span>scikit-learn</span><span>Random Forest</span><span>Flask</span><span>Docker</span><span>Nginx</span>
+              </div>
+              <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
+              <p>Built a production-style railway search and bot-detection prototype that combines CAPTCHA validation, behavioral biometrics, TensorFlow inference, and operational dashboards.</p>
+              <ul>
+                <li>Designed the human-verification flow with privacy-aware telemetry.</li>
+                <li>Added demand heatmaps, punctuality views, and confirmation probability signals.</li>
+                <li>Packaged the app with Flask, Docker, and Nginx deployment pieces.</li>
+              </ul>
+              <div class="card-actions">
+                <button class="button button--primary" type="button" data-open-modal="modal-irctc">Read Case Study</button>
+                <a class="button button--outline" href="https://github.com/trek2terminal/IRCTC_Bot_Detection_And_Demand_Prediction.git" target="_blank" rel="noopener noreferrer">View Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="project-card reveal reveal-right">
+            <div class="project-banner project-banner--teal">
+              <i data-lucide="waves" aria-hidden="true"></i>
+              <span>Photonics</span>
+            </div>
+            <div class="project-body">
+              <div class="tag-row">
+                <span>Lumerical</span><span>KLayout</span><span>SOI</span><span>EBL</span><span>Monte Carlo</span>
+              </div>
+              <h3>Higher-Order Chebyshev Filter (MZI)</h3>
+              <p>Designed and validated a 7th-order Mach-Zehnder interferometer filter for a photonics lab project, connecting simulation, layout, fabrication, and variability analysis.</p>
+              <ul>
+                <li>Simulated filter behavior in Lumerical and prepared layout in KLayout.</li>
+                <li>Worked with SOI fabrication constraints and E-beam lithography workflow.</li>
+                <li>Performed Monte Carlo analysis to reason about process variability.</li>
+              </ul>
+              <div class="card-actions">
+                <button class="button button--primary" type="button" data-open-modal="modal-mzi">Read Case Study</button>
+                <a class="button button--outline" href="https://drive.google.com/file/d/196osbxHVGWdW8D5vdNvpmh3YtHFS9mqv/view?usp=drive_link" target="_blank" rel="noopener noreferrer">See Results</a>
+              </div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="skills" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Toolbox</p>
+          <h2>Skills</h2>
+        </div>
+
+        <div class="skills-shell reveal">
+          <div class="tabs" role="tablist" aria-label="Skill categories">
+            <button class="tab active" type="button" role="tab" aria-selected="true" data-skill-tab="languages">Languages</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-skill-tab="ml">ML</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-skill-tab="data">Data & Viz</button>
+            <button class="tab" type="button" role="tab" aria-selected="false" data-skill-tab="tools">Tools</button>
+          </div>
+
+          <div class="skill-panels">
+            <div class="skill-panel active" data-skill-panel="languages">
+              <span>Python</span><span>SQL</span><span>R</span><span>Java</span><span>Bash</span>
+            </div>
+            <div class="skill-panel" data-skill-panel="ml">
+              <span>TensorFlow</span><span>PyTorch</span><span>Keras</span><span>scikit-learn</span><span>XGBoost</span><span>CNN</span><span>RNN/LSTM</span><span>Transfer Learning</span>
+            </div>
+            <div class="skill-panel" data-skill-panel="data">
+              <span>Pandas</span><span>NumPy</span><span>Statistical Analysis</span><span>Matplotlib</span><span>Seaborn</span><span>Plotly</span><span>ggplot2</span>
+            </div>
+            <div class="skill-panel" data-skill-panel="tools">
+              <span>Docker</span><span>Nginx</span><span>Flask</span><span>Linux</span><span>VS Code</span><span>Jupyter</span><span>Colab</span><span>Kaggle</span>
             </div>
           </div>
-        </div>
 
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
-            <h3>Swami Dhananjoy Das Kathia Baba Mission School, Agartala</h3>
-            <p>2018–2020 • Intermediate — Central Board Of Secondary Education — 69.8%</p>
+          <div id="skillBars" class="skill-bars" aria-label="Key skill proficiency">
+            <article><div><strong>Python</strong><span>90%</span></div><i data-progress="90"></i></article>
+            <article><div><strong>TensorFlow / Keras</strong><span>80%</span></div><i data-progress="80"></i></article>
+            <article><div><strong>Docker</strong><span>75%</span></div><i data-progress="75"></i></article>
+            <article><div><strong>Data Visualization</strong><span>85%</span></div><i data-progress="85"></i></article>
+            <article><div><strong>SQL</strong><span>70%</span></div><i data-progress="70"></i></article>
           </div>
         </div>
-
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
-            <h3>Henry Derozio Academy H.S School, Agartala</h3>
-            <p>2017–2018 • Matriculation — Tripura Board Of Secondary Education — 75%</p>
-          </div>
-        </div>
-
       </div>
     </section>
 
-    <!-- Certifications -->
-    <section id="certifications" class="section container">
-      <h2 class="section__title">Selected Certifications</h2>
+    <section id="education" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Learning Path</p>
+          <h2>Education</h2>
+        </div>
 
-      <div class="timeline certs-timeline">
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
+        <div class="timeline timeline--education">
+          <article class="timeline-item reveal reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h3>C-DAC Guwahati</h3>
+              <p>Advanced Certification in HPC-AI</p>
+              <span>Mar 2025-Aug 2025 | Score: 67.08%</span>
+            </div>
+          </article>
+          <article class="timeline-item reveal reveal-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h3>North-Eastern Hill University</h3>
+              <p>B.Tech, ECE</p>
+              <span>2020-2024 | CGPA: 7.37</span>
+              <a class="mini-link" href="assets/Btech_Provisional_Certificate.pdf" target="_blank" rel="noopener noreferrer">View Degree Certificate</a>
+            </div>
+          </article>
+          <article class="timeline-item reveal reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h3>Swami Dhananjoy Das Kathia Baba Mission School</h3>
+              <p>Intermediate (CBSE)</p>
+              <span>2018-2020 | 69.8%</span>
+            </div>
+          </article>
+          <article class="timeline-item reveal reveal-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <h3>Henry Derozio Academy H.S School</h3>
+              <p>Matriculation (TBSE)</p>
+              <span>2017-2018 | 75%</span>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="certifications" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Credentials</p>
+          <h2>Certifications</h2>
+        </div>
+
+        <div class="cert-grid">
+          <article class="cert-card reveal" style="transition-delay: 0s">
+            <strong>IIRS, ISRO</strong>
             <h3>Geodata Processing with Python & ML</h3>
-            <p class="muted">IIRS, ISRO — Credential ID: 2025234601756</p>
-          </div>
-          <button class="pill-btn magnetic" data-modal="modal-geodata" aria-label="View Geodata Processing certificate">View Certificate</button>
-        </div>
-
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
+            <p>ID: 2025234601756</p>
+            <a href="assets/Geodata_Processing.pdf" target="_blank" rel="noopener noreferrer">View Certificate</a>
+          </article>
+          <article class="cert-card reveal" style="transition-delay: .08s">
+            <strong>C-DAC Hyderabad</strong>
             <h3>Quantum Computing</h3>
-            <p class="muted">C-DAC Hyderabad — ID: CDACH/QML/2034</p>
-          </div>
-          <button class="pill-btn magnetic" data-modal="modal-quantum" aria-label="View Quantum Computing certificate">View Certificate</button>
-        </div>
-
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
-            <h3>TCS iON Career Edge – Young Professional</h3>
-            <p class="muted">ID: 119854-27331871-1016</p>
-          </div>
-          <button class="pill-btn magnetic" data-modal="modal-tcs" aria-label="View TCS iON certificate">View Certificate</button>
-        </div>
-
-        <div class="timeline__item reveal hover-lift">
-          <div class="timeline__content">
+            <p>ID: CDACH/QML/2034</p>
+            <a href="assets/Quantum_Computing.pdf" target="_blank" rel="noopener noreferrer">View Certificate</a>
+          </article>
+          <article class="cert-card reveal" style="transition-delay: .16s">
+            <strong>TCS iON</strong>
+            <h3>Career Edge - Young Professional</h3>
+            <p>ID: 119854-27331871-1016</p>
+            <a href="assets/tcs_ion.pdf" target="_blank" rel="noopener noreferrer">View Certificate</a>
+          </article>
+          <article class="cert-card reveal" style="transition-delay: .24s">
+            <strong>IIRS, ISRO</strong>
             <h3>AI/ML for Crop Acreage Mapping</h3>
-            <p class="muted">IIRS, ISRO — Credential ID: 2025234601756</p>
-          </div>
-          <button class="pill-btn magnetic" data-modal="modal-aiml" aria-label="View AI/ML crop acreage mapping certificate">View Certificate</button>
+            <p>ID: 2025234601756</p>
+            <a href="assets/AI_ML_Specific_crop.pdf" target="_blank" rel="noopener noreferrer">View Certificate</a>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- Experience -->
-    <section id="experience" class="section container">
-      <h2 class="section__title">Experience & Labs</h2>
-      <article class="card reveal hover-rise experience-card">
-        <div class="exp-header">
-          <img src="assets/Cb.png"
-               alt="Codebucket Solutions Pvt Ltd. Logo"
-               class="exp-logo">
-          <div class="exp-text">
-            <h3>Project Coordinator - Codebucket Solutions Pvt Ltd.</h3>
-            <p class="exp-location">
-              Nov 2025 - Present • Agartala, Tripura
-            </p>
-          </div>
+    <section id="experience" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Practice</p>
+          <h2>Experience</h2>
         </div>
 
-        <ul class="impact-list">
-          <li>Coordinate software and AI-driven project work across planning, delivery tracking, and client communication.</li>
-          <li>Maintain structured timelines, deliverable checklists, and follow-ups so teams can move from scope to execution.</li>
-          <li>Use the role to strengthen practical delivery habits around documentation, handoff, and stakeholder updates.</li>
-        </ul>
-      </article>
-      <article class="card reveal hover-rise experience-card">
-        <div class="exp-header">
-          <img src="assets/NIELIT.png"
-               alt="NIELIT Logo"
-               class="exp-logo">
-          <div>
-            <h3>Project Intern - NIELIT Agartala</h3>
-            <p class="exp-location">
-              Aug 2025 - Nov 2025
-            </p>
-          </div>
+        <div class="timeline timeline--experience">
+          <article class="timeline-item reveal reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card experience-card">
+              <img src="assets/Cb.png" alt="Codebucket Solutions logo" width="60" height="60" loading="lazy" />
+              <div>
+                <h3>Project Coordinator</h3>
+                <p>Codebucket Solutions Pvt Ltd.</p>
+                <span>Nov 2025 - Present | Agartala, Tripura</span>
+              </div>
+              <ul>
+                <li>Coordinate software and AI-driven project work.</li>
+                <li>Maintain structured timelines and deliverable checklists.</li>
+                <li>Strengthen delivery habits around documentation and stakeholder updates.</li>
+              </ul>
+            </div>
+          </article>
+          <article class="timeline-item reveal reveal-right">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card experience-card">
+              <img src="assets/NIELIT.png" alt="NIELIT Agartala logo" width="96" height="40" loading="lazy" />
+              <div>
+                <h3>Project Intern</h3>
+                <p>NIELIT Agartala</p>
+                <span>Aug 2025 - Nov 2025</span>
+              </div>
+              <ul>
+                <li>Applied ML/data tasks and systems integration.</li>
+                <li>Reproducible workflows, documentation, reviewable outputs.</li>
+              </ul>
+              <a class="mini-link" href="assets/offer_letter.pdf" target="_blank" rel="noopener noreferrer">View Offer Letter</a>
+            </div>
+          </article>
+          <article class="timeline-item reveal reveal-left">
+            <div class="timeline-dot"></div>
+            <div class="timeline-card experience-card">
+              <img src="assets/nehu.png" alt="North-Eastern Hill University logo" width="60" height="60" loading="lazy" />
+              <div>
+                <h3>Member</h3>
+                <p>Lightwave Communication Laboratory, NEHU</p>
+                <span>North-Eastern Hill University</span>
+              </div>
+              <ul>
+                <li>Photonics workshop activity and lab coordination.</li>
+                <li>Completed the higher-order Chebyshev MZI filter project under Prof. Subhash Arya.</li>
+              </ul>
+              <a class="mini-link" href="assets/LWCS.pdf" target="_blank" rel="noopener noreferrer">View LWCS Certificate</a>
+            </div>
+          </article>
         </div>
-        <ul class="impact-list">
-          <li>Worked on applied ML/data tasks, systems integration, and structured technical training modules.</li>
-          <li>Practiced turning requirements into reproducible workflows, documentation, and reviewable outputs.</li>
-        </ul>
-        <div class="inline-actions">
-          <button class="pill-btn magnetic" data-modal="modal-nielit" aria-label="View NIELIT Offer Letter">View Offer Letter</button>
-        </div>
-      </article>
-      <article class="card reveal hover-rise experience-card">
-
-        <div class="exp-header">
-          <img src="assets/nehu.png"
-               alt="NEHU Logo"
-               class="exp-logo">
-          <div class="exp-text">
-            <h3>Member - Lightwave Communication Laboratory, NEHU</h3>
-            <p class="exp-location">
-              North-Eastern Hill University
-            </p>
-          </div>
-        </div>
-
-        <ul class="impact-list">
-          <li>Supported photonics workshop activity and lab coordination inside the Lightwave Communication Laboratory.</li>
-          <li>Completed the higher-order Chebyshev MZI filter project under Prof. Subhash Arya.</li>
-        </ul>
-        <div class="inline-actions">
-          <button class="pill-btn magnetic" data-modal="modal-lwcs" aria-label="View LWCS certificate">View LWCS Certificate</button>
-        </div>
-      </article>
-    </section>
-
-    <!-- About -->
-    <section id="about" class="section container">
-      <h2 class="section__title">About</h2>
-      <p class="reveal">
-        I am an AI/ML engineer with a background in electronics and communication engineering, HPC-AI training, and applied project delivery. I like work that connects models with real product behavior: useful interfaces, clear evaluation, privacy-aware telemetry, and systems that can be explained after they are built.
-      </p>
-      <div class="hobbies reveal">
-        <span class="chip">Learning languages</span>
-        <span class="chip">Traveling</span>
-        <span class="chip">Cooking</span>
       </div>
     </section>
 
-    <!-- Contact -->
-    <section id="contact" class="section container">
-      <h2 class="section__title">Contact</h2>
-      <div class="contact-grid" id="contactGrid">
-        <!-- Contact form -->
-        <form class="card reveal hover-rise contact-form" method="POST" action="https://formspree.io/f/xblkvvap" novalidate>
-          <input type="hidden" name="_subject" value="Portfolio message from website">
-          <input type="hidden" name="_language" value="en">
-
-          <div class="contact-form__inner">
-            <h3 class="contact-form__title">Send a message</h3>
-            <p class="contact-form__subtitle muted">AI/ML roles, internships, project inquiries, or collaboration ideas — I reply within 48 hours.</p>
-
-            <div class="field">
-              <input id="cf-name" name="name" type="text" required autocomplete="name" />
-              <label for="cf-name">Your name</label>
-            </div>
-
-            <div class="field">
-              <input id="cf-email" name="_replyto" type="email" required autocomplete="email" />
-              <label for="cf-email">Email address</label>
-            </div>
-
-            <div class="field">
-              <textarea id="cf-message" name="message" rows="5" required></textarea>
-              <label for="cf-message">Message</label>
-            </div>
-
-            <div class="form-actions">
-              <button type="submit" class="btn submit-btn magnetic" aria-live="polite">
-                <span class="submit-text">Send message</span>
-                <svg class="spinner" viewBox="0 0 50 50" aria-hidden="true"><circle cx="25" cy="25" r="20" fill="none" stroke-width="4" stroke-linecap="round"/></svg>
-                <svg class="check" viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
-              </button>
-              <small class="muted contact-note">Prefer email? <a href="mailto:subradeepdas24@gmail.com" class="link-underline">subradeepdas24@gmail.com</a></small>
-            </div>
+    <section id="about" class="section section-anchor">
+      <div class="container about-grid">
+        <div class="about-copy reveal reveal-left">
+          <div class="section-heading section-heading--left">
+            <p class="eyebrow">About</p>
+            <h2>Systems, Models, and Delivery</h2>
           </div>
-        </form>
+          <p>
+            I am an AI/ML engineer with a background in electronics and communication engineering, HPC-AI training, and applied project delivery. I like work that connects models with real product behavior: useful interfaces, clear evaluation, privacy-aware telemetry, and systems that can be explained after they are built.
+          </p>
+          <div class="interest-row" aria-label="Interests">
+            <span>🌐 Learning Languages</span>
+            <span>✈️ Traveling</span>
+            <span>🍳 Cooking</span>
+          </div>
+          <a class="button button--primary" href="assets/resume.pdf" target="_blank" rel="noopener noreferrer">Download Resume</a>
+        </div>
 
-        <!-- drag handle (desktop only) -->
-        <div class="drag-handle" id="gridHandle" aria-hidden="true" title="Drag to resize contact columns"></div>
+        <div class="terminal-card reveal reveal-right" aria-label="Animated terminal graphic">
+          <div class="terminal-bar"><span></span><span></span><span></span></div>
+          <pre><code>&gt;&gt; loading dataset...
+&gt;&gt; training model...
+&gt;&gt; evaluating metrics...
+&gt;&gt; shipping reliable output<span class="terminal-cursor">_</span></code></pre>
+        </div>
+      </div>
+    </section>
 
-        <!-- Contact card -->
-        <div class="card reveal hover-rise contact-card">
-          <div class="contact-card__inner">
-            <ul class="contact-list">
-              <li class="contact-item">
-                <span class="icon mail" aria-hidden="true"></span>
-                <strong>Email:</strong> <a class="link-underline" href="mailto:subradeepdas24@gmail.com">subradeepdas24@gmail.com</a>
-              </li>
-              <li class="contact-item">
-                <span class="icon location" aria-hidden="true"></span>
-                <strong>Location:</strong> Agartala, Tripura, India
-              </li>
-              <li class="contact-item contact-socials">
-                <span class="icon link" aria-hidden="true"></span>
-                <strong>Social:</strong>
-                <div class="social-row">
-                  <a class="social chip chip--brand linkedin" href="https://www.linkedin.com/in/subradeepdas02/" target="_blank" rel="noopener">
-                    <span class="icon linkedin" aria-hidden="true"></span><span class="social-label">LinkedIn</span>
-                  </a>
-                  <a class="social chip chip--brand github" href="https://github.com/trek2terminal" target="_blank" rel="noopener">
-                    <span class="icon github" aria-hidden="true"></span><span class="social-label">GitHub</span>
-                  </a>
-                </div>
-              </li>
-              <li class="contact-item resume-row">
-                <a class="btn btn--primary magnetic trail resume-btn" href="assets/resume.pdf" target="_blank" rel="noopener">Download Resume</a>
-              </li>
-            </ul>
+    <section id="contact" class="section section-anchor">
+      <div class="container">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Connect</p>
+          <h2>Contact</h2>
+        </div>
 
-            <div class="contact-status">
-              <div class="status-left">
-                <div class="status-dot online" aria-hidden="true"></div>
-                <div class="status-text">
-                  <div class="status-title">Open to</div>
-                  <div class="status-sub">AI/ML roles · Internships · Freelance</div>
-                </div>
-              </div>
-              <div class="status-right">
-                <div class="status-pulse" aria-hidden="true"></div>
-              </div>
-            </div>
+        <div class="contact-grid">
+          <form id="contactForm" class="contact-form reveal reveal-left" novalidate>
+            <p class="open-badge">Open to: AI/ML roles · Internships · Freelance</p>
+            <div class="success-banner" role="status" aria-live="polite">Message sent! I'll reply within 48 hours.</div>
 
-            <div class="contact-card__footer muted">
-              <small>Fast links: <a class="link-underline" href="#projects">Projects</a> · <a class="link-underline" href="#skills">Skills</a></small>
-            </div>
+            <label class="field">
+              <input id="name" name="name" type="text" autocomplete="name" required />
+              <span>Name</span>
+            </label>
+            <label class="field">
+              <input id="email" name="email" type="email" autocomplete="email" required />
+              <span>Email</span>
+            </label>
+            <label class="field">
+              <textarea id="message" name="message" rows="6" required></textarea>
+              <span>Message</span>
+            </label>
+
+            <button class="button button--primary submit-button" type="submit">
+              <span class="submit-label">Send Message</span>
+              <span class="spinner" aria-hidden="true"></span>
+            </button>
+          </form>
+
+          <div class="contact-cards reveal reveal-right">
+            <a class="info-card" href="mailto:subradeepdas24@gmail.com">
+              <i data-lucide="mail" aria-hidden="true"></i>
+              <span>Email</span>
+              <strong>subradeepdas24@gmail.com</strong>
+            </a>
+            <article class="info-card">
+              <i data-lucide="map-pin" aria-hidden="true"></i>
+              <span>Location</span>
+              <strong>Agartala, Tripura, India</strong>
+            </article>
+            <a class="info-card" href="https://www.linkedin.com/in/subradeepdas02/" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="linkedin" aria-hidden="true"></i>
+              <span>LinkedIn</span>
+              <strong>subradeepdas02</strong>
+            </a>
+            <a class="info-card" href="https://github.com/trek2terminal" target="_blank" rel="noopener noreferrer">
+              <i data-lucide="github" aria-hidden="true"></i>
+              <span>GitHub</span>
+              <strong>trek2terminal</strong>
+            </a>
           </div>
         </div>
       </div>
@@ -532,87 +494,60 @@
   </main>
 
   <footer class="footer">
-    <div class="container footer__inner">
-      <span>© <span id="year"></span> Subradeep Das</span>
-      <a href="#home" class="to-top link-underline">Back to top ↑</a>
+    <div class="container footer-grid">
+      <div>
+        <a class="brand footer-brand" href="#home" aria-label="Back to home">
+          <span class="brand__mark">SD</span>
+          <span class="brand__text">Subradeep Das</span>
+        </a>
+        <p>Applied ML, HPC-AI foundations, and practical project delivery.</p>
+      </div>
+      <div>
+        <h2>Quick Links</h2>
+        <a href="#projects">Projects</a>
+        <a href="#skills">Skills</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+      <div>
+        <h2>Social</h2>
+        <a href="https://www.linkedin.com/in/subradeepdas02/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/trek2terminal" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="mailto:subradeepdas24@gmail.com">Email</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <span>© 2025 Subradeep Das · Built with 💻 & ☕</span>
+      <a href="#home">Back to top ↑</a>
     </div>
   </footer>
 
-  <!-- Project and credential modals -->
-  <dialog id="modal-irctc" class="modal">
-    <button class="modal__close" data-close aria-label="Close case study">&times;</button>
-    <h3>Hybrid IRCTC Bot-Detection & Train Search</h3>
-    <p><strong>Role:</strong> ML Engineer, Full-stack</p>
-    <p><strong>Stack:</strong> TensorFlow, scikit-learn, Random Forest, Flask, Docker, Nginx</p>
-    <p><strong>Problem:</strong> Railway search flows need a human-verification layer that does not rely only on a static CAPTCHA.</p>
-    <p><strong>Build:</strong> Combined image CAPTCHA checks with behavioral biometrics, TensorFlow inference, demand heatmaps, punctuality views, and confirmation-probability signals.</p>
-    <p><strong>Engineering focus:</strong> Flask API flow, Docker/Nginx packaging, privacy-aware telemetry, admin audit logs, and retraining hooks for model improvement.</p>
-  </dialog>
+  <div id="modal-irctc" class="modal-overlay" hidden>
+    <section class="case-modal" role="dialog" aria-modal="true" aria-labelledby="modal-irctc-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close case study">✕</button>
+      <h2 id="modal-irctc-title">Hybrid IRCTC Bot-Detection & Train Search</h2>
+      <dl>
+        <div><dt>Role</dt><dd>ML Engineer, Full-stack</dd></div>
+        <div><dt>Stack</dt><dd>TensorFlow, scikit-learn, Random Forest, Flask, Docker, Nginx</dd></div>
+        <div><dt>Problem</dt><dd>Railway search flows need a human-verification layer that does not rely only on a static CAPTCHA.</dd></div>
+        <div><dt>Build</dt><dd>Combined image CAPTCHA checks with behavioral biometrics, TensorFlow inference, demand heatmaps, punctuality views, and confirmation-probability signals.</dd></div>
+        <div><dt>Engineering Focus</dt><dd>Flask API flow, Docker/Nginx packaging, privacy-aware telemetry, admin audit logs, and retraining hooks for model improvement.</dd></div>
+      </dl>
+    </section>
+  </div>
 
-  <dialog id="modal-mzi" class="modal">
-    <button class="modal__close" data-close aria-label="Close case study">&times;</button>
-    <h3>Higher-Order Chebyshev Filter (MZI)</h3>
-    <p><strong>Role:</strong> Designer, Simulation & Fabrication</p>
-    <p><strong>Stack:</strong> Lumerical, KLayout, SOI, EBL</p>
-    <p><strong>Problem:</strong> Design a higher-order optical filter and reason about fabrication variability in a lab workflow.</p>
-    <p><strong>Build:</strong> Created the 7th-order Mach-Zehnder interferometer design, simulated the response in Lumerical, and prepared layout in KLayout.</p>
-    <p><strong>Engineering focus:</strong> SOI constraints, E-beam lithography workflow, Monte Carlo variability analysis, and documentation of results for review.</p>
-  </dialog>
-
-  <!-- Credential modals -->
-  <dialog id="modal-btech" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/Btech_Provisional_Certificate.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-geodata" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/Geodata_Processing.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-lwcs" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/LWCS.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-nielit" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/offer_letter.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-quantum" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/Quantum_Computing.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-tcs" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/tcs_ion.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <dialog id="modal-aiml" class="modal modal--media">
-    <button class="modal__close" data-close aria-label="Close">&times;</button>
-    <div class="modal__media">
-      <embed src="assets/AI_ML_Specific_crop.pdf" type="application/pdf" class="pdf-embed" />
-    </div>
-  </dialog>
-
-  <!-- Floating back-to-top -->
-  <button id="toTopBtn" class="floating-top" aria-label="Back to top">↑</button>
-
-  <!-- Main JS -->
-  <script src="script.js" defer></script>
+  <div id="modal-mzi" class="modal-overlay" hidden>
+    <section class="case-modal" role="dialog" aria-modal="true" aria-labelledby="modal-mzi-title">
+      <button class="modal-close" type="button" data-close-modal aria-label="Close case study">✕</button>
+      <h2 id="modal-mzi-title">Higher-Order Chebyshev Filter (MZI)</h2>
+      <dl>
+        <div><dt>Role</dt><dd>Designer, Simulation & Fabrication</dd></div>
+        <div><dt>Stack</dt><dd>Lumerical, KLayout, SOI, EBL, Monte Carlo</dd></div>
+        <div><dt>Problem</dt><dd>Design a higher-order optical filter and reason about fabrication variability in a lab workflow.</dd></div>
+        <div><dt>Build</dt><dd>Created the 7th-order Mach-Zehnder interferometer design, simulated the response in Lumerical, and prepared layout in KLayout.</dd></div>
+        <div><dt>Engineering Focus</dt><dd>SOI constraints, E-beam lithography workflow, Monte Carlo variability analysis, and documentation of results for review.</dd></div>
+      </dl>
+    </section>
+  </div>
 </body>
 </html>
