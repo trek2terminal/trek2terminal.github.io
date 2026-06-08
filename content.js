@@ -1,310 +1,363 @@
-/*
-  Portfolio content source of truth.
-
-  Edit this file to update the site content. The HTML stays structural, and
-  main.js reads this object to build every visible section.
-
-  Tips:
-  - To add a project, copy one object inside projects[] and change its fields.
-  - To hide a link, set it to null or remove it from the array.
-  - Keep asset paths relative to this repo, for example: assets/resume.pdf.
-*/
-
 window.SITE_CONTENT = {
-  // Global identity, links, and assets used across the whole page.
   meta: {
     name: "Subradeep Das",
     initials: "SD",
-    title: "AI/ML Engineer",
-    tagline: "Building applied ML systems with clean pipelines, model evaluation, and deployment-minded delivery.",
+    title: "Project Coordinator & AI/ML Engineer",
+    tagline: "Where Management Meets Machine Intelligence",
+    subTagline: "ECE Graduate | C-DAC HPC-AI Certified | Building at the intersection of AI, data, and real-world problem solving",
     email: "subradeepdas24@gmail.com",
+    phone: "+91-8259982540",
     location: "Agartala, Tripura, India",
+    dob: "24 January 2002",
+    nationality: "Indian",
+    languages: "English, Hindi, Bengali",
     linkedin: "https://www.linkedin.com/in/subradeepdas02/",
     github: "https://github.com/trek2terminal",
-    resume: "assets/resume.pdf",
+    resume: "/assets/Subradeep_resume.pdf",
     favicon: "assets/favicon.png",
     avatar: "assets/pp-optimized.jpg",
     avatarAlt: "Portrait of Subradeep Das",
-    openTo: ["AI/ML roles", "Internships", "Freelance"],
-    typingRoles: ["AI/ML Engineer", "HPC-AI Practitioner", "Applied ML Builder"]
+    typingRoles: [
+      "Where Management Meets Machine Intelligence",
+      "Coordinating teams that ship useful AI products",
+      "Turning data, models, and roadmaps into delivery"
+    ],
+    typingRolesMobile: [
+      "AI + delivery",
+      "Models to real workflows",
+      "Management meets ML"
+    ]
   },
 
-  // Text labels used by buttons, headings inside widgets, and repeated UI.
   labels: {
-    availability: "Available for Opportunities",
-    viewProjects: "View Projects",
+    availability: "Available for AI and delivery work",
+    viewWork: "View My Work",
     downloadResume: "Download Resume",
     contactMe: "Contact Me",
     readCaseStudy: "Read Case Study",
-    keyProficiencies: "Key Proficiencies",
-    interests: "Interests",
-    openTo: "Open to",
-    quickLinks: "Quick Links",
-    connect: "Connect",
-    viewCertificate: "View Certificate",
-    backToTop: "Back to top",
+    quickInfo: "Quick Info",
+    coreExpertise: "Core Expertise",
     sendMessage: "Send Message",
-    successPrefix: "Message sent! I'll reply within"
+    viewCredential: "View Credential",
+    viewProject: "View Project",
+    builtWith: "Built with semantic HTML, CSS, and JavaScript"
   },
 
-  // Main section headings. Rename sections here without touching HTML.
   sectionTitles: {
-    whatIDo: "What I Build",
-    projects: "Featured Projects",
-    skills: "Skills & Tools",
-    education: "Education",
+    about: "About",
+    skills: "Skills",
+    projects: "Projects",
+    process: "How I Work",
+    experience: "Experience",
     certifications: "Certifications",
-    experience: "Experience & Labs",
-    about: "About Me",
-    contact: "Get In Touch"
+    contact: "Contact"
   },
 
-  // Navbar entries. Add/remove objects here to change navigation.
   nav: [
-    { label: "Projects", href: "#projects" },
-    { label: "Skills", href: "#skills" },
-    { label: "Education", href: "#education" },
-    { label: "Certifications", href: "#certifications" },
-    { label: "Experience", href: "#experience" },
     { label: "About", href: "#about" },
+    { label: "Skills", href: "#skills" },
+    { label: "Projects", href: "#projects" },
+    { label: "Experience", href: "#experience" },
     { label: "Contact", href: "#contact" }
   ],
 
-  // Hero stat counters. Values animate when the hero enters the viewport.
   stats: [
-    { value: 2, label: "Featured Builds" },
-    { value: 4, label: "Certifications" },
-    { value: 3, label: "Core Domains" }
+    { value: 1, suffix: "+", label: "Years of Experience" },
+    { value: 10, suffix: "+", label: "Projects Completed" },
+    { value: 4, suffix: "+", label: "Certifications" },
+    { value: 2, suffix: "", label: "Research Projects" }
   ],
 
-  // Capability cards in the "What I Build" section.
-  whatIDo: [
+  about: {
+    intro: [
+      "Hey, I'm Subradeep - an engineer who ended up loving the management side of tech just as much as the technical side. I did my B.Tech in Electronics and Communication from NEHU Shillong, then went deep into AI and High Performance Computing at C-DAC Guwahati. Now I work as a Project Coordinator at Codebucket Solutions, where I make sure things actually get built: on time, with the right people, doing the right things.",
+      "I'm genuinely excited about AI and ML - not just the buzzwords, but actually training models, working with data, and building things that solve real problems. My background in ECE gives me a solid foundation in how things work at a hardware and signal level, which I think makes me a better AI/ML thinker.",
+      "Outside of work, I love learning new languages, travelling to explore new cultures, and cooking food from places I've never been. I believe curiosity is the best skill anyone can have."
+    ],
+    quickInfo: [
+      { label: "Location", value: "Agartala, Tripura, India", href: null, icon: "map-pin" },
+      { label: "Email", value: "subradeepdas24@gmail.com", href: "mailto:subradeepdas24@gmail.com", icon: "mail" },
+      { label: "Phone", value: "+91-8259982540", href: "tel:+918259982540", icon: "phone" },
+      { label: "Experience", value: "1+ year in coordination and applied AI work", href: null, icon: "briefcase-business" },
+      { label: "Languages", value: "English, Hindi, Bengali", href: null, icon: "languages" },
+      { label: "Nationality", value: "Indian", href: null, icon: "flag" }
+    ],
+    expertise: [
+      {
+        icon: "brain-circuit",
+        title: "AI/ML Engineering",
+        description: "Training, tuning, evaluating, and explaining models with practical deployment in mind."
+      },
+      {
+        icon: "workflow",
+        title: "Project Coordination",
+        description: "Keeping scope, people, risks, timelines, and delivery decisions aligned from plan to handoff."
+      },
+      {
+        icon: "database",
+        title: "Data Analytics",
+        description: "Cleaning datasets, finding patterns, and turning analysis into decisions people can use."
+      },
+      {
+        icon: "cpu",
+        title: "HPC-AI Foundations",
+        description: "Thinking about model workflows with performance, scale, and compute constraints in view."
+      },
+      {
+        icon: "radio-tower",
+        title: "ECE & Photonics",
+        description: "Bringing hardware, signal systems, and optical communication context into technical thinking."
+      },
+      {
+        icon: "sparkles",
+        title: "Curious Builder Mindset",
+        description: "Learning fast, asking clear questions, and building systems that survive real-world use."
+      }
+    ],
+    interests: ["Learning languages", "Travelling", "Cooking"]
+  },
+
+  skills: [
     {
-      icon: "cpu",
-      title: "Applied ML Builds",
-      description: "Data preparation, model training, evaluation, and user-facing workflows."
+      title: "AI / Machine Learning",
+      icon: "brain-circuit",
+      items: [
+        "TensorFlow",
+        "PyTorch",
+        "Keras",
+        "scikit-learn",
+        "XGBoost",
+        "CNN",
+        "RNN",
+        "LSTM",
+        "Transfer Learning",
+        "Model Optimization",
+        "Hyperparameter Tuning"
+      ]
     },
     {
-      icon: "zap",
-      title: "HPC-AI Foundations",
-      description: "Performance-aware thinking for training, inference, and system design."
-    },
-    {
-      icon: "shield-check",
-      title: "Reliable Systems",
-      description: "Privacy-aware telemetry, retraining paths, logging, and operational checks."
-    },
-    {
+      title: "Data & Analytics",
       icon: "bar-chart-2",
-      title: "Analytical Storytelling",
-      description: "Clear visualizations and narratives that drive decisions."
+      items: [
+        "Python",
+        "R",
+        "Pandas",
+        "NumPy",
+        "Statistical Analysis",
+        "Regression",
+        "Classification",
+        "Clustering",
+        "Matplotlib",
+        "Seaborn",
+        "ggplot2",
+        "Plotly"
+      ]
+    },
+    {
+      title: "Tools & Platforms",
+      icon: "terminal",
+      items: [
+        "Jupyter",
+        "Google Colab",
+        "Kaggle",
+        "VS Code",
+        "Docker",
+        "Flask",
+        "Nginx",
+        "Git",
+        "GitHub",
+        "Linux",
+        "Bash / Shell Scripting",
+        "SQL",
+        "Java"
+      ]
+    },
+    {
+      title: "Management & Domain",
+      icon: "network",
+      items: [
+        "Agile / Scrum Methodology",
+        "Cross-functional Team Coordination",
+        "Stakeholder Communication",
+        "Task & Milestone Tracking",
+        "Risk Management",
+        "High Performance Computing",
+        "Quantum Computing Basics",
+        "Remote Sensing & Geospatial ML",
+        "Signal Processing",
+        "Photonics",
+        "Optical Communication"
+      ]
     }
   ],
 
-  // Featured projects. Each project can have its own stack, links, and modal case study.
   projects: [
     {
       id: "irctc",
-      title: "Hybrid IRCTC Bot-Detection & Train Search",
-      accentColor: ["#4f9eff", "#00d4aa"],
-      stack: ["TensorFlow", "Behavioral Biometrics", "CAPTCHA", "Random Forest", "Flask", "Docker", "Nginx"],
-      summary: "Built a production-style railway search and bot-detection prototype combining CAPTCHA validation, behavioral biometrics, TensorFlow inference, and operational dashboards.",
+      title: "Hybrid IRCTC Bot-Detection & Train Search Web App",
+      period: "Mar 2025 - Aug 2025",
+      eyebrow: "ML security + railway search",
+      summary: "A full-stack web application combining human verification with ML-powered bot detection, layered with a smart train search interface.",
+      stack: ["Python", "TensorFlow", "scikit-learn", "Flask", "Docker", "Nginx", "JavaScript"],
       highlights: [
-        "Designed the human-verification flow with privacy-aware telemetry.",
-        "Added demand heatmaps, punctuality views, and confirmation probability signals.",
-        "Packaged the app with Flask, Docker, and Nginx deployment pieces."
+        "Built a hybrid CAPTCHA flow using image CAPTCHA plus behavioral biometrics for real-time human/bot detection.",
+        "Designed train search views with demand heatmaps, punctuality scores, and Random Forest confirmation probability estimates.",
+        "Added retraining hooks, privacy-preserving telemetry, and admin audit logs for production-style operation."
+      ],
+      links: [
+        { label: "View Code", url: "https://github.com/trek2terminal/IRCTC_Bot_Detection_And_Demand_Prediction.git", icon: "github" }
       ],
       caseStudy: {
-        role: "ML Engineer, Full-stack",
-        stack: "TensorFlow, scikit-learn, Random Forest, Flask, Docker, Nginx",
-        problem: "Railway search flows need a human-verification layer that does not rely only on a static CAPTCHA.",
-        build: "Combined image CAPTCHA checks with behavioral biometrics, TensorFlow inference, demand heatmaps, punctuality views, and confirmation-probability signals.",
-        engineeringFocus: "Flask API flow, Docker/Nginx packaging, privacy-aware telemetry, admin audit logs, and retraining hooks for model improvement."
-      },
+        Role: "ML Engineer and full-stack builder",
+        Stack: "Python, TensorFlow, scikit-learn, Flask, Docker, Nginx, JavaScript",
+        Challenge: "Protect a train-search flow from bots without depending only on a static CAPTCHA.",
+        Approach: "Combined CAPTCHA validation with behavior-derived model signals, then connected the verification layer to a richer train-search interface.",
+        Outcome: "A production-minded prototype with audit logs, retraining paths, and interpretable travel-demand signals."
+      }
+    },
+    {
+      id: "chebyshev",
+      title: "Design & Fabrication of Higher-Order Chebyshev Filter",
+      period: "Feb 2024 - Jul 2024",
+      eyebrow: "Photonics research",
+      summary: "A photonics research project involving the design, simulation, and physical fabrication of an advanced optical filter on Silicon-on-Insulator.",
+      stack: ["Lumerical", "KLayout", "MATLAB", "Python", "SOI", "EBL"],
+      highlights: [
+        "Designed a 7th-order Mach-Zehnder interferometer-based Chebyshev bandpass filter.",
+        "Simulated optical behavior in Lumerical FDTD and prepared physical layout in KLayout.",
+        "Fabricated on SOI with Electron Beam Lithography and ran Monte Carlo analysis for manufacturing variability."
+      ],
       links: [
-        { label: "View Code", url: "https://github.com/trek2terminal/IRCTC_Bot_Detection_And_Demand_Prediction.git" }
+        { label: "View Research", url: "https://drive.google.com/file/d/196osbxHVGWdW8D5vdNvpmh3YtHFS9mqv/view?usp=drive_link", icon: "external-link" }
+      ],
+      caseStudy: {
+        Role: "Research and project intern",
+        Stack: "Lumerical, KLayout, MATLAB, Python, SOI, Electron Beam Lithography",
+        Challenge: "Design a higher-order optical filter and reason about performance under fabrication variation.",
+        Approach: "Moved from optical simulation to layout, fabrication workflow, and Monte Carlo variability analysis.",
+        Outcome: "A research-grade design with applications in telecom wavelength division multiplexing and medical imaging systems."
+      }
+    }
+  ],
+
+  process: [
+    {
+      title: "Understand & Plan",
+      description: "Deeply understanding the problem, gathering requirements from stakeholders, and designing a clear roadmap before execution begins."
+    },
+    {
+      title: "Research & Design",
+      description: "Applying domain knowledge - from ML model selection to system architecture - to design the best solution for the problem at hand."
+    },
+    {
+      title: "Build & Iterate",
+      description: "Developing, testing, and refining - whether it is code, a model pipeline, or a project workflow - with feedback loops at every stage."
+    },
+    {
+      title: "Deploy & Coordinate",
+      description: "Managing production deployments, cross-team coordination, and delivery handoffs so the final output meets real-world expectations."
+    }
+  ],
+
+  experience: [
+    {
+      role: "Project Coordinator",
+      company: "Codebucket Solutions Pvt. Ltd.",
+      period: "November 2025 - Present",
+      location: "Agartala, Tripura (Onsite)",
+      logo: "assets/Cb.png",
+      logoAlt: "Codebucket Solutions logo",
+      bullets: [
+        "Coordinate end-to-end project delivery across cross-functional teams, keeping timelines, deliverables, and stakeholder expectations visible.",
+        "Bridge communication between developers, designers, and business stakeholders so product goals stay aligned with execution.",
+        "Track milestones, manage task assignments, and maintain delivery accountability using agile working habits.",
+        "Apply AI/ML knowledge to identify automation opportunities and improve internal workflows.",
+        "Support technical decisions with an engineering mindset during planning and risk analysis."
       ]
     },
     {
-      id: "mzi",
-      title: "Higher-Order Chebyshev Filter (MZI)",
-      accentColor: ["#a78bfa", "#f472b6"],
-      stack: ["Photonics", "7th-order Chebyshev", "Lumerical", "KLayout", "SOI", "EBL", "Monte Carlo"],
-      summary: "Designed and validated a 7th-order Mach-Zehnder interferometer filter for a photonics lab project, connecting simulation, layout, fabrication, and variability analysis.",
-      highlights: [
-        "Simulated filter behavior in Lumerical and prepared layout in KLayout.",
-        "Worked with SOI fabrication constraints and E-beam lithography workflow.",
-        "Performed Monte Carlo analysis to reason about process variability."
-      ],
-      caseStudy: {
-        role: "Designer, Simulation & Fabrication",
-        stack: "Lumerical, KLayout, SOI, EBL, Monte Carlo",
-        problem: "Design a higher-order optical filter and reason about fabrication variability in a lab workflow.",
-        build: "Created the 7th-order Mach-Zehnder interferometer design, simulated the response in Lumerical, and prepared layout in KLayout.",
-        engineeringFocus: "SOI constraints, E-beam lithography workflow, Monte Carlo variability analysis, and documentation of results for review."
-      },
-      links: [
-        { label: "See Results", url: "https://drive.google.com/file/d/196osbxHVGWdW8D5vdNvpmh3YtHFS9mqv/view?usp=drive_link" }
+      role: "Research & Project Intern",
+      company: "Lightwave Communication Laboratory, NEHU",
+      period: "2023 - 2024",
+      location: "Shillong, Meghalaya",
+      logo: "assets/nehu.png",
+      logoAlt: "North-Eastern Hill University logo",
+      bullets: [
+        "Completed a photonics and optical communication lab project under Prof. Subhash Arya.",
+        "Designed a 7th-order Mach-Zehnder interferometer Chebyshev filter, simulated it in Lumerical, and laid it out in KLayout.",
+        "Worked through SOI fabrication with Electron Beam Lithography and Monte Carlo analysis for fabrication variability.",
+        "Organized and participated in photonics workshops as a member of the lab."
       ]
     }
   ],
 
-  // Skill tabs. Object keys become tab labels; array values become chips.
-  skills: {
-    Languages: ["Python", "SQL", "R", "Java", "Bash"],
-    "Machine Learning": ["TensorFlow", "PyTorch", "Keras", "scikit-learn", "XGBoost", "CNN", "RNN/LSTM", "Transfer Learning"],
-    "Data & Visualization": ["Pandas", "NumPy", "Statistical Analysis", "Matplotlib", "Seaborn", "Plotly", "ggplot2"],
-    Tools: ["Docker", "Nginx", "Flask", "Linux", "VS Code", "Jupyter", "Colab", "Kaggle"]
-  },
-
-  // Progress bars in the Skills section.
-  proficiency: [
-    { label: "Python", percent: 90 },
-    { label: "TensorFlow / Keras", percent: 80 },
-    { label: "Docker", percent: 75 },
-    { label: "Data Visualization", percent: 85 },
-    { label: "SQL", percent: 70 }
-  ],
-
-  // Education timeline entries. Set link to null when no document link is needed.
   education: [
     {
-      institution: "C-DAC Guwahati",
       degree: "Advanced Certification in HPC-AI",
-      period: "Mar 2025 - Aug 2025",
-      score: "67.08%",
-      link: null
+      institute: "C-DAC, Guwahati",
+      year: "Mar - Aug 2025",
+      score: "67.08%"
     },
     {
-      institution: "North-Eastern Hill University",
-      degree: "B.Tech, Electronics & Communication Engineering",
-      period: "2020 - 2024",
-      score: "CGPA 7.37",
-      link: { label: "View Degree Certificate", url: "assets/Btech_Provisional_Certificate.pdf" }
+      degree: "B.Tech - Electronics & Communication Engineering",
+      institute: "NEHU, Shillong",
+      year: "2020 - 2024",
+      score: "CGPA: 7.37",
+      link: "assets/Btech_Provisional_Certificate.pdf"
     },
     {
-      institution: "Swami Dhananjoy Das Kathia Baba Mission School",
       degree: "Intermediate (CBSE)",
-      period: "2018 - 2020",
+      institute: "Swami Dhananjoy Das Kathia Baba Mission School, Agartala",
+      year: "2018 - 2020",
       score: "69.8%",
-      link: null
+      link: "assets/12th_marksheet.pdf"
     },
     {
-      institution: "Henry Derozio Academy H.S School",
       degree: "Matriculation (TBSE)",
-      period: "2017 - 2018",
+      institute: "Henry Derozio Academy H.S School, Agartala",
+      year: "2017 - 2018",
       score: "75%",
-      link: null
+      link: "assets/10th_marksheet.pdf"
     }
   ],
 
-  // Certification cards. link can point to a PDF in assets/ or an external credential page.
   certifications: [
-    {
-      title: "Geodata Processing with Python & ML",
-      issuer: "IIRS, ISRO",
-      credentialId: "2025234601756",
-      link: "assets/Geodata_Processing.pdf"
-    },
     {
       title: "Quantum Computing",
       issuer: "C-DAC Hyderabad",
+      date: "Jun 2025",
       credentialId: "CDACH/QML/2034",
       link: "assets/Quantum_Computing.pdf"
     },
     {
-      title: "TCS iON Career Edge - Young Professional",
-      issuer: "TCS iON",
-      credentialId: "119854-27331871-1016",
-      link: "assets/tcs_ion.pdf"
-    },
-    {
       title: "AI/ML for Crop Acreage Mapping",
       issuer: "IIRS, ISRO",
+      date: "Apr 2025",
       credentialId: "2025234601756",
       link: "assets/AI_ML_Specific_crop.pdf"
+    },
+    {
+      title: "Geodata Processing with Python & ML",
+      issuer: "IIRS, ISRO",
+      date: "Mar 2025",
+      credentialId: "2025234601756",
+      link: "assets/Geodata_Processing.pdf"
+    },
+    {
+      title: "TCS iON Career Edge - Young Professional",
+      issuer: "TCS iON",
+      date: "Feb 2025",
+      credentialId: "119854-27331871-1016",
+      link: "assets/tcs_ion.pdf"
     }
   ],
 
-  // Experience timeline. Logos should stay in assets/ and include useful alt text.
-  experience: [
-    {
-      role: "Project Coordinator",
-      company: "Codebucket Solutions Pvt Ltd.",
-      period: "Nov 2025 - Present",
-      location: "Agartala, Tripura",
-      logo: "assets/Cb.png",
-      logoAlt: "Codebucket Solutions logo",
-      bullets: [
-        "Coordinate software and AI-driven project work across planning, delivery tracking, and client communication.",
-        "Maintain structured timelines, deliverable checklists, and follow-ups so teams can move from scope to execution.",
-        "Use the role to strengthen practical delivery habits around documentation, handoff, and stakeholder updates."
-      ],
-      link: null
-    },
-    {
-      role: "Project Intern",
-      company: "NIELIT Agartala",
-      period: "Aug 2025 - Nov 2025",
-      location: "",
-      logo: "assets/NIELIT.png",
-      logoAlt: "NIELIT Agartala logo",
-      bullets: [
-        "Worked on applied ML/data tasks, systems integration, and structured technical training modules.",
-        "Practiced turning requirements into reproducible workflows, documentation, and reviewable outputs."
-      ],
-      link: { label: "View Offer Letter", url: "assets/offer_letter.pdf" }
-    },
-    {
-      role: "Member",
-      company: "Lightwave Communication Laboratory, NEHU",
-      period: "",
-      location: "North-Eastern Hill University",
-      logo: "assets/nehu.png",
-      logoAlt: "North-Eastern Hill University logo",
-      bullets: [
-        "Supported photonics workshop activity and lab coordination inside the Lightwave Communication Laboratory.",
-        "Completed the higher-order Chebyshev MZI filter project under Prof. Subhash Arya."
-      ],
-      link: { label: "View LWCS Certificate", url: "assets/LWCS.pdf" }
-    }
-  ],
-
-  // About section copy, interests, and animated terminal lines.
-  about: {
-    bio: "I am an AI/ML engineer with a background in electronics and communication engineering, HPC-AI training, and applied project delivery. I like work that connects models with real product behavior: useful interfaces, clear evaluation, privacy-aware telemetry, and systems that can be explained after they are built.",
-    interests: [
-      { emoji: "\u{1F310}", label: "Learning Languages" },
-      { emoji: "\u2708\uFE0F", label: "Traveling" },
-      { emoji: "\u{1F373}", label: "Cooking" }
-    ],
-    terminalLines: [
-      "$ python train.py --epochs 50",
-      "> Loading dataset... done.",
-      "> Training model...",
-      "> Epoch 50/50 - loss: 0.042 - acc: 98.3%",
-      "> Saving model... done.",
-      "$ docker build -t ml-app .",
-      "> Successfully built 9f3a2c1d",
-      "$ echo \"Ready to deploy\"",
-      "> Ready to deploy"
-    ]
-  },
-
-  // Contact form endpoint and field labels. Replace the Formspree ID when ready.
   contact: {
-    formAction: "https://formspree.io/f/REPLACE_WITH_YOUR_ID",
     responseTime: "48 hours",
     fields: {
       name: "Name",
       email: "Email",
       message: "Message"
     }
-  },
-
-  // Footer copy.
-  footer: {
-    copyText: "Subradeep Das",
-    builtWith: "Built with \u{1F4BB} & \u2615"
   }
 };

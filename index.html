@@ -1,91 +1,73 @@
 <!doctype html>
-<html lang="en" data-theme="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <meta name="description" content="" />
-  <meta name="theme-color" content="#060d1f" />
-  <meta name="color-scheme" content="dark light" />
-  <meta property="og:title" content="" />
-  <meta property="og:description" content="" />
+  <meta name="description" content="Subradeep Das is a Project Coordinator and AI/ML Engineer from Agartala, Tripura, India, building at the intersection of AI, data, and real-world problem solving." />
+  <meta name="keywords" content="Subradeep Das, Project Coordinator, AI ML Engineer, HPC AI, ECE, Portfolio, Agartala, Tripura" />
+  <meta name="author" content="Subradeep Das" />
+  <meta name="theme-color" content="#0a0f1e" />
+  <meta name="color-scheme" content="dark" />
+  <meta property="og:title" content="Subradeep Das | Project Coordinator & AI/ML Engineer" />
+  <meta property="og:description" content="Where Management Meets Machine Intelligence. ECE Graduate and C-DAC HPC-AI Certified professional building applied AI and project delivery workflows." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://trek2terminal.github.io/" />
-  <meta property="og:image" content="" />
+  <meta property="og:image" content="https://trek2terminal.github.io/assets/pp-optimized.jpg" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Subradeep Das | Project Coordinator & AI/ML Engineer" />
+  <meta name="twitter:description" content="Where Management Meets Machine Intelligence." />
+  <meta name="twitter:image" content="https://trek2terminal.github.io/assets/pp-optimized.jpg" />
   <link rel="canonical" href="https://trek2terminal.github.io/" />
-  <link id="favicon-link" rel="icon" type="image/png" />
-  <link id="avatar-preload" rel="preload" as="image" />
-  <title></title>
-
-  <script src="content.js"></script>
-  <script>
-    (() => {
-      const theme = localStorage.getItem('theme') || 'dark';
-      document.documentElement.setAttribute('data-theme', theme);
-      const content = window.SITE_CONTENT;
-      if (!content) return;
-      const title = `${content.meta.name} | ${content.meta.title} Portfolio`;
-      const description = `${content.meta.name} portfolio - ${content.meta.tagline}`;
-      document.title = title;
-      document.querySelector('meta[name="description"]').setAttribute('content', description);
-      document.querySelector('meta[property="og:title"]').setAttribute('content', `${content.meta.name} | ${content.meta.title}`);
-      document.querySelector('meta[property="og:description"]').setAttribute('content', content.meta.tagline);
-      document.querySelector('meta[property="og:image"]').setAttribute('content', content.meta.avatar);
-      document.getElementById('favicon-link').setAttribute('href', content.meta.favicon);
-      document.getElementById('avatar-preload').setAttribute('href', content.meta.avatar);
-    })();
-  </script>
+  <link id="favicon-link" rel="icon" type="image/png" href="assets/favicon.png" />
+  <link id="avatar-preload" rel="preload" as="image" href="assets/pp-optimized.jpg" />
+  <title>Subradeep Das | Project Coordinator & AI/ML Engineer</title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@500;600&family=Outfit:wght@500;600;700;800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
+  <script src="content.js" defer></script>
   <script src="https://unpkg.com/lucide@latest" defer></script>
   <script src="main.js" defer></script>
 </head>
 
 <body>
-  <a href="#home" class="skip-link">Skip to content</a>
+  <a href="#main" class="skip-link">Skip to content</a>
+  <div id="cursor-glow" aria-hidden="true"></div>
 
   <div id="page-loader" aria-label="Loading portfolio">
-    <div class="loader-mark" data-loader-mark></div>
+    <div class="loader-mark" data-loader-mark>SD</div>
     <div class="loader-bar" aria-hidden="true"><span></span></div>
   </div>
 
   <div id="scroll-progress-bar" aria-hidden="true"></div>
 
   <nav id="navbar" aria-label="Primary navigation">
-    <a class="nav-brand" href="#home" aria-label="Home">
-      <span class="brand-mark" data-brand-initials></span>
-      <span class="brand-name" data-brand-name></span>
+    <a class="nav-brand" href="#home" aria-label="Subradeep Das home">
+      <span class="brand-mark" data-brand-initials>SD</span>
+      <span class="brand-name" data-brand-name>Subradeep Das</span>
     </a>
 
     <div class="nav-links" data-nav-links></div>
 
-    <div class="nav-actions">
-      <button id="theme-toggle" class="icon-button" type="button" aria-label="Toggle color theme"></button>
-      <button id="mobile-menu-toggle" class="icon-button mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"></button>
-    </div>
-
+    <button id="mobile-menu-toggle" class="icon-button mobile-menu-toggle" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobile-menu"></button>
     <div id="mobile-menu" data-mobile-menu></div>
   </nav>
 
   <main id="main">
-    <section id="home" class="site-section hero-section"></section>
-    <section id="what-i-do" class="site-section"></section>
-    <section id="projects" class="site-section"></section>
-    <section id="skills" class="site-section"></section>
-    <section id="education" class="site-section"></section>
-    <section id="certifications" class="site-section"></section>
-    <section id="experience" class="site-section"></section>
+    <section id="home" class="site-section hero-section" aria-label="Portfolio hero"></section>
     <section id="about" class="site-section"></section>
+    <section id="skills" class="site-section"></section>
+    <section id="projects" class="site-section"></section>
+    <section id="process" class="site-section"></section>
+    <section id="experience" class="site-section"></section>
+    <section id="certifications" class="site-section"></section>
     <section id="contact" class="site-section"></section>
   </main>
 
   <footer id="footer"></footer>
 
   <button id="back-to-top" type="button" aria-label="Back to top"></button>
-
   <div id="modal-overlay" aria-hidden="true"></div>
   <div id="modal-root"></div>
 </body>
