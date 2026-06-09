@@ -105,11 +105,12 @@ function animateCounters() {
 /* ── ROTATING SUBTITLE ──────────────────── */
 function startRotation() {
   const roles = [
-    'AI/ML Engineer',
-    'Data Enthusiast',
+    'Technical Project Coordinator',
+    'ML Systems Builder',
+    'Data Science Practitioner',
     'HPC-AI Graduate',
-    'Python Developer',
-    'Tech Problem Solver',
+    'Python + TensorFlow Developer',
+    'Research-to-Delivery Thinker',
   ];
   const el = document.getElementById('rotating-role');
   if (!el) return;
