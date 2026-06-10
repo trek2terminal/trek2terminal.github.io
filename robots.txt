@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://trek2terminal.github.io/sitemap.xml

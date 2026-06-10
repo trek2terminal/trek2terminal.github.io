@@ -16,16 +16,28 @@ window.addEventListener('load', () => {
 /* ── THEME TOGGLE ───────────────────────── */
 const themeBtn = document.getElementById('theme-toggle');
 const root = document.documentElement;
+const themeMeta = document.querySelector('meta[name="theme-color"]');
 function applyTheme(t) {
-  root.setAttribute('data-theme', t);
-  localStorage.setItem('theme', t);
-  themeBtn.querySelector('.theme-icon').textContent = t === 'dark' ? '☾' : '☀';
+  const next = t === 'light' ? 'light' : 'dark';
+  root.setAttribute('data-theme', next);
+  try {
+    localStorage.setItem('theme', next);
+  } catch (e) {}
+  if (themeMeta) {
+    themeMeta.setAttribute('content', next === 'dark' ? '#070d1a' : '#f7fbff');
+  }
+  themeBtn.querySelector('.theme-icon').textContent = next === 'dark' ? '☾' : '☀';
 }
 themeBtn.addEventListener('click', () => {
   applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
 });
 // Apply saved theme icon on load
-applyTheme(localStorage.getItem('theme') || 'dark');
+let savedTheme = 'dark';
+try {
+  const saved = localStorage.getItem('theme');
+  if (saved === 'light' || saved === 'dark') savedTheme = saved;
+} catch (e) {}
+applyTheme(savedTheme);
 
 /* ── NAVBAR SCROLL ──────────────────────── */
 const navbar = document.getElementById('navbar');
@@ -150,6 +162,67 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 /* ── CONTACT FORM ───────────────────────── */
 const form = document.getElementById('contact-form');
 if (form) {
+  const formFields = document.querySelectorAll('.form-in, .form-ta');
+  const typingState = document.getElementById('typing-state');
+  const messageCount = document.getElementById('message-count');
+  const lastLengths = new WeakMap();
+  const timers = new WeakMap();
+
+  function updateComposerState(mode = '') {
+    const hasDraft = Array.from(formFields).some(f => f.value.trim());
+    form.classList.toggle('is-composing', hasDraft || mode === 'typing' || mode === 'deleting');
+    form.classList.toggle('is-typing', mode === 'typing');
+    form.classList.toggle('is-deleting', mode === 'deleting');
+    if (!typingState) return;
+    if (mode === 'typing') typingState.textContent = 'Typing...';
+    else if (mode === 'deleting') typingState.textContent = 'Editing...';
+    else if (hasDraft) typingState.textContent = 'Draft in progress';
+    else typingState.textContent = 'Ready when you are';
+  }
+
+  function resetFieldMotion(field) {
+    const wrap = field.closest('.smart-field');
+    if (!wrap) return;
+    wrap.classList.remove('is-typing', 'is-deleting');
+    wrap.classList.toggle('has-value', !!field.value.trim());
+  }
+
+  formFields.forEach(field => {
+    lastLengths.set(field, field.value.length);
+    field.addEventListener('focus', () => {
+      field.closest('.smart-field')?.classList.add('is-active');
+      updateComposerState(field.value ? '' : 'typing');
+    });
+    field.addEventListener('blur', () => {
+      field.closest('.smart-field')?.classList.remove('is-active');
+      resetFieldMotion(field);
+      updateComposerState();
+    });
+    field.addEventListener('input', () => {
+      field.classList.remove('err');
+      const wrap = field.closest('.smart-field');
+      const prev = lastLengths.get(field) || 0;
+      const now = field.value.length;
+      const mode = now < prev ? 'deleting' : 'typing';
+      lastLengths.set(field, now);
+      if (messageCount && field.id === 'cf-message') {
+        messageCount.textContent = now;
+      }
+      if (wrap) {
+        wrap.classList.remove('is-typing', 'is-deleting');
+        void wrap.offsetWidth;
+        wrap.classList.add(mode === 'deleting' ? 'is-deleting' : 'is-typing');
+        wrap.classList.toggle('has-value', !!field.value.trim());
+      }
+      updateComposerState(mode);
+      clearTimeout(timers.get(field));
+      timers.set(field, setTimeout(() => {
+        resetFieldMotion(field);
+        updateComposerState();
+      }, mode === 'deleting' ? 460 : 720));
+    });
+  });
+
   form.addEventListener('submit', e => {
     e.preventDefault();
     const name    = document.getElementById('cf-name');
@@ -170,10 +243,13 @@ if (form) {
     const succ = document.getElementById('form-success');
     succ.classList.add('show');
     form.reset();
+    formFields.forEach(f => {
+      lastLengths.set(f, 0);
+      resetFieldMotion(f);
+    });
+    if (messageCount) messageCount.textContent = '0';
+    updateComposerState();
     setTimeout(() => succ.classList.remove('show'), 5000);
-  });
-  document.querySelectorAll('.form-in, .form-ta').forEach(f => {
-    f.addEventListener('input', () => f.classList.remove('err'));
   });
 }
 
