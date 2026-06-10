@@ -26,7 +26,8 @@ function applyTheme(t) {
   if (themeMeta) {
     themeMeta.setAttribute('content', next === 'dark' ? '#070d1a' : '#f7fbff');
   }
-  themeBtn.querySelector('.theme-icon').textContent = next === 'dark' ? '☾' : '☀';
+  const themeUse = themeBtn.querySelector('.theme-icon use');
+  if (themeUse) themeUse.setAttribute('href', next === 'dark' ? '#icon-moon' : '#icon-sun');
 }
 themeBtn.addEventListener('click', () => {
   applyTheme(root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
