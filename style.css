@@ -46,7 +46,7 @@
   --fs-loader:  clamp(3.5rem,2.5rem + 3vw,4.5rem);
   --fs-hero:    clamp(3.375rem,1.6rem + 7vw,7.375rem);
   --fs-hero-wide: clamp(5.625rem,3rem + 5vw,8.25rem);
-  --fs-hero-mobile: clamp(2.125rem,1.2rem + 10vw,3.5rem);
+  --fs-hero-mobile: clamp(2.05rem,1.2rem + 6vw,2.7rem);
   --fs-stat: clamp(2.25rem,1.6rem + 3vw,3.25rem);
   --fs-stat-suffix: clamp(1.375rem,1rem + 1.6vw,2.125rem);
   --fs-project-num: clamp(4.5rem,3rem + 3vw,5.5rem);
@@ -964,4 +964,105 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   }
   .cc{align-items:flex-start}
   .cc-logo{width:40px;height:40px}
+}
+
+/* Phone hero hardening: keep the first viewport clean on real mobile browsers. */
+@media(max-width:600px){
+  #navbar{
+    min-height:64px;
+  }
+  .nav-container{
+    min-height:48px;
+  }
+  .hero{
+    padding-top:calc(var(--nav) + 12px);
+  }
+  .hero-inner{
+    padding-top:20px;
+    padding-bottom:42px;
+  }
+  .hero-badge{
+    max-width:max-content;
+    padding:7px 16px;
+    margin-bottom:22px;
+  }
+  .hero-name{
+    width:100%;
+    max-width:100%;
+    font-size:clamp(2.15rem,10vw,2.7rem) !important;
+    line-height:1.08;
+    margin-bottom:22px;
+    letter-spacing:0;
+    overflow:visible;
+    overflow-wrap:normal;
+    word-break:normal;
+    text-wrap:balance;
+  }
+  .hero-name .gradient-text{
+    display:inline-block;
+    margin-top:2px;
+  }
+  .hero-subtitle{
+    margin-bottom:22px;
+  }
+  .sub-static,
+  .sub-rotating{
+    max-width:100%;
+    overflow-wrap:anywhere;
+  }
+  .hero-desc{
+    max-width:100%;
+    margin-bottom:28px;
+    line-height:1.68;
+  }
+  .hero-ctas{
+    width:100%;
+    margin-bottom:26px;
+  }
+  .hero-ctas .btn-primary,
+  .hero-ctas .btn-outline{
+    width:100%;
+    min-height:54px;
+    border-radius:26px;
+  }
+  .proof-strip{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:12px;
+    width:100%;
+    margin:0 0 28px;
+  }
+  .proof-item{
+    width:100%;
+    min-height:72px;
+    padding:12px 14px;
+    border-radius:12px;
+  }
+  .proof-item img{
+    width:42px;
+    height:42px;
+  }
+  .hero-stats{
+    width:100%;
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:10px;
+  }
+  .stat-num{
+    font-size:clamp(1.9rem,10vw,2.45rem);
+  }
+  .stat-suf{
+    font-size:clamp(1.2rem,6vw,1.55rem);
+  }
+}
+
+@media(max-width:430px){
+  .hero-name{
+    font-size:clamp(2.05rem,9.4vw,2.45rem) !important;
+  }
+  .hero-badge{
+    font-size:var(--fs-xs);
+  }
+  .hero-desc{
+    font-size:clamp(.94rem,3.8vw,1rem);
+  }
 }
