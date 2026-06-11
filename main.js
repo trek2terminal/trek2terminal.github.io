@@ -11,9 +11,11 @@ const burger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobile-menu');
 const backToTop = document.getElementById('btt');
 const scrollProgress = document.getElementById('scroll-progress');
+const mobileQuery = window.matchMedia('(max-width: 768px)');
 
 let countersStarted = false;
 let roleRotationStarted = false;
+let mobileAccordions = [];
 
 function clamp(value, min, max) {
   return Math.min(Math.max(value, min), max);
@@ -125,6 +127,7 @@ function updateScrollUI() {
   backToTop?.classList.toggle('show', window.scrollY > 400);
   updateProgressBar();
   updateTimelineProgress();
+  updateMobileBottomNav();
 }
 
 window.addEventListener('scroll', updateScrollUI, { passive: true });
@@ -215,6 +218,31 @@ function initActiveNavObserver() {
   });
 
   sections.forEach(section => navObserver.observe(section));
+}
+
+function updateMobileBottomNav() {
+  const links = [...document.querySelectorAll('.mobile-bottom-link')];
+  if (!links.length) return;
+
+  const sectionIds = links
+    .map(link => link.getAttribute('href'))
+    .filter(Boolean)
+    .map(href => href.slice(1));
+
+  const current = sectionIds
+    .map(id => document.getElementById(id))
+    .filter(Boolean)
+    .map(section => ({
+      id: section.id,
+      top: Math.abs(section.getBoundingClientRect().top - 96)
+    }))
+    .sort((a, b) => a.top - b.top)[0];
+
+  if (!current) return;
+
+  links.forEach(link => {
+    link.classList.toggle('active', link.getAttribute('href') === `#${current.id}`);
+  });
 }
 
 function animateCounters(duration = 1500) {
@@ -308,12 +336,89 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
     event.preventDefault();
     setMobileMenu(false);
+    openMobileSection(target.id);
     window.scrollTo({
       top: target.getBoundingClientRect().top + window.scrollY - 72,
       behavior: prefersReducedMotion ? 'auto' : 'smooth'
     });
   });
 });
+
+function setMobilePanel(button, open, closeOthers = true) {
+  const panelId = button.getAttribute('aria-controls');
+  const panel = panelId ? document.getElementById(panelId) : null;
+  if (!panel) return;
+
+  if (open && closeOthers) {
+    mobileAccordions.forEach(other => {
+      if (other !== button) setMobilePanel(other, false, false);
+    });
+  }
+
+  button.classList.toggle('is-open', open);
+  button.setAttribute('aria-expanded', String(open));
+  panel.classList.toggle('is-open', open);
+
+  if (!mobileQuery.matches) {
+    panel.style.maxHeight = '';
+    return;
+  }
+
+  if (open) {
+    panel.style.maxHeight = `${panel.scrollHeight}px`;
+  } else {
+    panel.style.maxHeight = '0px';
+  }
+}
+
+function refreshMobilePanels() {
+  mobileAccordions.forEach(button => {
+    const panel = document.getElementById(button.getAttribute('aria-controls'));
+    if (!panel) return;
+
+    if (!mobileQuery.matches) {
+      panel.style.maxHeight = '';
+      return;
+    }
+
+    if (button.classList.contains('is-open')) {
+      panel.style.maxHeight = `${panel.scrollHeight}px`;
+    } else {
+      panel.style.maxHeight = '0px';
+    }
+  });
+}
+
+function openMobileSection(sectionId) {
+  if (!mobileQuery.matches) return;
+  const section = document.getElementById(sectionId);
+  const button = section?.querySelector('[data-mobile-accordion]');
+  if (button) {
+    window.requestAnimationFrame(() => setMobilePanel(button, true));
+  }
+}
+
+function initMobileAccordions() {
+  mobileAccordions = [...document.querySelectorAll('[data-mobile-accordion]')];
+  if (!mobileAccordions.length) return;
+
+  document.body.classList.add('mobile-enhanced');
+
+  mobileAccordions.forEach(button => {
+    button.addEventListener('click', () => {
+      setMobilePanel(button, !button.classList.contains('is-open'));
+    });
+  });
+
+  window.addEventListener('resize', refreshMobilePanels);
+  mobileQuery.addEventListener?.('change', refreshMobilePanels);
+
+  if (window.location.hash) {
+    openMobileSection(window.location.hash.slice(1));
+  }
+
+  refreshMobilePanels();
+}
 
 const form = document.getElementById('contact-form');
 if (form) {
@@ -446,3 +551,4 @@ if (year) year.textContent = new Date().getFullYear();
 prepareRevealMotion();
 initRevealObserver();
 initActiveNavObserver();
+initMobileAccordions();

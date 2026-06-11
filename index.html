@@ -316,6 +316,25 @@
     </ul>
   </div>
 
+  <nav class="mobile-bottom-nav" aria-label="Mobile quick navigation">
+    <a href="#home" class="mobile-bottom-link" data-mobile-target="home">
+      <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-frame"></use></svg>
+      <span>Home</span>
+    </a>
+    <a href="#projects" class="mobile-bottom-link" data-mobile-target="projects">
+      <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-code"></use></svg>
+      <span>Projects</span>
+    </a>
+    <a href="#proof" class="mobile-bottom-link" data-mobile-target="proof">
+      <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-verify"></use></svg>
+      <span>Proof</span>
+    </a>
+    <a href="#contact" class="mobile-bottom-link" data-mobile-target="contact">
+      <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-mail"></use></svg>
+      <span>Contact</span>
+    </a>
+  </nav>
+
   <main id="main">
 
     <!-- ═══════════════ HERO ═══════════════ -->
@@ -406,7 +425,12 @@
           <span class="sec-label">Get to know me</span>
           <h2 class="sec-title">About Me</h2>
         </div>
-        <div class="about-grid">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-about" data-mobile-accordion>
+          <span>About snapshot</span>
+          <small>Full story, contact basics, and core expertise</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-about" class="about-grid" data-mobile-panel>
           <div class="about-left fade-up">
             <p class="bio">
               I am Subradeep — an engineer focused on the space where machine learning,
@@ -487,7 +511,12 @@
           <h2 class="sec-title">Skills &amp; Expertise</h2>
           <p class="sec-sub">Tools, frameworks, and domains I use to build and coordinate.</p>
         </div>
-        <div class="skills-grid">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-skills" data-mobile-accordion>
+          <span>Skill groups</span>
+          <small>AI/ML, analytics, platforms, and delivery domains</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-skills" class="skills-grid" data-mobile-panel>
           <div class="skill-box fade-up">
             <h4 class="skill-box-title">
               <svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-ml"></use></svg>
@@ -673,7 +702,12 @@
           <h2 class="sec-title">Proof Behind the Profile</h2>
           <p class="sec-sub">Credentials, research exposure, and verified learning that support the AI, data, and delivery story.</p>
         </div>
-        <div class="proof-wall">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-proof" data-mobile-accordion>
+          <span>Proof board</span>
+          <small>Resume, certificates, research proof, and degree evidence</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-proof" class="proof-wall" data-mobile-panel>
           <a href="assets/resume.pdf" target="_blank" rel="noopener noreferrer" class="proof-card fade-up">
             <div class="proof-symbol icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-ml"></use></svg></div>
             <div class="proof-kicker">C-DAC Guwahati</div>
@@ -728,7 +762,12 @@
           <h2 class="sec-title">How I Build With AI Responsibly</h2>
           <p class="sec-sub">A modern project workflow for using AI as an accelerator while keeping human judgment, validation, and documentation at the center.</p>
         </div>
-        <div class="workflow-track">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-workflow" data-mobile-accordion>
+          <span>Responsible AI workflow</span>
+          <small>Five-step model from framing to human verification</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-workflow" class="workflow-track" data-mobile-panel>
           <div class="workflow-card fade-up">
             <div class="wf-num">01</div>
             <div class="workflow-symbol icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-frame"></use></svg></div>
@@ -771,36 +810,43 @@
           <h2 class="sec-title">How I Deliver Technical Work</h2>
           <p class="sec-sub">A practical operating rhythm for turning AI, data, and engineering ideas into reviewable outputs.</p>
         </div>
-        <div class="process-grid">
-          <div class="proc-card fade-up">
-            <div class="proc-step">STEP 1</div>
-            <div class="proc-icon icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-plan"></use></svg></div>
-            <h4>Understand &amp; Plan</h4>
-            <p>Clarify the user problem, success metric, constraints, data availability, and delivery risks before building.</p>
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-process" data-mobile-accordion>
+          <span>Delivery process</span>
+          <small>Planning, research, build loops, handoff, and judgment</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-process" class="mobile-panel-stack" data-mobile-panel>
+          <div class="process-grid">
+            <div class="proc-card fade-up">
+              <div class="proc-step">STEP 1</div>
+              <div class="proc-icon icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-plan"></use></svg></div>
+              <h4>Understand &amp; Plan</h4>
+              <p>Clarify the user problem, success metric, constraints, data availability, and delivery risks before building.</p>
+            </div>
+            <div class="proc-card fade-up">
+              <div class="proc-step">STEP 2</div>
+              <div class="proc-icon icon-badge icon-badge--green"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-research"></use></svg></div>
+              <h4>Research &amp; Design</h4>
+              <p>Select the right model, architecture, baseline, or workflow, then document why the choice fits the problem.</p>
+            </div>
+            <div class="proc-card fade-up">
+              <div class="proc-step">STEP 3</div>
+              <div class="proc-icon icon-badge icon-badge--violet"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-build"></use></svg></div>
+              <h4>Build &amp; Iterate</h4>
+              <p>Build in small reviewable passes, validate assumptions, compare outputs, and improve with feedback loops.</p>
+            </div>
+            <div class="proc-card fade-up">
+              <div class="proc-step">STEP 4</div>
+              <div class="proc-icon icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-ship"></use></svg></div>
+              <h4>Deploy &amp; Coordinate</h4>
+              <p>Package the work clearly, coordinate handoff, track blockers, and make the result usable beyond a notebook.</p>
+            </div>
           </div>
-          <div class="proc-card fade-up">
-            <div class="proc-step">STEP 2</div>
-            <div class="proc-icon icon-badge icon-badge--green"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-research"></use></svg></div>
-            <h4>Research &amp; Design</h4>
-            <p>Select the right model, architecture, baseline, or workflow, then document why the choice fits the problem.</p>
+          <div class="proc-extras">
+            <div class="proc-extra fade-up"><h4><svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-network"></use></svg> Coordination Excellence</h4><p>I keep tasks, owners, dependencies, and stakeholder expectations visible so technical work does not drift.</p></div>
+            <div class="proc-extra fade-up"><h4><svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-domain"></use></svg> Engineering Judgment</h4><p>My ECE and HPC-AI background helps me make realistic plans instead of treating complex builds like simple checklists.</p></div>
+            <div class="proc-extra fade-up"><h4><svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-evidence"></use></svg> Evidence-Based Decisions</h4><p>I prefer measurable baselines, model comparisons, validation notes, and clear reasoning over vague “it works” claims.</p></div>
           </div>
-          <div class="proc-card fade-up">
-            <div class="proc-step">STEP 3</div>
-            <div class="proc-icon icon-badge icon-badge--violet"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-build"></use></svg></div>
-            <h4>Build &amp; Iterate</h4>
-            <p>Build in small reviewable passes, validate assumptions, compare outputs, and improve with feedback loops.</p>
-          </div>
-          <div class="proc-card fade-up">
-            <div class="proc-step">STEP 4</div>
-            <div class="proc-icon icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-ship"></use></svg></div>
-            <h4>Deploy &amp; Coordinate</h4>
-            <p>Package the work clearly, coordinate handoff, track blockers, and make the result usable beyond a notebook.</p>
-          </div>
-        </div>
-        <div class="proc-extras">
-          <div class="proc-extra fade-up"><h4><svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-network"></use></svg> Coordination Excellence</h4><p>I keep tasks, owners, dependencies, and stakeholder expectations visible so technical work does not drift.</p></div>
-          <div class="proc-extra fade-up"><h4><svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-domain"></use></svg> Engineering Judgment</h4><p>My ECE and HPC-AI background helps me make realistic plans instead of treating complex builds like simple checklists.</p></div>
-          <div class="proc-extra fade-up"><h4><svg class="site-icon title-icon" aria-hidden="true" focusable="false"><use href="#icon-evidence"></use></svg> Evidence-Based Decisions</h4><p>I prefer measurable baselines, model comparisons, validation notes, and clear reasoning over vague “it works” claims.</p></div>
         </div>
       </div>
     </section>
@@ -812,7 +858,12 @@
           <span class="sec-label">My journey</span>
           <h2 class="sec-title">Experience</h2>
         </div>
-        <div class="timeline">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-experience" data-mobile-accordion>
+          <span>Experience timeline</span>
+          <small>Current role, internship, and research lab work</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-experience" class="timeline" data-mobile-panel>
           <div class="tl-item fade-up">
             <div class="tl-dot"></div>
             <div class="tl-card">
@@ -892,7 +943,12 @@
           <span class="sec-label">Academic background</span>
           <h2 class="sec-title" style="font-size:clamp(22px,3vw,32px)">Education</h2>
         </div>
-        <div class="edu-grid">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-education" data-mobile-accordion>
+          <span>Education history</span>
+          <small>C-DAC, B.Tech, intermediate, and matriculation</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-education" class="edu-grid" data-mobile-panel>
           <div class="edu-card fade-up">
             <div class="card-symbol icon-badge"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-ml"></use></svg></div>
             <div class="edu-yr">Mar – Aug 2025</div>
@@ -928,7 +984,12 @@
           <span class="sec-label">Verified achievements</span>
           <h2 class="sec-title" style="font-size:clamp(22px,3vw,32px)">Certifications</h2>
         </div>
-        <div class="cert-grid">
+        <button class="mobile-disclosure" type="button" aria-expanded="false" aria-controls="mobile-panel-certifications" data-mobile-accordion>
+          <span>Certifications</span>
+          <small>Four verified credentials with certificate links</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-certifications" class="cert-grid" data-mobile-panel>
           <a href="assets/Quantum_Computing.pdf" target="_blank" rel="noopener noreferrer" class="cert-card fade-up">
             <div class="card-symbol icon-badge icon-badge--violet"><svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-network"></use></svg></div>
             <div class="cert-iss">C-DAC Hyderabad</div>
@@ -974,7 +1035,12 @@
           <h2 class="sec-title">Let's Connect</h2>
           <p class="sec-sub">Open to AI/ML roles, technical coordination roles, research collaborations, and applied data projects.</p>
         </div>
-        <div class="contact-wrap">
+        <button class="mobile-disclosure mobile-disclosure--contact" type="button" aria-expanded="false" aria-controls="mobile-panel-contact" data-mobile-accordion>
+          <span>Contact options</span>
+          <small>Email, LinkedIn, GitHub, Instagram, and message form</small>
+          <svg class="site-icon" aria-hidden="true" focusable="false"><use href="#icon-arrow-up"></use></svg>
+        </button>
+        <div id="mobile-panel-contact" class="contact-wrap" data-mobile-panel>
           <div class="contact-cards fade-up">
             <a href="mailto:subradeepdas24@gmail.com" class="cc cc--gmail">
               <div class="cc-logo cc-logo--gmail" aria-hidden="true">
