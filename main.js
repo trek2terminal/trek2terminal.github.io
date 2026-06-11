@@ -420,6 +420,156 @@ function initMobileAccordions() {
   refreshMobilePanels();
 }
 
+function fallbackCopy(text) {
+  const textarea = document.createElement('textarea');
+  textarea.value = text;
+  textarea.setAttribute('readonly', '');
+  textarea.style.position = 'fixed';
+  textarea.style.opacity = '0';
+  textarea.style.pointerEvents = 'none';
+  document.body.appendChild(textarea);
+  textarea.select();
+
+  let copied = false;
+  try {
+    copied = document.execCommand('copy');
+  } catch (e) {
+    copied = false;
+  }
+
+  textarea.remove();
+  return copied;
+}
+
+async function copyText(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return true;
+  }
+
+  return fallbackCopy(text);
+}
+
+let copyToastTimer;
+
+function showCopyToast(message) {
+  const toast = document.getElementById('copy-toast');
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.add('show');
+  window.clearTimeout(copyToastTimer);
+  copyToastTimer = window.setTimeout(() => {
+    toast.classList.remove('show');
+  }, 2200);
+}
+
+function initCopyButtons() {
+  document.querySelectorAll('[data-copy-value]').forEach(button => {
+    button.addEventListener('click', async () => {
+      const value = button.getAttribute('data-copy-value') || '';
+      const label = button.getAttribute('data-copy-label') || 'Text';
+      if (!value) return;
+
+      try {
+        const copied = await copyText(value);
+        showCopyToast(copied ? `${label} copied` : `Copy ${label.toLowerCase()} manually`);
+      } catch (e) {
+        showCopyToast(`Copy ${label.toLowerCase()} manually`);
+      }
+    });
+  });
+}
+
+function initSwipeRails() {
+  const rails = document.querySelectorAll(
+    '.proof-strip, .hero-stats, .projects-list, .proof-wall, .workflow-track, .cert-grid'
+  );
+
+  rails.forEach(rail => {
+    let isPointerDown = false;
+    let startX = 0;
+    let startY = 0;
+    let startScrollLeft = 0;
+    let suppressClick = false;
+
+    rail.addEventListener('pointerdown', event => {
+      if (!mobileQuery.matches || event.button > 0) return;
+
+      isPointerDown = true;
+      startX = event.clientX;
+      startY = event.clientY;
+      startScrollLeft = rail.scrollLeft;
+      rail.style.scrollBehavior = 'auto';
+      try {
+        rail.setPointerCapture?.(event.pointerId);
+      } catch (e) {
+        // Some browsers do not allow capture for every pointer state.
+      }
+    });
+
+    rail.addEventListener('pointermove', event => {
+      if (!isPointerDown) return;
+
+      const deltaX = event.clientX - startX;
+      const deltaY = event.clientY - startY;
+      const horizontalIntent = Math.abs(deltaX) > 6 && Math.abs(deltaX) > Math.abs(deltaY);
+
+      if (!horizontalIntent) return;
+
+      suppressClick = true;
+      rail.classList.add('is-dragging');
+      const maxScrollLeft = Math.max(rail.scrollWidth - rail.clientWidth, 0);
+      rail.scrollLeft = clamp(startScrollLeft - deltaX, 0, maxScrollLeft);
+      event.preventDefault();
+    });
+
+    function stopDragging(event) {
+      if (!isPointerDown) return;
+
+      isPointerDown = false;
+      rail.classList.remove('is-dragging');
+      rail.style.scrollBehavior = '';
+      const edgeSnap = 28;
+      const maxScrollLeft = Math.max(rail.scrollWidth - rail.clientWidth, 0);
+
+      if (rail.scrollLeft < edgeSnap) {
+        rail.scrollTo({ left: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      } else if (maxScrollLeft - rail.scrollLeft < edgeSnap) {
+        rail.scrollTo({ left: maxScrollLeft, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+      }
+
+      try {
+        rail.releasePointerCapture?.(event.pointerId);
+      } catch (e) {
+        // Capture may already be released by the browser.
+      }
+
+      if (suppressClick) {
+        window.setTimeout(() => {
+          suppressClick = false;
+        }, 120);
+      }
+    }
+
+    rail.addEventListener('pointerup', stopDragging);
+    rail.addEventListener('pointercancel', stopDragging);
+    rail.addEventListener('pointerleave', stopDragging);
+
+    rail.addEventListener('click', event => {
+      if (!suppressClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+    }, true);
+  });
+}
+
+function resetHeroProofRail() {
+  const proofStrip = document.querySelector('.proof-strip');
+  if (!proofStrip || !mobileQuery.matches) return;
+  proofStrip.scrollLeft = 0;
+}
+
 const form = document.getElementById('contact-form');
 if (form) {
   const formFields = document.querySelectorAll('.form-in, .form-ta');
@@ -552,3 +702,7 @@ prepareRevealMotion();
 initRevealObserver();
 initActiveNavObserver();
 initMobileAccordions();
+initCopyButtons();
+initSwipeRails();
+resetHeroProofRail();
+window.addEventListener('resize', resetHeroProofRail);
