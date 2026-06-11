@@ -170,6 +170,11 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   background:var(--grad);color:#fff;font-weight:700;font-size:var(--fs-sm);
   transition:var(--t);box-shadow:0 4px 24px rgba(0,212,255,.20)}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,255,.35)}
+.btn-primary.loading{position:relative;color:transparent;pointer-events:none}
+.btn-primary.loading::after{content:'';position:absolute;width:18px;height:18px;
+  border-radius:50%;border:2px solid rgba(255,255,255,.42);
+  border-top-color:#fff;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 .btn-outline{display:inline-flex;align-items:center;gap:8px;
   padding:12px 30px;border-radius:99px;
   border:1.5px solid var(--bdr-h);color:var(--txt);
@@ -382,7 +387,8 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   border-radius:var(--r);padding:clamp(22px,4vw,40px);
   display:grid;grid-template-columns:100px 1fr;
   gap:28px;align-items:start;transition:var(--t)}
-.proj-card:hover{border-color:var(--bdr-h);box-shadow:var(--glow)}
+.proj-card:hover{border-color:var(--bdr-h);box-shadow:var(--glow);
+  transform:translateY(-4px) scale(1.01)}
 .proj-num{font-family:'Syne',sans-serif;font-size:var(--fs-project-num);
   font-weight:900;color:var(--bdr);line-height:1;
   user-select:none;padding-top:4px;transition:var(--t)}
@@ -483,15 +489,24 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 .proc-extra p{font-size:var(--fs-sm);color:var(--txt2);line-height:1.7}
 
 /* ─── TIMELINE ───────────────────────────── */
-.timeline{position:relative;padding-left:32px}
+.timeline{position:relative;padding-left:32px;--timeline-progress:0%}
 .timeline::before{content:'';position:absolute;
   left:0;top:8px;bottom:8px;width:2px;
-  background:linear-gradient(to bottom,var(--cyan),var(--violet))}
+  background:var(--bdr);border-radius:99px}
+.timeline::after{content:'';position:absolute;
+  left:0;top:8px;width:2px;height:var(--timeline-progress);
+  max-height:calc(100% - 16px);border-radius:99px;
+  background:linear-gradient(to bottom,var(--cyan),var(--violet),var(--green));
+  box-shadow:0 0 18px rgba(0,212,255,.24);
+  transition:height .12s linear}
 .tl-item{position:relative;margin-bottom:20px}
 .tl-dot{position:absolute;left:-38px;top:20px;
   width:13px;height:13px;border-radius:50%;
   background:var(--cyan);border:2px solid var(--bg);
-  box-shadow:0 0 12px var(--cyan)}
+  box-shadow:0 0 12px var(--cyan);
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.tl-item.on .tl-dot{transform:scale(1.25);
+  box-shadow:0 0 0 6px var(--c-dim),0 0 18px var(--cyan)}
 .tl-card{background:var(--card);border:1px solid var(--bdr);
   border-radius:var(--r);padding:clamp(18px,3vw,30px);transition:var(--t)}
 .tl-card:hover{border-color:var(--bdr-h);transform:translateX(4px)}
@@ -683,10 +698,26 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   box-shadow:0 8px 28px rgba(0,212,255,.5)}
 .btt .site-icon{width:22px;height:22px}
 
+/* --- SCROLL PROGRESS --- */
+.scroll-progress{position:fixed;top:0;left:0;z-index:10000;
+  width:0;height:3px;
+  background:linear-gradient(90deg,#00d4ff,#7c3aed,#10b981);
+  box-shadow:0 0 18px rgba(0,212,255,.45);
+  transform-origin:left center;pointer-events:none}
+
 /* ─── SCROLL ANIMATIONS ──────────────────── */
-.fade-up{opacity:0;transform:translateY(28px);
-  transition:opacity .6s var(--ease),transform .6s var(--ease)}
-.fade-up.on{opacity:1;transform:translateY(0)}
+.fade-up{opacity:0;transform:translate3d(0,28px,0);
+  transition:opacity .65s var(--ease),transform .65s var(--ease),
+    filter .65s var(--ease);
+  transition-delay:var(--reveal-delay,0s);
+  will-change:opacity,transform}
+.fade-up.reveal-left{transform:translate3d(-42px,0,0)}
+.fade-up.reveal-right{transform:translate3d(42px,0,0)}
+.fade-up.reveal-scale{transform:translate3d(0,24px,0) scale(.97)}
+.fade-up.on{opacity:1;transform:translate3d(0,0,0) scale(1);filter:none}
+.fade-up.on:is(.exp-card,.skill-box,.proof-card,.workflow-card,.proc-card,
+  .proc-extra,.edu-card,.cert-card):hover{transform:translateY(-3px)}
+.proj-card.fade-up.on:hover{transform:translateY(-4px) scale(1.01)}
 .fade-hero{opacity:0;transform:translateY(20px)}
 .fade-hero.on{animation:fhu .7s var(--ease) forwards}
 @keyframes fhu{to{opacity:1;transform:translateY(0)}}
@@ -717,6 +748,28 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 .cert-grid      .fade-up:nth-child(2){transition-delay:.10s}
 .cert-grid      .fade-up:nth-child(3){transition-delay:.20s}
 .cert-grid      .fade-up:nth-child(4){transition-delay:.30s}
+
+.fade-up.on .badge,
+.fade-up.on .ot-chip{
+  animation:chipIn .42s var(--ease) both;
+  animation-delay:calc(var(--chip-index,0) * 45ms)}
+@keyframes chipIn{
+  from{opacity:0;transform:translateY(8px) scale(.96)}
+  to{opacity:1;transform:translateY(0) scale(1)}
+}
+
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    scroll-behavior:auto !important;
+    transition-duration:.001ms !important}
+  .fade-up,.fade-hero,
+  .fade-up.reveal-left,.fade-up.reveal-right,.fade-up.reveal-scale{
+    opacity:1;transform:none;filter:none}
+  .scroll-progress{box-shadow:none}
+}
 
 /* ─── RESPONSIVE ─────────────────────────── */
 @media(min-width:1440px){
