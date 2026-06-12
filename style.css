@@ -649,11 +649,17 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 @keyframes shake{0%,100%{transform:translateX(0)}
   20%,60%{transform:translateX(-5px)}
   40%,80%{transform:translateX(5px)}}
-.form-success{display:none;align-items:center;gap:10px;
+.form-success,.form-error{display:none;align-items:center;gap:10px;
   padding:12px 16px;border-radius:var(--rs);
+  font-size:var(--fs-sm);margin-bottom:14px}
+.form-success{
   background:rgba(16,185,129,.12);border:1px solid rgba(16,185,129,.3);
-  color:var(--green);font-size:var(--fs-sm);margin-bottom:14px}
+  color:var(--green)}
+.form-error{
+  background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.32);
+  color:#fca5a5}
 .form-success.show{display:flex}
+.form-error.show{display:flex}
 
 /* ─── FOOTER ─────────────────────────────── */
 .footer{background:var(--bg-alt);

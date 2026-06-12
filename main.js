@@ -570,6 +570,51 @@ function resetHeroProofRail() {
   proofStrip.scrollLeft = 0;
 }
 
+function trackEvent(name, props = {}) {
+  if (typeof window.plausible === 'function') {
+    window.plausible(name, { props });
+  }
+
+  if (typeof window.gtag === 'function') {
+    window.gtag('event', name.toLowerCase().replace(/\s+/g, '_'), props);
+  }
+}
+
+function initAnalyticsEvents() {
+  const viewedSections = new Set();
+
+  const sectionObserver = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting || viewedSections.has(entry.target.id)) return;
+      viewedSections.add(entry.target.id);
+      trackEvent('Section View', { section: entry.target.id });
+    });
+  }, {
+    threshold: 0.55
+  });
+
+  document.querySelectorAll('main section[id]').forEach(section => {
+    sectionObserver.observe(section);
+  });
+
+  document.querySelectorAll('a[href$=".pdf"], a[download]').forEach(link => {
+    link.addEventListener('click', () => {
+      trackEvent('Resume Or Proof Click', {
+        label: link.textContent.trim() || link.getAttribute('href'),
+        href: link.getAttribute('href')
+      });
+    });
+  });
+
+  document.querySelectorAll('a[href^="mailto:"], a[href^="tel:"], .mobile-copy-btn').forEach(link => {
+    link.addEventListener('click', () => {
+      trackEvent('Contact Click', {
+        label: link.textContent.trim() || link.getAttribute('aria-label') || 'contact'
+      });
+    });
+  });
+}
+
 const form = document.getElementById('contact-form');
 if (form) {
   const formFields = document.querySelectorAll('.form-in, .form-ta');
@@ -649,7 +694,12 @@ if (form) {
     const name = document.getElementById('cf-name');
     const email = document.getElementById('cf-email');
     const message = document.getElementById('cf-message');
+    const success = document.getElementById('form-success');
+    const errorBox = document.getElementById('form-error');
     let valid = true;
+
+    success?.classList.remove('show');
+    errorBox?.classList.remove('show');
 
     [name, email, message].forEach(field => {
       field.classList.remove('err');
@@ -669,28 +719,56 @@ if (form) {
     submitBtn?.classList.add('loading');
     submitBtn?.setAttribute('disabled', 'true');
 
-    window.setTimeout(() => {
-      const subject = encodeURIComponent(`Portfolio Inquiry from ${name.value}`);
-      const body = encodeURIComponent(
-        `Hi Subradeep,\n\n${message.value}\n\nFrom: ${name.value}\nEmail: ${email.value}`
-      );
-      const success = document.getElementById('form-success');
+    const endpoint = form.getAttribute('action') || '';
+    const endpointReady = endpoint && !endpoint.includes('REPLACE_WITH_YOUR_FORMSPREE_ID');
 
-      window.location.href = `mailto:subradeepdas24@gmail.com?subject=${subject}&body=${body}`;
-      success?.classList.add('show');
-      form.reset();
-
-      formFields.forEach(field => {
-        lastLengths.set(field, 0);
-        resetFieldMotion(field);
-      });
-
-      if (messageCount) messageCount.textContent = '0';
-      updateComposerState();
+    if (!endpointReady) {
+      if (errorBox) {
+        errorBox.textContent = 'Formspree endpoint is not configured yet. Replace the placeholder action URL first.';
+      }
+      errorBox?.classList.add('show');
       submitBtn?.classList.remove('loading');
       submitBtn?.removeAttribute('disabled');
+      trackEvent('Contact Form Error', { reason: 'missing_formspree_endpoint' });
+      return;
+    }
 
-      window.setTimeout(() => success?.classList.remove('show'), 5000);
+    window.setTimeout(async () => {
+      try {
+        const response = await fetch(endpoint, {
+          method: 'POST',
+          body: new FormData(form),
+          headers: {
+            Accept: 'application/json'
+          }
+        });
+
+        if (!response.ok) {
+          throw new Error(`Formspree response ${response.status}`);
+        }
+
+        success?.classList.add('show');
+        trackEvent('Contact Form Submitted', { status: 'success' });
+        form.reset();
+
+        formFields.forEach(field => {
+          lastLengths.set(field, 0);
+          resetFieldMotion(field);
+        });
+
+        if (messageCount) messageCount.textContent = '0';
+        updateComposerState();
+        window.setTimeout(() => success?.classList.remove('show'), 5000);
+      } catch (error) {
+        if (errorBox) {
+          errorBox.textContent = 'Message could not be sent. Please check the Formspree endpoint or email me directly.';
+        }
+        errorBox?.classList.add('show');
+        trackEvent('Contact Form Error', { reason: 'submit_failed' });
+      } finally {
+        submitBtn?.classList.remove('loading');
+        submitBtn?.removeAttribute('disabled');
+      }
     }, prefersReducedMotion ? 0 : 650);
   });
 }
@@ -704,5 +782,6 @@ initActiveNavObserver();
 initMobileAccordions();
 initCopyButtons();
 initSwipeRails();
+initAnalyticsEvents();
 resetHeroProofRail();
 window.addEventListener('resize', resetHeroProofRail);
