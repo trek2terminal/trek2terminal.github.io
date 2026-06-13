@@ -334,10 +334,31 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 .now-dot{width:8px;height:8px;border-radius:50%;
   background:var(--green);animation:pd 1.4s ease-in-out infinite}
 .now-content{flex:1;min-width:240px}
-.now-text{font-size:14px;color:var(--txt2);line-height:1.7}
-.now-text strong{color:var(--txt)}
-.now-updated{font-size:11px;color:var(--txt3);margin-top:6px;
-  font-family:'JetBrains Mono',monospace;letter-spacing:.5px}
+.now-panel{position:relative;display:flex;align-items:center;
+  justify-content:space-between;gap:18px;overflow:hidden;
+  padding:14px 18px;border-radius:var(--rs);
+  background:linear-gradient(180deg,var(--card),var(--surface-soft));
+  border:1px solid var(--bdr);transition:var(--t)}
+.now-panel::before{content:'';position:absolute;left:0;top:0;height:2px;width:42%;
+  background:var(--grad);box-shadow:0 0 18px rgba(0,212,255,.36);
+  animation:nowRibbon 4.8s var(--ease) infinite}
+.now-panel:hover{border-color:var(--bdr-h);box-shadow:var(--glow)}
+.now-copy{position:relative;z-index:1;min-width:0}
+.now-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;
+  color:var(--cyan);letter-spacing:1.6px;text-transform:uppercase;
+  margin-bottom:5px}
+.now-text{display:flex;align-items:baseline;flex-wrap:wrap;
+  column-gap:8px;row-gap:2px;font-size:14px;line-height:1.6;color:var(--txt2)}
+.now-text strong{color:var(--txt);font-weight:800}
+.now-text span{overflow-wrap:anywhere}
+.now-updated{position:relative;z-index:1;flex-shrink:0;
+  padding:5px 10px;border-radius:99px;background:var(--c-dim);
+  border:1px solid var(--bdr-h);color:var(--cyan);
+  font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.5px}
+@keyframes nowRibbon{
+  0%,100%{transform:translateX(-10%);opacity:.55}
+  50%{transform:translateX(155%);opacity:1}
+}
 
 /* ─── ABOUT ──────────────────────────────── */
 .about-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(340px,.9fr);
@@ -928,6 +949,9 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 
 @media(max-width:600px){
   .now-inner{flex-direction:column;align-items:flex-start;gap:12px}
+  .now-content{width:100%}
+  .now-panel{align-items:flex-start;flex-direction:column;gap:12px}
+  .now-updated{align-self:flex-start}
 }
 
 @media(min-width:1440px){
