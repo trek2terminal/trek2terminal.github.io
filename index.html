@@ -39,6 +39,7 @@
     };
   </script>
   <script defer data-domain="trek2terminal.github.io" src="https://plausible.io/js/script.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
   <link rel="stylesheet" href="style.css" />
 
   <!-- Prevent flash of wrong theme -->
@@ -343,9 +344,11 @@
       <ul class="nav-links" id="nav-links" role="list">
         <li><a href="#about"      class="nav-link">About</a></li>
         <li><a href="#skills"     class="nav-link">Skills</a></li>
+        <li><a href="#github-stats" class="nav-link">GitHub</a></li>
         <li><a href="#projects"   class="nav-link">Projects</a></li>
         <li><a href="#proof"      class="nav-link">Proof</a></li>
         <li><a href="#process"    class="nav-link">Process</a></li>
+        <li><a href="#notes"      class="nav-link">Notes</a></li>
         <li><a href="#experience" class="nav-link">Experience</a></li>
         <li><a href="#contact"    class="nav-link">Contact</a></li>
       </ul>
@@ -355,7 +358,7 @@
             <use href="#icon-moon"></use>
           </svg>
         </button>
-        <a href="assets/resume.pdf" download class="btn-nav-cv">Download Resume</a>
+        <button type="button" class="btn-nav-cv">Resume</button>
       </div>
       <button class="hamburger" id="hamburger" aria-label="Toggle mobile menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -368,12 +371,14 @@
     <ul role="list">
       <li><a href="#about"      class="mob-link">About</a></li>
       <li><a href="#skills"     class="mob-link">Skills</a></li>
+      <li><a href="#github-stats" class="mob-link">GitHub</a></li>
       <li><a href="#projects"   class="mob-link">Projects</a></li>
       <li><a href="#proof"      class="mob-link">Proof</a></li>
       <li><a href="#process"    class="mob-link">Process</a></li>
+      <li><a href="#notes"      class="mob-link">Notes</a></li>
       <li><a href="#experience" class="mob-link">Experience</a></li>
       <li><a href="#contact"    class="mob-link">Contact</a></li>
-      <li><a href="assets/resume.pdf" download class="mob-cv">Download Resume</a></li>
+      <li><button type="button" class="mob-cv">Resume</button></li>
     </ul>
   </div>
 
@@ -475,6 +480,25 @@
             </div>
             <span class="stat-lbl">Research Builds</span>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="now" class="now-strip">
+      <div class="container now-inner fade-up">
+        <div class="now-badge">
+          <span class="now-dot"></span>
+          NOW
+        </div>
+        <div class="now-content">
+          <!-- Update this paragraph and "Last updated" date monthly -->
+          <p class="now-text">
+            <strong>Currently:</strong> Coordinating delivery at Codebucket
+            Solutions while deepening hands-on ML practice &mdash; working through
+            model evaluation techniques and exploring how AI tooling fits into
+            day-to-day project workflows.
+          </p>
+          <p class="now-updated">Last updated: June 2026</p>
         </div>
       </div>
     </section>
@@ -672,7 +696,43 @@
       </div>
     </section>
 
-    <!-- ═══════════════ PROJECTS ═══════════════ -->
+    <!-- GITHUB STATS -->
+    <section id="github-stats" class="section section-alt">
+      <div class="container">
+        <div class="sec-header fade-up">
+          <span class="sec-label">Live from GitHub</span>
+          <h2 class="sec-title">Currently Building</h2>
+          <p class="sec-sub">Pulled live from my public GitHub profile &mdash; top languages, activity signals, and profile stats.</p>
+        </div>
+        <div class="gh-grid">
+          <div class="gh-card gh-summary fade-up">
+            <div class="gh-stat-row">
+              <div class="gh-stat"><span class="gh-num" id="gh-since">--</span><span class="gh-lbl">Active Since</span></div>
+              <div class="gh-stat"><span class="gh-num" id="gh-followers">--</span><span class="gh-lbl">Followers</span></div>
+              <div class="gh-stat"><span class="gh-num" id="gh-stars">--</span><span class="gh-lbl">Total Stars</span></div>
+            </div>
+          </div>
+          <div class="gh-card gh-langs fade-up">
+            <h4 class="gh-card-title">Top Languages</h4>
+            <div id="gh-lang-bars" class="gh-lang-bars">
+              <!-- JS populates language bars here -->
+            </div>
+          </div>
+          <div class="gh-card gh-activity fade-up">
+            <h4 class="gh-card-title">Public Signals</h4>
+            <ul id="gh-signals" class="gh-signal-list">
+              <!-- JS populates aggregate public signals here -->
+            </ul>
+          </div>
+        </div>
+        <p class="gh-footnote">
+          Public data from
+          <a href="https://github.com/trek2terminal" target="_blank" rel="noopener noreferrer">github.com/trek2terminal</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- PROJECTS -->
     <section id="projects" class="section">
       <div class="container">
         <div class="sec-header fade-up">
@@ -988,7 +1048,75 @@
       </div>
     </section>
 
-    <!-- ═══════════════ EXPERIENCE ═══════════════ -->
+    <!-- NOTES -->
+    <section id="notes" class="section">
+      <div class="container">
+        <div class="sec-header fade-up">
+          <span class="sec-label">Thinking out loud</span>
+          <h2 class="sec-title">Notes &amp; Write-ups</h2>
+          <p class="sec-sub">Short reflections on what I built, what broke, and what I'd do differently.</p>
+        </div>
+        <div class="notes-grid">
+          <article class="note-card fade-up">
+            <div class="note-meta">
+              <span class="note-tag">ML / Systems</span>
+              <span class="note-date">June 2026</span>
+            </div>
+            <h3 class="note-title">What I Learned Building an IRCTC-Style Bot Detector</h3>
+            <p class="note-excerpt">
+              Behavioral biometrics sound simple until you realize humans are
+              inconsistent and bots are getting good at pretending not to be bots...
+            </p>
+            <button class="note-toggle" aria-expanded="false">Read more</button>
+            <div class="note-body">
+              <p>When I started building the bot-detection layer, my first instinct was to treat it like a pure classification problem &mdash; feed in mouse movement, typing speed, and scroll patterns, train a TensorFlow model, done. The reality was messier. Real users move erratically too: someone reading a fare table scrolls in bursts, pauses, and corrects typos constantly. A "bot-like" pattern and a "distracted human" pattern can look identical in raw feature space.</p>
+              <p>What actually moved the needle was combining multiple weak signals instead of relying on one strong one. A behavioral score from the DNN, a CAPTCHA result, and a simple rate-limiting check together gave a more honest risk picture than any single signal alone. I also learned to log everything with privacy in mind from day one &mdash; it's much harder to retrofit anonymization than to design for it upfront.</p>
+              <p>If I rebuilt this today, I'd add a feedback loop: when the model is wrong (a flagged human appeals and is verified), that case should feed back into retraining instead of being discarded. That's the difference between a static classifier and a system that actually improves.</p>
+            </div>
+          </article>
+
+          <article class="note-card fade-up">
+            <div class="note-meta">
+              <span class="note-tag">Research / Photonics</span>
+              <span class="note-date">2024</span>
+            </div>
+            <h3 class="note-title">Designing a 7th-Order Chebyshev Filter: Sim to Fab</h3>
+            <p class="note-excerpt">
+              Simulation results are clean. Fabrication is not. Here's what
+              Monte Carlo tolerance analysis taught me about the gap between
+              a design and a working chip...
+            </p>
+            <button class="note-toggle" aria-expanded="false">Read more</button>
+            <div class="note-body">
+              <p>The Lumerical simulation for the 7th-order MZI Chebyshev filter looked great &mdash; sharp roll-off, clean passband, exactly the response the math predicted. Then we moved to KLayout and started thinking about what Electron Beam Lithography could actually produce on a Silicon-on-Insulator wafer, and the gap between "correct on paper" and "correct on silicon" became very real.</p>
+              <p>Monte Carlo tolerance analysis was the part that changed how I think about design. Instead of asking "does this design work?", the better question is "how much can fabrication vary before this design stops working?" Waveguide width variations of even a few nanometers can shift a filter's center frequency enough to matter for telecom-grade specifications.</p>
+              <p>The biggest lesson: simulation tools give you an answer, but fabrication constraints give you the real question. Designing with process variation in mind from the start &mdash; rather than treating it as a post-design check &mdash; is what separates an academic design from one that could realistically be manufactured.</p>
+            </div>
+          </article>
+
+          <article class="note-card fade-up">
+            <div class="note-meta">
+              <span class="note-tag">Full-Stack / Security</span>
+              <span class="note-date">2025</span>
+            </div>
+            <h3 class="note-title">Session Locking in an Online Exam System</h3>
+            <p class="note-excerpt">
+              The hardest part of an exam platform isn't the questions &mdash; it's
+              making sure one student can't have two active sessions, two tabs,
+              or a refresh that resets their timer...
+            </p>
+            <button class="note-toggle" aria-expanded="false">Read more</button>
+            <div class="note-body">
+              <p>On paper, an online exam system sounds straightforward: show questions, collect answers, grade them. The part that actually took the most thought was making sure a student couldn't game the session &mdash; opening the exam in two tabs, refreshing to reset a timer, or using a second device to get a second attempt.</p>
+              <p>The approach I landed on was a server-side session lock tied to the exam attempt, not just the user login. Once an exam session starts, the backend marks it active; any new request from a different tab or device for the same exam gets rejected or redirected, and the timer is tracked server-side so a page refresh can't buy extra time.</p>
+              <p>Writing the QA report and UI redesign plan as separate documents alongside the code turned out to be just as valuable as the code itself &mdash; it forced me to think about edge cases (what happens if the connection drops mid-exam? what if the browser crashes?) before they became real support tickets.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERIENCE -->
     <section id="experience" class="section">
       <div class="container">
         <div class="sec-header fade-up">
@@ -1347,6 +1475,135 @@
   </button>
 
   <div class="copy-toast" id="copy-toast" role="status" aria-live="polite">Copied</div>
+
+  <div id="resume-modal" class="resume-modal" aria-hidden="true">
+    <div class="resume-modal-panel" role="dialog" aria-modal="true" aria-labelledby="resume-modal-title">
+      <div class="resume-modal-actions">
+        <h2 id="resume-modal-title">Resume View</h2>
+        <div class="resume-modal-buttons">
+          <button id="resume-download-btn" class="btn-primary" type="button">Download PDF</button>
+          <button id="resume-close-btn" class="btn-outline" type="button">Close</button>
+        </div>
+      </div>
+
+      <div id="resume-template" class="resume-doc" aria-hidden="true">
+        <div class="resume-header">
+          <h1>Subradeep Das</h1>
+          <p class="resume-role">AI/ML Engineer &amp; Technical Project Coordinator</p>
+          <p class="resume-contact">
+            Agartala, Tripura, India &nbsp;|&nbsp;
+            subradeepdas24@gmail.com &nbsp;|&nbsp;
+            +91-8259982540 &nbsp;|&nbsp;
+            linkedin.com/in/subradeepdas02 &nbsp;|&nbsp;
+            github.com/trek2terminal
+          </p>
+        </div>
+
+        <section class="resume-section">
+          <h2>Summary</h2>
+          <p>
+            AI/ML Engineer and Technical Project Coordinator with a B.Tech in
+            Electronics &amp; Communication Engineering (NEHU Shillong) and
+            Advanced HPC-AI certification (C-DAC Guwahati). Experienced in
+            building ML-backed applications (bot detection, demand prediction),
+            coordinating cross-functional technical delivery, and conducting
+            research-grade engineering in silicon photonics.
+          </p>
+        </section>
+
+        <section class="resume-section">
+          <h2>Experience</h2>
+          <div class="resume-item">
+            <div class="resume-item-head">
+              <strong>Project Coordinator</strong>
+              <span>Nov 2025 &ndash; Present</span>
+            </div>
+            <div class="resume-item-sub">Codebucket Solutions Pvt. Ltd. &mdash; Agartala, Tripura</div>
+            <ul>
+              <li>Coordinate project execution across developers, designers, and stakeholders with clear ownership and timelines.</li>
+              <li>Translate business requirements into technical tasks for clearer planning and delivery.</li>
+              <li>Apply AI/ML and data thinking to identify automation opportunities and workflow improvements.</li>
+            </ul>
+          </div>
+          <div class="resume-item">
+            <div class="resume-item-head">
+              <strong>Project Intern</strong>
+              <span>Aug 2025 &ndash; Nov 2025</span>
+            </div>
+            <div class="resume-item-sub">NIELIT Agartala &mdash; Agartala, Tripura</div>
+            <ul>
+              <li>Worked through applied ML/data tasks, systems integration exercises, and structured technical modules.</li>
+              <li>Converted requirements into reproducible workflows and review-ready technical notes.</li>
+            </ul>
+          </div>
+          <div class="resume-item">
+            <div class="resume-item-head">
+              <strong>Research Lab Member</strong>
+              <span>2023 &ndash; 2024</span>
+            </div>
+            <div class="resume-item-sub">Lightwave Communication Laboratory, NEHU &mdash; Shillong, Meghalaya</div>
+            <ul>
+              <li>Completed a photonics research project on optical communication systems under Prof. Subhash Arya.</li>
+              <li>Designed a 7th-order MZI Chebyshev filter; simulated in Lumerical, laid out in KLayout, fabricated on SOI via EBL.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <h2>Projects</h2>
+          <div class="resume-item">
+            <div class="resume-item-head">
+              <strong>Hybrid IRCTC Bot-Detection &amp; Train Search App</strong>
+              <span>Mar 2025 &ndash; Aug 2025</span>
+            </div>
+            <p>Behavioral bot-detection layer with a TensorFlow DNN, combined with a train-search interface featuring demand heatmaps, punctuality scoring, and Random Forest confirmation-probability estimation. Packaged with Flask, Docker, and Nginx.</p>
+          </div>
+          <div class="resume-item">
+            <div class="resume-item-head">
+              <strong>Design &amp; Fabrication of Higher-Order Chebyshev Filter (MZI)</strong>
+              <span>Feb 2024 &ndash; Jul 2024</span>
+            </div>
+            <p>7th-order MZI Chebyshev bandpass filter: simulation in Lumerical, layout in KLayout, fabricated on SOI via EBL, with Monte Carlo tolerance analysis.</p>
+          </div>
+          <div class="resume-item">
+            <div class="resume-item-head">
+              <strong>Secure Online Exam Management System</strong>
+              <span>2025</span>
+            </div>
+            <p>Full-stack exam platform (Flask + JavaScript) with student registration, session-locked timed exams, auto-grading, and an admin dashboard for question banks and results.</p>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <h2>Education</h2>
+          <div class="resume-item resume-item-compact">
+            <span><strong>Advanced Certification in HPC-AI</strong> &mdash; C-DAC, Guwahati</span>
+            <span>Mar&ndash;Aug 2025 &middot; 67.08%</span>
+          </div>
+          <div class="resume-item resume-item-compact">
+            <span><strong>B.Tech, Electronics &amp; Communication Engineering</strong> &mdash; NEHU, Shillong</span>
+            <span>2020&ndash;2024 &middot; CGPA 7.37</span>
+          </div>
+        </section>
+
+        <section class="resume-section">
+          <h2>Skills</h2>
+          <p><strong>AI/ML:</strong> TensorFlow, PyTorch, Keras, scikit-learn, XGBoost, CNN, RNN/LSTM</p>
+          <p><strong>Data:</strong> Python, R, Pandas, NumPy, Matplotlib, Seaborn, Plotly, Statistical Analysis</p>
+          <p><strong>Tools:</strong> Docker, Flask, Nginx, Git, Linux, SQL, Java</p>
+          <p><strong>Management:</strong> Agile/Scrum, Stakeholder Management, Risk Management, HPC, Quantum Computing</p>
+        </section>
+
+        <section class="resume-section">
+          <h2>Certifications</h2>
+          <p>Quantum Computing &mdash; C-DAC Hyderabad (Jun 2025) &nbsp;|&nbsp;
+             AI/ML for Crop Acreage Mapping &mdash; IIRS, ISRO (Apr 2025) &nbsp;|&nbsp;
+             Geodata Processing with Python &amp; ML &mdash; IIRS, ISRO (Mar 2025) &nbsp;|&nbsp;
+             TCS iON Career Edge &ndash; Young Professional (Feb 2025)</p>
+        </section>
+      </div>
+    </div>
+  </div>
 
   <script src="main.js"></script>
 </body>

@@ -150,7 +150,7 @@ function prepareRevealMotion() {
   document.querySelectorAll(
     '.exp-card.fade-up, .skill-box.fade-up, .proof-card.fade-up, .workflow-card.fade-up, ' +
     '.proc-card.fade-up, .proc-extra.fade-up, .edu-card.fade-up, .cert-card.fade-up, ' +
-    '.cc.fade-up, .open-to.fade-up'
+    '.gh-card.fade-up, .note-card.fade-up, .cc.fade-up, .open-to.fade-up'
   ).forEach(card => card.classList.add('reveal-scale'));
 
   [
@@ -160,6 +160,8 @@ function prepareRevealMotion() {
     '.workflow-track',
     '.process-grid',
     '.proc-extras',
+    '.gh-grid',
+    '.notes-grid',
     '.edu-grid',
     '.cert-grid'
   ].forEach(selector => {
@@ -564,6 +566,278 @@ function initSwipeRails() {
   });
 }
 
+function showGitHubStatsError() {
+  const container = document.getElementById('github-stats');
+  const grid = container?.querySelector('.gh-grid');
+  if (!grid) return;
+
+  grid.innerHTML = '<p class="gh-error">Live GitHub data is temporarily unavailable. Visit my GitHub profile directly to see my latest work.</p>';
+}
+
+function formatGitHubTime(dateValue) {
+  const date = new Date(dateValue);
+  if (Number.isNaN(date.getTime())) return 'recently';
+
+  const diffDays = Math.floor((Date.now() - date) / 86400000);
+  if (diffDays <= 0) return 'today';
+  if (diffDays === 1) return '1 day ago';
+  return `${diffDays} days ago`;
+}
+
+function renderGitHubStats({ user, repos }) {
+  if (!user || !Array.isArray(repos)) {
+    showGitHubStatsError();
+    return;
+  }
+
+  const sinceNum = document.getElementById('gh-since');
+  const followersNum = document.getElementById('gh-followers');
+  const starsNum = document.getElementById('gh-stars');
+  const langBars = document.getElementById('gh-lang-bars');
+  const signalList = document.getElementById('gh-signals');
+
+  if (sinceNum) {
+    const createdAt = new Date(user.created_at);
+    sinceNum.textContent = Number.isNaN(createdAt.getTime()) ? '--' : String(createdAt.getFullYear());
+  }
+  if (followersNum) followersNum.textContent = user.followers ?? '--';
+
+  const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
+  if (starsNum) starsNum.textContent = String(totalStars);
+
+  const langCounts = {};
+  repos.forEach(repo => {
+    if (repo.language) langCounts[repo.language] = (langCounts[repo.language] || 0) + 1;
+  });
+
+  if (langBars) {
+    const totalLangRepos = Object.values(langCounts).reduce((a, b) => a + b, 0) || 1;
+    const topLangs = Object.entries(langCounts)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 5);
+
+    langBars.innerHTML = '';
+
+    if (!topLangs.length) {
+      const empty = document.createElement('p');
+      empty.className = 'gh-error';
+      empty.textContent = 'Language data is not available yet.';
+      langBars.appendChild(empty);
+    } else {
+      topLangs.forEach(([lang, count]) => {
+        const pct = Math.round((count / totalLangRepos) * 100);
+        const row = document.createElement('div');
+        row.className = 'gh-lang-row';
+
+        const head = document.createElement('div');
+        head.className = 'gh-lang-head';
+
+        const label = document.createElement('span');
+        label.textContent = lang;
+        const value = document.createElement('span');
+        value.textContent = `${pct}%`;
+
+        const track = document.createElement('div');
+        track.className = 'gh-lang-track';
+        const fill = document.createElement('div');
+        fill.className = 'gh-lang-fill';
+        fill.dataset.pct = String(pct);
+
+        head.append(label, value);
+        track.appendChild(fill);
+        row.append(head, track);
+        langBars.appendChild(row);
+      });
+    }
+  }
+
+  if (signalList) {
+    const publicRepos = repos.filter(repo => !repo.fork);
+    const latestPublicPush = publicRepos
+      .map(repo => repo.pushed_at)
+      .filter(Boolean)
+      .sort((a, b) => new Date(b) - new Date(a))[0];
+
+    const signals = [
+      ['Latest public activity', latestPublicPush ? formatGitHubTime(latestPublicPush) : 'No public push yet'],
+      ['Language mix', `${Object.keys(langCounts).length || 0} stacks`],
+      ['Data scope', 'Public API only']
+    ];
+
+    signalList.innerHTML = '';
+
+    signals.forEach(([name, value]) => {
+      const item = document.createElement('li');
+      item.className = 'gh-signal-item';
+
+      const label = document.createElement('span');
+      label.className = 'gh-signal-name';
+      label.textContent = name;
+
+      const meta = document.createElement('span');
+      meta.className = 'gh-signal-value';
+      meta.textContent = value;
+
+      item.append(label, meta);
+      signalList.appendChild(item);
+    });
+  }
+
+  const fillBars = () => {
+    document.querySelectorAll('.gh-lang-fill').forEach(bar => {
+      bar.style.width = `${bar.dataset.pct || 0}%`;
+    });
+  };
+
+  if (prefersReducedMotion || typeof IntersectionObserver === 'undefined') {
+    fillBars();
+    return;
+  }
+
+  const ghSection = document.getElementById('github-stats');
+  if (!ghSection) {
+    fillBars();
+    return;
+  }
+
+  const langObserver = new IntersectionObserver(entries => {
+    if (!entries.some(entry => entry.isIntersecting)) return;
+    fillBars();
+    langObserver.disconnect();
+  }, { threshold: 0.2 });
+
+  langObserver.observe(ghSection);
+}
+
+async function loadGitHubStats() {
+  const username = 'trek2terminal';
+  const cacheKey = 'gh_stats_cache';
+  const cacheTTL = 1000 * 60 * 60;
+
+  try {
+    let cached = null;
+    try {
+      cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
+    } catch (e) {
+      cached = null;
+    }
+
+    if (cached && Date.now() - cached.ts < cacheTTL) {
+      renderGitHubStats(cached.data);
+      return;
+    }
+
+    const [userRes, reposRes] = await Promise.all([
+      fetch(`https://api.github.com/users/${username}`),
+      fetch(`https://api.github.com/users/${username}/repos?sort=updated&per_page=100`)
+    ]);
+
+    if (!userRes.ok || !reposRes.ok) throw new Error('GitHub API error');
+
+    const user = await userRes.json();
+    const repos = await reposRes.json();
+    const data = { user, repos };
+
+    try {
+      localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data }));
+    } catch (e) {
+      // Cache can fail in private or restricted browser modes.
+    }
+
+    renderGitHubStats(data);
+  } catch (err) {
+    showGitHubStatsError();
+  }
+}
+
+function initNotes() {
+  document.querySelectorAll('.note-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const card = button.closest('.note-card');
+      const body = card?.querySelector('.note-body');
+      if (!body) return;
+
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      button.setAttribute('aria-expanded', String(!expanded));
+      button.textContent = expanded ? 'Read more' : 'Show less';
+      body.style.maxHeight = expanded ? '0px' : `${body.scrollHeight}px`;
+    });
+  });
+}
+
+function refreshOpenNotes() {
+  document.querySelectorAll('.note-toggle[aria-expanded="true"]').forEach(button => {
+    const body = button.closest('.note-card')?.querySelector('.note-body');
+    if (body) body.style.maxHeight = `${body.scrollHeight}px`;
+  });
+}
+
+function initResumeModal() {
+  const resumeButtons = document.querySelectorAll('.btn-nav-cv, .mob-cv');
+  const resumeModal = document.getElementById('resume-modal');
+  const resumeTemplate = document.getElementById('resume-template');
+  const downloadButton = document.getElementById('resume-download-btn');
+  const closeButton = document.getElementById('resume-close-btn');
+  if (!resumeModal || !resumeTemplate) return;
+
+  function openResumeModal() {
+    resumeModal.classList.add('modal-open');
+    resumeModal.setAttribute('aria-hidden', 'false');
+    resumeTemplate.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+    downloadButton?.focus({ preventScroll: true });
+  }
+
+  function closeResumeModal() {
+    resumeModal.classList.remove('modal-open');
+    resumeModal.setAttribute('aria-hidden', 'true');
+    resumeTemplate.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  resumeButtons.forEach(button => {
+    button.addEventListener('click', event => {
+      event.preventDefault();
+      openResumeModal();
+    });
+  });
+
+  downloadButton?.addEventListener('click', () => {
+    const pdfExporter = window.html2pdf || (typeof html2pdf === 'function' ? html2pdf : null);
+
+    if (!pdfExporter) {
+      const originalText = downloadButton.textContent;
+      downloadButton.textContent = 'PDF tool unavailable';
+      window.setTimeout(() => {
+        downloadButton.textContent = originalText;
+      }, 2200);
+      return;
+    }
+
+    const options = {
+      margin: 0.3,
+      filename: 'Subradeep_Das_Resume.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: 'in', format: 'a4', orientation: 'portrait' }
+    };
+
+    pdfExporter().set(options).from(resumeTemplate).save();
+  });
+
+  closeButton?.addEventListener('click', closeResumeModal);
+
+  resumeModal.addEventListener('click', event => {
+    if (event.target === resumeModal) closeResumeModal();
+  });
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && resumeModal.classList.contains('modal-open')) {
+      closeResumeModal();
+    }
+  });
+}
+
 function resetHeroProofRail() {
   const proofStrip = document.querySelector('.proof-strip');
   if (!proofStrip || !mobileQuery.matches) return;
@@ -782,6 +1056,10 @@ initActiveNavObserver();
 initMobileAccordions();
 initCopyButtons();
 initSwipeRails();
+initNotes();
+initResumeModal();
 initAnalyticsEvents();
+loadGitHubStats();
 resetHeroProofRail();
 window.addEventListener('resize', resetHeroProofRail);
+window.addEventListener('resize', refreshOpenNotes);
