@@ -286,21 +286,7 @@ function animateCounters(duration = 1500) {
 function initHeroCounters() {
   const hero = document.getElementById('home');
   if (!hero || countersStarted) return;
-
-  if (prefersReducedMotion) {
-    animateCounters(0);
-    return;
-  }
-
-  const counterObserver = new IntersectionObserver(entries => {
-    if (!entries.some(entry => entry.isIntersecting)) return;
-    animateCounters(1500);
-    counterObserver.disconnect();
-  }, {
-    threshold: 0.35
-  });
-
-  counterObserver.observe(hero);
+  animateCounters(prefersReducedMotion ? 0 : 1500);
 }
 
 function startRotation() {
@@ -584,12 +570,25 @@ function formatGitHubTime(dateValue) {
   return `${diffDays} days ago`;
 }
 
-function renderGitHubStats({ user, repos }) {
-  if (!user || !Array.isArray(repos)) {
+function isValidGitHubStatsData(data) {
+  return Boolean(
+    data &&
+    typeof data === 'object' &&
+    data.user &&
+    typeof data.user === 'object' &&
+    typeof data.user.created_at === 'string' &&
+    !Number.isNaN(Date.parse(data.user.created_at)) &&
+    Array.isArray(data.repos)
+  );
+}
+
+function renderGitHubStats(data) {
+  if (!isValidGitHubStatsData(data)) {
     showGitHubStatsError();
     return;
   }
 
+  const { user, repos } = data;
   const sinceNum = document.getElementById('gh-since');
   const followersNum = document.getElementById('gh-followers');
   const starsNum = document.getElementById('gh-stars');
@@ -598,9 +597,9 @@ function renderGitHubStats({ user, repos }) {
 
   if (sinceNum) {
     const createdAt = new Date(user.created_at);
-    sinceNum.textContent = Number.isNaN(createdAt.getTime()) ? '--' : String(createdAt.getFullYear());
+    sinceNum.textContent = String(createdAt.getFullYear());
   }
-  if (followersNum) followersNum.textContent = user.followers ?? '--';
+  if (followersNum) followersNum.textContent = String(Number.isFinite(user.followers) ? user.followers : 0);
 
   const totalStars = repos.reduce((sum, repo) => sum + (repo.stargazers_count || 0), 0);
   if (starsNum) starsNum.textContent = String(totalStars);
@@ -711,18 +710,31 @@ function renderGitHubStats({ user, repos }) {
 
 async function loadGitHubStats() {
   const username = 'trek2terminal';
-  const cacheKey = 'gh_stats_cache';
+  const cacheKey = 'gh_stats_cache_v2';
+  const legacyCacheKey = 'gh_stats_cache';
   const cacheTTL = 1000 * 60 * 60;
+  let staleData = null;
 
   try {
     let cached = null;
     try {
+      localStorage.removeItem(legacyCacheKey);
       cached = JSON.parse(localStorage.getItem(cacheKey) || 'null');
     } catch (e) {
       cached = null;
     }
 
-    if (cached && Date.now() - cached.ts < cacheTTL) {
+    if (cached && isValidGitHubStatsData(cached.data)) {
+      staleData = cached.data;
+    } else if (cached) {
+      try {
+        localStorage.removeItem(cacheKey);
+      } catch (e) {
+        // Ignore storage cleanup failures.
+      }
+    }
+
+    if (cached && staleData && Date.now() - cached.ts < cacheTTL) {
       renderGitHubStats(cached.data);
       return;
     }
@@ -738,6 +750,8 @@ async function loadGitHubStats() {
     const repos = await reposRes.json();
     const data = { user, repos };
 
+    if (!isValidGitHubStatsData(data)) throw new Error('Invalid GitHub API payload');
+
     try {
       localStorage.setItem(cacheKey, JSON.stringify({ ts: Date.now(), data }));
     } catch (e) {
@@ -746,6 +760,17 @@ async function loadGitHubStats() {
 
     renderGitHubStats(data);
   } catch (err) {
+    if (staleData) {
+      renderGitHubStats(staleData);
+      return;
+    }
+
+    try {
+      localStorage.removeItem(cacheKey);
+    } catch (e) {
+      // Ignore storage cleanup failures.
+    }
+
     showGitHubStatsError();
   }
 }
