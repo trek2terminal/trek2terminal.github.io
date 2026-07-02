@@ -317,9 +317,11 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   min-width:220px;transition:opacity .3s ease}
 .hero-desc{font-size:var(--fs-md);color:var(--txt2);
   max-width:min(740px,58vw);margin-bottom:36px;line-height:1.78}
-.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:56px}
-.proof-strip{display:flex;flex-wrap:wrap;gap:12px;
-  margin:12px 0 42px;max-width:min(980px,72vw);z-index:0}
+.hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:24px}
+.btn-secondary{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:99px;border:1px solid rgba(255,255,255,.18);color:var(--txt);background:rgba(255,255,255,.06);font-weight:700;transition:var(--t)}
+.btn-secondary:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.3)}
+.proof-divider{height:1px;width:100%;margin:0 0 32px;background:rgba(255,255,255,.08);opacity:.68}
+.proof-strip{display:flex;flex-wrap:wrap;gap:12px;margin:24px 0 42px;max-width:min(980px,72vw);z-index:0;touch-action:pan-y;-webkit-overflow-scrolling:touch}
 .proof-item{display:flex;align-items:center;gap:10px;
   min-height:48px;padding:8px 14px;border:1px solid var(--bdr);
   border-radius:var(--rs);background:var(--surface-soft);
@@ -1112,7 +1114,10 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   .proof-strip{
     max-width:100%;justify-content:center;
     margin:0 0 34px;
+    touch-action:pan-y;
+    -webkit-overflow-scrolling:touch;
   }
+  .proof-divider{display:block}
   .proof-item{
     width:min(100%,440px);
     justify-content:flex-start;text-align:left;
@@ -1355,6 +1360,7 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
     bottom:calc(10px + env(safe-area-inset-bottom));
     z-index:700;
     display:grid;
+    box-shadow:0 24px 42px rgba(0,0,0,.22);
     grid-template-columns:repeat(4,1fr);
     gap:6px;
     padding:8px;
@@ -1442,7 +1448,8 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   }
 
   .hero-ctas .btn-primary,
-  .hero-ctas .btn-outline{
+  .hero-ctas .btn-outline,
+  .hero-ctas .btn-secondary{
     min-height:50px;
     border-radius:18px;
   }
