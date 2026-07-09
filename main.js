@@ -122,6 +122,8 @@ function updateTimelineProgress() {
   });
 }
 
+let scrollTicking = false;
+
 function updateScrollUI() {
   navbar?.classList.toggle('scrolled', window.scrollY > 60);
   backToTop?.classList.toggle('show', window.scrollY > 400);
@@ -130,8 +132,17 @@ function updateScrollUI() {
   updateMobileBottomNav();
 }
 
-window.addEventListener('scroll', updateScrollUI, { passive: true });
-window.addEventListener('resize', updateScrollUI);
+function scheduleScrollUI() {
+  if (scrollTicking) return;
+  scrollTicking = true;
+  window.requestAnimationFrame(() => {
+    updateScrollUI();
+    scrollTicking = false;
+  });
+}
+
+window.addEventListener('scroll', scheduleScrollUI, { passive: true });
+window.addEventListener('resize', scheduleScrollUI);
 updateScrollUI();
 
 backToTop?.addEventListener('click', () => {

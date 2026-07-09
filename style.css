@@ -28,8 +28,8 @@
   --hero-g2:  rgba(124,58,237,.07);
   --r:        16px;
   --rs:       8px;
-  --ease:     cubic-bezier(.4,0,.2,1);
-  --t:        .28s var(--ease);
+  --ease:     cubic-bezier(.22,1,.36,1);
+  --t:        .24s var(--ease);
   --mw:       min(1920px,94vw);
   --px:       clamp(18px,2.5vw,48px);
   --spy:      clamp(64px,8vw,110px);
@@ -91,7 +91,8 @@ body{font-family:'Outfit',sans-serif;font-size:var(--fs-base);line-height:1.72;
     radial-gradient(circle at 88% 86%,var(--hero-g2),transparent 36rem),
     var(--bg);
   color:var(--txt);overflow-x:hidden;
-  transition:background .38s var(--ease),color .38s var(--ease)}
+  transition:background .28s var(--ease),color .28s var(--ease);
+  transform:translateZ(0);backface-visibility:hidden}
 img{max-width:100%;display:block}
 a{text-decoration:none;color:inherit}
 ul{list-style:none}
@@ -166,11 +167,33 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 .section{padding:var(--spy) 0}
 .section.section--compact{padding:clamp(48px,6vw,80px) 0}
 .section-alt{background:var(--bg-alt)}
+.btn-primary,.btn-outline,.btn-secondary,.btn-nav-cv,.mob-cv,
+.proj-card,.exp-card,.skill-box,.proof-card,.workflow-card,.proc-card,
+.proc-extra,.edu-card,.cert-card,.note-card,.gh-card,.focus-card,.contact-card{
+  position:relative;overflow:hidden;isolation:isolate}
+
 .btn-primary{display:inline-flex;align-items:center;gap:8px;
   padding:13px 30px;border-radius:99px;
   background:var(--grad);color:#fff;font-weight:700;font-size:var(--fs-sm);
-  transition:var(--t);box-shadow:0 4px 24px rgba(0,212,255,.20)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,212,255,.35)}
+  transition:transform .24s var(--ease),box-shadow .24s var(--ease),border-color .24s var(--ease),background .24s var(--ease);
+  box-shadow:0 4px 24px rgba(0,212,255,.20)}
+.btn-primary:hover,.btn-outline:hover,.btn-secondary:hover,.btn-nav-cv:hover,.mob-cv:hover,
+.proj-card:hover,.exp-card:hover,.skill-box:hover,.proof-card:hover,.workflow-card:hover,
+.proc-card:hover,.proc-extra:hover,.edu-card:hover,.cert-card:hover,.note-card:hover,
+.gh-card:hover,.focus-card:hover,.contact-card:hover{transform:translateY(-3px);
+  border-color:var(--bdr-h);box-shadow:0 12px 32px rgba(0,212,255,.12)}
+.btn-primary::before,.btn-outline::before,.btn-secondary::before,.btn-nav-cv::before,.mob-cv::before,
+.proj-card::before,.exp-card::before,.skill-box::before,.proof-card::before,
+.workflow-card::before,.proc-card::before,.proc-extra::before,.edu-card::before,
+.cert-card::before,.note-card::before,.gh-card::before,.focus-card::before,
+.contact-card::before{content:'';position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(120deg,transparent 0%,rgba(255,255,255,.12) 45%,transparent 100%);
+  transform:translateX(-140%);transition:transform .8s var(--ease)}
+.btn-primary:hover::before,.btn-outline:hover::before,.btn-secondary:hover::before,.btn-nav-cv:hover::before,.mob-cv:hover::before,
+.proj-card:hover::before,.exp-card:hover::before,.skill-box:hover::before,.proof-card:hover::before,
+.workflow-card:hover::before,.proc-card:hover::before,.proc-extra:hover::before,.edu-card:hover::before,
+.cert-card:hover::before,.note-card:hover::before,.gh-card:hover::before,.focus-card:hover::before,
+.contact-card:hover::before{transform:translateX(140%)}
 .btn-primary.loading{position:relative;color:transparent;pointer-events:none}
 .btn-primary.loading::after{content:'';position:absolute;width:18px;height:18px;
   border-radius:50%;border:2px solid rgba(255,255,255,.42);
@@ -247,8 +270,11 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 .logo-name{font-family:'Syne',sans-serif;font-weight:700;font-size:var(--fs-md)}
 .nav-links{display:flex;gap:4px;align-items:center}
 .nav-link{font-size:var(--fs-sm);font-weight:600;color:var(--txt2);
-  padding:6px 12px;border-radius:6px;transition:.18s}
+  padding:6px 12px;border-radius:6px;transition:.18s;position:relative}
+.nav-link::after{content:'';position:absolute;left:12px;right:12px;bottom:2px;height:2px;border-radius:999px;
+  background:var(--grad);transform:scaleX(0);transform-origin:left;transition:transform .28s var(--ease)}
 .nav-link:hover,.nav-link.active{color:var(--txt);background:var(--c-dim)}
+.nav-link:hover::after,.nav-link.active::after{transform:scaleX(1)}
 .nav-actions{display:flex;align-items:center;gap:12px}
 .theme-btn{width:36px;height:36px;border-radius:8px;
   border:1px solid var(--bdr);color:var(--txt2);
@@ -288,14 +314,25 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
 /* ─── HERO ───────────────────────────────── */
 .hero{min-height:100vh;display:flex;align-items:center;
   padding-top:var(--nav);position:relative;overflow:hidden}
+.hero::before,
+.hero::after{content:'';position:absolute;pointer-events:none;border-radius:50%;filter:blur(30px);opacity:.72}
+.hero::before{width:34rem;height:34rem;top:-8rem;right:-8rem;
+  background:radial-gradient(circle,rgba(0,212,255,.18) 0%,rgba(0,212,255,0) 72%);
+  animation:heroAura 12s ease-in-out infinite alternate}
+.hero::after{width:30rem;height:30rem;left:-10rem;bottom:-8rem;
+  background:radial-gradient(circle,rgba(124,58,237,.18) 0%,rgba(124,58,237,0) 72%);
+  animation:heroAura 14s ease-in-out infinite alternate-reverse}
 .hero-glow{position:absolute;border-radius:50%;
-  filter:blur(90px);pointer-events:none}
+  filter:blur(90px);pointer-events:none;will-change:transform,filter;
+  animation:floatGlow 10s ease-in-out infinite}
 .g1{width:520px;height:520px;top:-120px;left:-160px;
   background:var(--hero-g1)}
 .g2{width:420px;height:420px;bottom:-60px;right:-100px;
   background:var(--hero-g2)}
 .hero-inner{position:relative;z-index:1;width:100%;
   padding-top:20px;padding-bottom:60px}
+@keyframes heroAura{0%,100%{transform:translate3d(0,0,0) scale(1)}50%{transform:translate3d(12px,-10px,0) scale(1.02)}}
+@keyframes floatGlow{0%,100%{transform:translate3d(0,0,0) scale(1);opacity:.8}50%{transform:translate3d(10px,-8px,0) scale(1.01);opacity:.95}}
 .hero-badge{display:inline-flex;align-items:center;gap:8px;
   padding:7px 18px;border-radius:99px;
   border:1px solid var(--bdr-h);background:var(--c-dim);
@@ -890,27 +927,36 @@ button{cursor:pointer;font-family:inherit;border:none;background:none}
   transform-origin:left center;pointer-events:none}
 
 /* ─── SCROLL ANIMATIONS ──────────────────── */
-.fade-up{opacity:0;transform:translate3d(0,28px,0);
-  transition:opacity .65s var(--ease),transform .65s var(--ease),
-    filter .65s var(--ease);
+.fade-up{opacity:0;transform:translate3d(0,18px,0);
+  transition:opacity .45s var(--ease),transform .45s var(--ease),
+    box-shadow .24s var(--ease),border-color .24s var(--ease);
   transition-delay:var(--reveal-delay,0s);
   will-change:opacity,transform}
-.fade-up.reveal-left{transform:translate3d(-42px,0,0)}
-.fade-up.reveal-right{transform:translate3d(42px,0,0)}
-.fade-up.reveal-scale{transform:translate3d(0,24px,0) scale(.97)}
-.fade-up.on{opacity:1;transform:translate3d(0,0,0) scale(1);filter:none}
+.fade-up.reveal-left{transform:translate3d(-28px,0,0)}
+.fade-up.reveal-right{transform:translate3d(28px,0,0)}
+.fade-up.reveal-scale{transform:translate3d(0,16px,0) scale(.985)}
+.fade-up.on{opacity:1;transform:translate3d(0,0,0) scale(1)}
 .fade-up.on:is(.exp-card,.skill-box,.proof-card,.workflow-card,.proc-card,
-  .proc-extra,.edu-card,.cert-card):hover{transform:translateY(-3px)}
-.proj-card.fade-up.on:hover{transform:translateY(-4px) scale(1.01)}
-.fade-hero{opacity:0;transform:translateY(20px)}
-.fade-hero.on{animation:fhu .7s var(--ease) forwards}
-@keyframes fhu{to{opacity:1;transform:translateY(0)}}
+  .proc-extra,.edu-card,.cert-card,.note-card,.gh-card,.focus-card,.proj-card){transform:translateY(-3px)}
+.proj-card.fade-up.on:hover{transform:translateY(-4px) scale(1.005)}
+.fade-hero{opacity:0;transform:translateY(16px) scale(.985)}
+.fade-hero.on{animation:fhu .58s var(--ease) forwards}
+@keyframes fhu{to{opacity:1;transform:translateY(0) scale(1)}}
 .fade-hero:nth-child(1){animation-delay:.05s}
-.fade-hero:nth-child(2){animation-delay:.18s}
-.fade-hero:nth-child(3){animation-delay:.30s}
-.fade-hero:nth-child(4){animation-delay:.42s}
-.fade-hero:nth-child(5){animation-delay:.54s}
-.fade-hero:nth-child(6){animation-delay:.66s}
+.fade-hero:nth-child(2){animation-delay:.16s}
+.fade-hero:nth-child(3){animation-delay:.28s}
+.fade-hero:nth-child(4){animation-delay:.40s}
+.fade-hero:nth-child(5){animation-delay:.52s}
+.fade-hero:nth-child(6){animation-delay:.64s}
+.sec-header.fade-up.on .sec-title{animation:titleReveal .72s var(--ease) both}
+.sec-title{position:relative;display:inline-block}
+.sec-title::after{content:'';position:absolute;left:0;bottom:-8px;width:100%;height:2px;border-radius:999px;
+  background:var(--grad);transform:scaleX(.18);transform-origin:left;opacity:.9}
+.sec-header.fade-up.on .sec-title::after{animation:titleLine .72s var(--ease) both}
+@keyframes titleReveal{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
+@keyframes titleLine{0%{transform:scaleX(.18)}100%{transform:scaleX(1)}}
+.fade-up.on .icon-badge{animation:iconPop .56s cubic-bezier(.2,.9,.2,1) both}
+@keyframes iconPop{0%{opacity:0;transform:translateY(8px) scale(.95)}100%{opacity:1;transform:translateY(0) scale(1)}}
 
 /* stagger siblings inside grids */
 .expertise-grid .fade-up:nth-child(2){transition-delay:.08s}
